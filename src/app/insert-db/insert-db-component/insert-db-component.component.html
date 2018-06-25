@@ -1,0 +1,31 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<div class="container">
+<form class="form-horizontal" #userForm="ngForm"   (ngSubmit)="onSave(userForm.value)" novalidate>
+
+  <p>Is "myForm" valid? {{userForm.valid}}</p>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="name">Name:</label>
+      <div class="col-sm-10">
+        <input name="id" type="hidden" class="form-control"    [(ngModel)]="id" />
+        <input name="name" type="text" class="form-control" required  [(ngModel)]="name" />
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="address">Address:</label>
+      <div class="col-sm-10">
+        <input name="address" required class="form-control" type="text"   [(ngModel)]="address" />
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
+    </div>
+  </div>
+</form>
+</div>
+
+<a [routerLink]="['/view']" routerLinkActive="active">View Component</a>

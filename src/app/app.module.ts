@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { InsertModule } from './insert-db/insert-db.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule
+	BrowserModule,
+	InsertModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

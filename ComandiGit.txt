@@ -1,0 +1,10 @@
+git add <nomedelfile> // aggiungere file all'index
+git rm <nomedelfile> // rimuovere file all'index
+git mv <nomedelfile vecchio> <nomedelfile nuovo> // rinominare un file
+git commit -m "Messaggio per la commit" // validare le modifiche fatte
+git push -u origin master // inviare queste modifiche al repository remoto
+git pull origin master //
+git status // vedere lo status
+git log HEAD..origin/master // guardare le differenze
+
+git remote add origin https://github.com/lorenz95/TraumaTracker.git // aggiungere modifiche
