@@ -14,11 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class InsertDbComponentComponent implements OnInit {
 
-  constructor(private newService :CommonService, private route: ActivatedRoute) {   }
-   valbutton ="Save";
+  private valbutton: string;
 
+  constructor(private newService :CommonService, private route: ActivatedRoute) {}
 
 ngOnInit() {
+  this.valbutton = "Save";
 }
 
 onSave = function(user,isValid: boolean) {
@@ -30,17 +31,6 @@ onSave = function(user,isValid: boolean) {
   }
   , error => this.errorMessage = error )
 
-}
-edit = function(kk) {
-this.id = kk._id;
-this.name= kk.name;
-this.address= kk.address;
-this.valbutton ="Update";
-}
-
-delete = function(id) {
-this.newService.deleteUser(id)
-.subscribe(data =>   { alert(data.data) ; this.ngOnInit();}, error => this.errorMessage = error )
 }
 
 }

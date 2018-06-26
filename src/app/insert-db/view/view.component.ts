@@ -12,10 +12,11 @@ import { Location } from '@angular/common';
 })
 export class ViewComponent implements OnInit {
 
+   Repdata;
+
   constructor(private newService :CommonService,
     private location: Location,
     private route: ActivatedRoute) {   }
-   Repdata;
 
   ngOnInit() {
     this.viewUsers()
@@ -27,5 +28,10 @@ export class ViewComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  delete = function(id) {
+    this.newService.deleteUser(id)
+    .subscribe(data =>   { alert(data.data) ; this.ngOnInit();}, error => this.errorMessage = error )
   }
 }

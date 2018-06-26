@@ -15,10 +15,10 @@
         <td>{{ind + 1}}</td>
         <td>{{kk.name}}</td>
         <td>{{kk.address}}</td>
-        <td><a (click)="edit(kk)" style="color:blueviolet">Edit</a></td>
-        <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a>  </td>
 
-        <!-- <td><a [routerLink]="['/detail', '{{kk.id}}']" routerLinkActive="active">Detail Component</a></td> -->
+        <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a></td>
+
+        <td><a [routerLink]="['/edit', kk._id, kk.name, kk.address]" routerLinkActive="active">Edit Component</a></td>
 
         <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">Detail Component</a></td>
       </tr>

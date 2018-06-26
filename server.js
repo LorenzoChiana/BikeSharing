@@ -69,9 +69,7 @@ else
             res.send({data:"Record has been Deleted..!!"});               
         }    
  });    
-   })  
-  
-  
+   })    
   
  app.get("/api/getUser",function(req,res){  
     model.find({},function(err,data){  
