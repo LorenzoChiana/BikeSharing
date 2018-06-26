@@ -7,4 +7,6 @@ git pull origin master //
 git status // vedere lo status
 git log HEAD..origin/master // guardare le differenze
 
+git stash // comando per eliminare le modifiche fatte in locale
+
 git remote add origin https://github.com/lorenz95/TraumaTracker.git // aggiungere modifiche
