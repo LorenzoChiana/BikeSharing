@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { InsertModule } from './insert-db/insert-db.module';
+import { Routes, RouterModule } from '@angular/router';
+import { LoginRegModule } from './login-reg/login-reg.module';
 
 import { AppComponent } from './app.component';
 
@@ -11,7 +11,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
 	BrowserModule,
-	InsertModule
+  LoginRegModule,
+  RouterModule
   ],
   bootstrap: [AppComponent]
 })

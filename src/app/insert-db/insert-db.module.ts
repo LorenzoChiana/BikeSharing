@@ -14,7 +14,6 @@ import { ViewComponent } from './view/view.component';
 import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/ins', pathMatch: 'full' },
   { path: 'ins', component: InsertDbComponentComponent },
   { path: 'edit/:id/:name/:address', component: EditComponent },
   { path: 'view', component: ViewComponent },
@@ -30,7 +29,7 @@ const routes: Routes = [
   ],
   imports: [
     NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forChild(routes)
   ],
   exports: [ RouterModule ],
   providers: [CommonService],

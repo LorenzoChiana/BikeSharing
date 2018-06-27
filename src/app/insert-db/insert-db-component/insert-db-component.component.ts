@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import {FormGroup,FormControl,Validators,FormsModule, } from '@angular/forms';
-import {CommonService} from '../services/make-request.service';
-
 import {Http,Response, Headers, RequestOptions } from '@angular/http';
 
+import {CommonService} from '../services/make-request.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

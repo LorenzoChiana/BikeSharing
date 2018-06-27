@@ -30,34 +30,3 @@
   <button (click)="goBack()">go back</button> <!-- spostato-->
 </div>
 </body> <!-- aggiunto-->
-
-<!--
-<div class="container">
-  <table class="table">
-    <thead>
-      <tr>
-        <td>Id</td>
-        <td>Name</td>
-        <td>Address</td>
-        <td>Edit</td>
-        <td>Delete</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let kk of Repdata;let ind = index">
-
-        <td>{{ind + 1}}</td>
-        <td>{{kk.name}}</td>
-        <td>{{kk.address}}</td>
-
-        <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a></td>
-
-        <td><a [routerLink]="['/edit', kk._id, kk.name, kk.address]" routerLinkActive="active">Edit Component</a></td>
-
-        <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">Detail Component</a></td>
-      </tr>
-    </tbody>
-    <button (click)="goBack()">go back</button>
-  </table>
-</div>
--->
