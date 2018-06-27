@@ -19,6 +19,9 @@ export class EditComponent implements OnInit {
   private name: string;
   private address: string;
 
+  imageUrl: string; // = "/assets/img/default-image.png";
+  fileToUpload: File = null;
+
   constructor(private newService :CommonService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
@@ -40,6 +43,18 @@ export class EditComponent implements OnInit {
      .subscribe(data =>  {  alert(data.data);
      }
      , error => this.errorMessage = error )
+  }
+
+  handleFileInput(file: FileList) {
+    this.fileToUpload = file.item(0);
+
+    //Show image preview
+    var reader = new FileReader();
+    reader.onload = (event:any) => {
+      this.imageUrl = event.target.result;
+      //alert("image " + this.imageUrl)
+    }
+    reader.readAsDataURL(this.fileToUpload);
   }
 
   goBack(): void {

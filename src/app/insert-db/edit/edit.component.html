@@ -25,5 +25,9 @@
 </form>
 </div>
 
+<img [src]="imageUrl"  style="width:250px;height:200px">
+
+<input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
+
 <button (click)="goBack()">go back</button>
 <a [routerLink]="['/view']" routerLinkActive="active">View Component</a>
