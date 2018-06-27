@@ -19,6 +19,10 @@ export class EditComponent implements OnInit {
   private name: string;
   private address: string;
 
+/* prova coordinate */
+lat: number = 51.678418;
+  lng: number = 7.809007;
+
   imageUrl: string; // = "/assets/img/default-image.png";
   fileToUpload: File = null;
 
