@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 
-import { InsertModule } from '../insert-db/insert-db.module';
+import { BikeSharingModule } from '../bike-sharing/bike-sharing.module';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
 const appRoutesLogin: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,10 +18,11 @@ const appRoutesLogin: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    InsertModule,
+    BikeSharingModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forRoot(appRoutesLogin)
+    RouterModule.forRoot(appRoutesLogin),
+    ShowHidePasswordModule.forRoot(),
   ],
   exports: [
     RegistrationComponent, LoginComponent

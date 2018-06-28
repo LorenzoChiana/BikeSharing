@@ -14,24 +14,29 @@ export class ViewComponent implements OnInit {
 
    Repdata;
 
+   lat: number = 51.678418;
+     lng: number = 7.809007;
+
   constructor(private newService :CommonService,
     private location: Location,
     private route: ActivatedRoute) {   }
 
   ngOnInit() {
-    this.viewUsers()
+    this.viewBike()
   }
 
-  viewUsers = function() {
-    this.newService.GetUser().subscribe(data =>  this.Repdata = data)
+  viewBike() {
+    this.newService.getBike().subscribe(data =>  this.Repdata = data)
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  delete = function(id) {
+  prenota(id) : void {
+    /*
     this.newService.deleteUser(id)
     .subscribe(data =>   { alert(data.data) ; this.ngOnInit();}, error => this.errorMessage = error )
+    */
   }
 }

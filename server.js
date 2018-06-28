@@ -5,7 +5,7 @@ var mongo = require("mongoose");
 
 var crypto = require('crypto');
 
-var db = mongo.connect("mongodb://localhost:27017/orderingRestaurant", function(err, response){  
+var db = mongo.connect("mongodb://localhost:27017/bikeSharing", function(err, response){  
    if(err){ console.log( err); }  
    else{ console.log('Connected to ' + db, ' + ', response); }  
 });
@@ -25,15 +25,15 @@ app.use(function (req, res, next) {
   
  var Schema = mongo.Schema;  
   
-var UsersSchema = new Schema({      
+var BikeSchema = new Schema({      
  name: { type: String   },       
  address: { type: String   },   
 },{ versionKey: false });  
    
   
-var model = mongo.model('users', UsersSchema, 'users');  
+var model = mongo.model('bikes', BikeSchema, 'bikes');  
   
-app.post("/api/SaveUser",function(req,res){   
+app.post("/api/SaveBike",function(req,res){   
  var mod = new model(req.body);  
  if(req.body.mode =="Save")  
  {  
@@ -114,7 +114,7 @@ else
   
   // funzionalità per inserimento nuovo utente 
   // come generare la password?
-    app.post("/api/InsUser",function(req,res){   
+    app.post("/api/InsBike",function(req,res){   
 		 var newUser = new regSchema(req.body);  
 		 if(req.body.mode =="register")  
 		 {  
@@ -148,7 +148,7 @@ else
 		*/		
 	})
   
- app.post("/api/deleteUser",function(req,res){      
+ app.post("/api/deleteBike",function(req,res){      
     model.remove({ _id: req.body.id }, function(err) {    
      if(err){    
          res.send(err);    
@@ -159,7 +159,7 @@ else
  });    
    })    
   
- app.get("/api/getUser",function(req,res){  
+ app.get("/api/getBike",function(req,res){  
     model.find({},function(err,data){  
               if(err){  
                   res.send(err);  

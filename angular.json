@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ordiniRistorante": {
+    "bike-sharing": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ordiniRistorante",
+            "outputPath": "dist/bike-sharing",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,18 +51,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ordiniRistorante:build"
+            "browserTarget": "bike-sharing:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ordiniRistorante:build:production"
+              "browserTarget": "bike-sharing:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ordiniRistorante:build"
+            "browserTarget": "bike-sharing:build"
           }
         },
         "test": {
@@ -96,7 +96,7 @@
         }
       }
     },
-    "ordiniRistorante-e2e": {
+    "bike-sharing-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -104,11 +104,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ordiniRistorante:serve"
+            "devServerTarget": "bike-sharing:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ordiniRistorante:serve:production"
+              "devServerTarget": "bike-sharing:serve:production"
             }
           }
         },
@@ -124,5 +124,5 @@
       }
     }
   },
-  "defaultProject": "ordiniRistorante"
+  "defaultProject": "bike-sharing"
 }

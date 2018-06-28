@@ -4,6 +4,11 @@
 <title>View Component</title>
 <meta charset="utf-8">
 </head>
+<style>
+agm-map {
+  height: 200px;
+}
+</style>
 <body>
 <div class="container">
   <div class="table-container" style="overflow: auto;"> <!-- aggiunto-->
@@ -13,8 +18,8 @@
           <td>Id</td>
           <td>Name</td>
           <td>Address</td>
-          <td>Edit</td>
-          <td>Delete</td>
+          <td>Prenota</td>
+          <td>Informazioni aggiuntive</td>
         </tr>
       </thead>
       <tbody>
@@ -24,16 +29,24 @@
           <td>{{kk.name}}</td>
           <td>{{kk.address}}</td>
 
-          <td><a (click)="delete(kk._id)" style="color:blueviolet">Delete</a></td>
+          <td><a (click)="prenota(kk._id)" style="color:blueviolet">Prenota</a></td>
 
-          <td><a [routerLink]="['/edit', kk._id, kk.name, kk.address]" routerLinkActive="active">Edit Component</a></td>
+<!--
+          <td><a [routerLink]="['/edit', kk._id, kk.name, kk.address]" routerLinkActive="active">info</a></td>
+        -->
 
-          <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">Detail Component</a></td>
+          <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">info</a></td>
         </tr>
       </tbody>
     </table>
+    <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-marker [latitude]=52.00 [longitude]=7.00></agm-marker>
+      <agm-marker [latitude]=52.00 [longitude]=7.20></agm-marker>
+      <agm-marker [latitude]=52.00 [longitude]=7.30></agm-marker>
+    </agm-map>
   </div> <!-- aggiunto-->
   <button (click)="goBack()">go back</button> <!-- spostato-->
 </div>
+
 </body> <!-- aggiunto-->
 </html>

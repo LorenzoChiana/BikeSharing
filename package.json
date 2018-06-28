@@ -1,5 +1,5 @@
 {
-  "name": "ordini-ristorante",
+  "name": "bike-sharing",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -28,6 +28,7 @@
     "express": "^4.16.3",
     "jquery": "^1.12.4",
     "mongoose": "^5.1.6",
+    "ngx-show-hide-password": "^1.2.4",
     "popper.js": "^1.14.3",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",

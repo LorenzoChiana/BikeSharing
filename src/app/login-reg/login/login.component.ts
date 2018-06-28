@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {LoginService} from '../login.service'
+import {LoginRegService} from '../login-reg.service'
 
 @Component({
   selector: 'app-login',
@@ -20,6 +20,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit = function(userLogin, isValid:boolean) {
-    this.route.navigate(['ins']);
+    this.route.navigate(['view']);
   }
 }
