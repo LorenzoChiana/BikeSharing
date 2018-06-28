@@ -9,10 +9,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
+import { AgmCoreModule } from '@agm/core';
+
 const appRoutesLogin: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'registration', component: RegistrationComponent },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -23,6 +25,9 @@ const appRoutesLogin: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutesLogin),
     ShowHidePasswordModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
+    }),
   ],
   exports: [
     RegistrationComponent, LoginComponent

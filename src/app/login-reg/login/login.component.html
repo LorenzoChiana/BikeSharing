@@ -1,9 +1,15 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
+<style>
+agm-map {
+  height: 150px;
+}
+</style>
 <body> <!-- aggiunto-->
-  <h2>Login</h2>
+
 <div class="container">
+  <h2>Login</h2>
 <form class="form-horizontal" #loginForm="ngForm"   (ngSubmit)="onSubmit(loginForm.value)" novalidate>
 
   <p>Is "myForm" valid? {{loginForm.valid}}</p>
@@ -38,6 +44,12 @@
     </div>
   </div>
 </form>
+
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]=52.00 [longitude]=7.00></agm-marker>
+  <agm-marker [latitude]=52.00 [longitude]=7.20></agm-marker>
+  <agm-marker [latitude]=52.00 [longitude]=7.30></agm-marker>
+</agm-map>
 
 </div>
 </body>

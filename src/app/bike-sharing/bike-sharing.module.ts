@@ -29,6 +29,11 @@ const routes: Routes = [
   ],
   imports: [
     NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
+    /*
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
+    }),
+    */
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
