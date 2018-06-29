@@ -5,22 +5,21 @@ import { LoginRegModule } from './login-reg/login-reg.module';
 
 import { AppComponent } from './app.component';
 
-import { AgmCoreModule } from '@agm/core';
+import { HomeComponent } from './home/home.component';
 
 const appRoutesMain: Routes = [
-    { path: '', redirectTo: '/', pathMatch: 'full' }
+    { path: '', redirectTo: '/', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
 	BrowserModule,
   LoginRegModule,
-  AgmCoreModule.forRoot({
-    apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
-  }),
   RouterModule.forRoot(appRoutesMain),
   ],
   bootstrap: [AppComponent]

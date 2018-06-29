@@ -10,13 +10,10 @@ import {CommonService} from './services/make-request.service';
 
 import { DetailComponent } from './detail/detail.component';
 import { ViewComponent } from './view/view.component';
-//import { EditComponent } from './edit/edit.component';
 
 import { AgmCoreModule } from '@agm/core';
 
 const routes: Routes = [
-  //{ path: 'ins', component: InsertDbComponentComponent },
-  //{ path: 'edit/:id/:name/:address', component: EditComponent },
   { path: 'view', component: ViewComponent },
   { path: 'detail/:id', component: DetailComponent }
 ];
@@ -25,15 +22,9 @@ const routes: Routes = [
   declarations: [
     DetailComponent,
     ViewComponent,
-    //EditComponent
   ],
   imports: [
     NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
-    /*
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
-    }),
-    */
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
