@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
-import { RegistrationComponent } from './registration/registration.component';
-import { LoginComponent } from './login/login.component';
-
+import { RouterModule, Routes } from '@angular/router';
 import { BikeSharingModule } from '../bike-sharing/bike-sharing.module';
 import { ReactiveFormsModule, FormsModule }    from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
-
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 
-import { AgmCoreModule } from '@agm/core';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutesLogin: Routes = [
     //{ path: '', redirectTo: '/login', pathMatch: 'full' },

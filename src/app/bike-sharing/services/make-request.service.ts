@@ -15,8 +15,20 @@ export class CommonService {
             .map((response: Response) =>response.json())
   }
 
-  getBike(){
-    return this.http.get('http://localhost:8080/api/getBike/')
+/*
+  getBike(id){
+    return this.http.get('http://localhost:8080/api/getBike/',{'id': id})
+            .map((response: Response) => response.json())
+  }
+  */
+
+  getBike(id){
+    return this.http.post('http://localhost:8080/api/getBike/',{'id': id})
+            .map((response: Response) => response.json())
+  }
+
+  getAllBike(){
+    return this.http.get('http://localhost:8080/api/getAllBike/')
             .map((response: Response) => response.json())
   }
 

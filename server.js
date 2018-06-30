@@ -23,17 +23,17 @@ app.use(function (req, res, next) {
      next();  
  });  
   
- var Schema = mongo.Schema;  
+var Schema = mongo.Schema;  
   
 var BikeSchema = new Schema({      
- name: { type: String   },       
- address: { type: String   },   
+ nome: { type: String, required: true },       
+ latitudine: { type: Number, required: true },   
+ longitudine: { type: Number, required: true },
 },{ versionKey: false });  
-   
-  
+     
 var model = mongo.model('bikes', BikeSchema, 'bikes');  
   
-app.post("/api/SaveBike",function(req,res){   
+app.post("/api/SaveBike/",function(req,res){   
  var mod = new model(req.body);  
  if(req.body.mode =="Save")  
  {  
@@ -159,17 +159,44 @@ else
  });    
    })    
   
- app.get("/api/getBike",function(req,res){  
-    model.find({},function(err,data){  
-              if(err){  
-                  res.send(err);  
-              }  
-              else{                
-                  res.send(data);  
-                  }  
-          });  
-  })  
-  
+app.get("/api/getAllBike",function(req,res){  
+model.find({},function(err,data){  
+		  if(err){  
+			  res.send(err);  
+		  }  
+		  else{                
+			  res.send(data);  
+			  }  
+	  });  
+})
+
+/*
+it('Finds a record by unique id', function(done){
+    MarioChar.findOne({_id: char._id}).then(function(result){
+      assert(result._id.toString() === char._id.toString());
+      done();
+    });
+  });
+*/
+
+app.post("/api/getBike", function(req, res) {
+	model.findById(req.body.id, function (err, data) {
+		if(err){  
+		  res.send(err);  
+		}  else{                
+		  res.send(data);  
+		}
+	 });
+	/*
+	model.findOne({ _id: req.body.id}, function (err, data) {
+		if(err){  
+		  res.send(err);  
+		}  else{                
+		  res.send(data);  
+		}
+	 });
+	 */
+})  
   
 app.listen(8080, function () {  
     
