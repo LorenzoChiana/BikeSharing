@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginRegModule } from './login-reg/login-reg.module';
 
 import { AppComponent } from './app.component';
-
 import { HomeComponent } from './home/home.component';
 
 const appRoutesMain: Routes = [

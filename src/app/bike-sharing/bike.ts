@@ -1,23 +1,29 @@
 export class Bike {
   id: number;
-  name: string;
-  address: string;
+  nome: string;
+  latitudine: number;
+  longitudine: number;
 
-  constructor(id: number, name: string, address: string) {
+  constructor(id: number, nome: string, latitudine: number, longitudine: number) {
     this.id = id;
-    this.name = name;
-    this.address = address;
+    this.nome = nome;
+    this.latitudine = latitudine;
+    this.longitudine = longitudine;
   }
 
   getId() {
     return this.id;
   }
 
-  getName() {
-    return this.name;
+  getNome() {
+    return this.nome;
   }
 
-  getAddress() {
-    return this.address;
+  getLatitudine() {
+    return this.latitudine;
+  }
+
+  getLongitudine() {
+    return this.longitudine;
   }
 }

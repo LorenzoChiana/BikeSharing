@@ -12,10 +12,11 @@ import { Location } from '@angular/common';
 })
 export class ViewComponent implements OnInit {
 
+   private isAdmin: boolean;
    Repdata;
 
    lat: number = 51.678418;
-     lng: number = 7.809007;
+   lng: number = 7.809007;
 
   constructor(private newService :CommonService,
     private location: Location,
@@ -23,15 +24,23 @@ export class ViewComponent implements OnInit {
 
   ngOnInit() {
     this.viewBike()
+    this.isAdmin = (this.route.snapshot.params['admin'] == "admin")
   }
 
   viewBike() {
-    this.newService.getBike().subscribe(data =>  this.Repdata = data)
+    this.newService.getAllBike().subscribe(data =>  this.Repdata = data)
   }
 
   goBack(): void {
     this.location.back();
   }
+
+/*
+  edit(id: number) : void {
+    alert("ViewComponent id = " + id)
+    this.route.navigate(['edit', 'id']);
+  }
+  */
 
   prenota(id) : void {
     /*

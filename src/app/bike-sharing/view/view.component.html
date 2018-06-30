@@ -11,14 +11,16 @@ agm-map {
 </style>
 <body>
 <div class="container">
-  <div class="table-container" style="overflow: auto;"> <!-- aggiunto-->
+  <div class="table-container" style="overflow: auto;">
     <table class="table">
       <thead>
         <tr>
           <td>Id</td>
-          <td>Name</td>
-          <td>Address</td>
-          <td>Prenota</td>
+          <td>Nome</td>
+          <td>Latitudine</td>
+          <td>Longitudine</td>
+          <td *ngIf="!isAdmin">Prenotazione</td>
+          <td *ngIf="isAdmin">Edit</td>
           <td>Informazioni aggiuntive</td>
         </tr>
       </thead>
@@ -26,14 +28,13 @@ agm-map {
         <tr *ngFor="let kk of Repdata;let ind = index">
 
           <td>{{ind + 1}}</td>
-          <td>{{kk.name}}</td>
-          <td>{{kk.address}}</td>
+          <td>{{kk.nome}}</td>
+          <td>{{kk.latitudine}}</td>
+          <td>{{kk.longitudine}}</td>
 
-          <td><a (click)="prenota(kk._id)" style="color:blueviolet">Prenota</a></td>
-
-<!--
-          <td><a [routerLink]="['/edit', kk._id, kk.name, kk.address]" routerLinkActive="active">info</a></td>
-        -->
+          <td *ngIf="!isAdmin"><a (click)="prenota(kk._id)" style="color:blueviolet"></a>Prenota</td>
+          <td *ngIf="isAdmin"><a [routerLink]="['/edit', ind]" routerLinkActive="active"
+            style="color:blueviolet">Edit</a></td>
 
           <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">info</a></td>
         </tr>
@@ -44,9 +45,10 @@ agm-map {
       <agm-marker [latitude]=52.00 [longitude]=7.20></agm-marker>
       <agm-marker [latitude]=52.00 [longitude]=7.30></agm-marker>
     </agm-map>
-  </div> <!-- aggiunto-->
-  <button (click)="goBack()">go back</button> <!-- spostato-->
+  </div>
+    <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
+  <button (click)="goBack()">go back</button>
 </div>
 
-</body> <!-- aggiunto-->
+</body>
 </html>

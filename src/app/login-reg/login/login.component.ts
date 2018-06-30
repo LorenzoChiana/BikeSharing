@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {LoginRegService} from '../login-reg.service'
@@ -23,6 +21,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit = function(userLogin, isValid:boolean) {
-    this.route.navigate(['view']);
+
+    /*
+    onSubmit = function(userLogin, isValid:boolean) {
+      this.route.navigate(['ins']);
+    }
+    */
+
+    // navigate(['./', { outlets: { 'list-outlet': ['list', param1, param2]} }]);
+
+    this.route.navigate(['view', 'admin']);
   }
 }
