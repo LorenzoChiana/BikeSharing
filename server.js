@@ -23,58 +23,41 @@ app.use(function (req, res, next) {
  });  
   
 var Schema = mongo.Schema;  
-
-var BikeSchema = new Schema({      
- nome: { type: String, required: true },       
- latitudine: { type: Number, required: true },   
- longitudine: { type: Number, required: true },
-},{ versionKey: false });    
-	 
-var model = mongo.model('bikes', BikeSchema, 'bikes');  
   
-app.post("/api/SaveBike/",function(req,res) {   
- var mod = new model(req.body);  
- if(req.body.mode =="Save") {  
-    mod.save(function(err,data){  
+var UserSchema = new Schema({      
+ nome: { type: String, required: true },       
+ passwordUser: { type: String, required: true },   
+},{ versionKey: false });
+	
+var modelUser = mongo.model('users', UserSchema, 'users');
+
+app.post("/api/SaveUser/",function(req,res) {
+ var modUser = new modelUser(req.body);  
+ //if(req.body.mode =="Save") {  
+    modUser.save(function(err,data){  
       if(err) {  
          res.send(err);                
-      } else {        
-         res.send({data:"Record has been Inserted..!!"});  
+      } else { 
+		 console.log("data = " + data);
+         res.send({data:"new User has been Inserted..!!"});  
       }  
-	});  
-} else {
-	model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
-							latitudine: req.body.latitudine, longitudine: req.body.longitudine},  
-   function(err,data) {  
-	   if (err) {  
-		res.send(err);         
-	   }  
-   else{        
-		  res.send({data:"Record has been Updated..!!"});  
-	 }  
- });
-}
-})  
-  
-  var regSchema = new mongo.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  hash: String,
-  salt: String
-});
-  
-  regSchema.methods.setPassword = function(password){
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-};
-  
+	}); 
+	/*	
+	} else {
+		model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+								latitudine: req.body.latitudine, longitudine: req.body.longitudine},  
+	   function(err,data) {  
+		   if (err) {  
+			res.send(err);         
+		   }  
+	   else{        
+			  res.send({data:"Record has been Updated..!!"});  
+		 }  
+	 });
+	}
+	*/
+})
+
   //req.body.password
   
   /*
@@ -141,7 +124,39 @@ app.post("/api/SaveBike/",function(req,res) {
 		} 	
 	})
 	*/
+
+var BikeSchema = new Schema({      
+ nome: { type: String, required: true },       
+ latitudine: { type: Number, required: true },   
+ longitudine: { type: Number, required: true },
+},{ versionKey: false });    
+	 
+var model = mongo.model('bikes', BikeSchema, 'bikes');  
   
+app.post("/api/SaveBike/",function(req,res) {   
+ var mod = new model(req.body);  
+ if(req.body.mode =="Save") {  
+    mod.save(function(err,data){  
+      if(err) {  
+         res.send(err);                
+      } else {        
+         res.send({data:"Record has been Inserted..!!"});  
+      }  
+	});  
+} else {
+	model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine},  
+   function(err,data) {  
+	   if (err) {  
+		res.send(err);         
+	   }  
+   else{        
+		  res.send({data:"Record has been Updated..!!"});  
+	 }  
+ });
+}
+})  
+
 app.post("/api/deleteBike", function(req,res) {      
 	model.remove({ _id: req.body.id }, function(err) {    
 		if(err){    

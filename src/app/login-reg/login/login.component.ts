@@ -12,24 +12,36 @@ import {LoginRegService} from '../login-reg.service'
 export class LoginComponent implements OnInit {
   //constructor(private logService :LoginService, private route: ActivatedRoute) {} da riprendere in avanti
 
+  private loginForm: FormGroup;
+
   lat: number = 51.678418;
     lng: number = 7.809007;
 
-  constructor(private route :Router) {}
+  constructor(private formBuilder: FormBuilder, private loginRegService : LoginRegService, private route :Router) { }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+        nomeUtente: ['', Validators.required],
+        password: ['', Validators.required]
+    });
   }
 
-  onSubmit = function(userLogin, isValid:boolean) {
+  get f() { return this.loginForm.controls; }
 
-    /*
-    onSubmit = function(userLogin, isValid:boolean) {
-      this.route.navigate(['ins']);
+  onSubmit() {
+    if (this.loginForm.invalid) {
+      alert("invalid form")
+      return;
     }
-    */
 
-    // navigate(['./', { outlets: { 'list-outlet': ['list', param1, param2]} }]);
+    var name : string = this.f.nomeUtente.value;
+    var password : string = this.f.password.value;
 
+    //this.route.navigate(['view']);
     this.route.navigate(['view', 'admin']);
+  }
+
+  clickRegister() {
+    this.route.navigate(['registration']);
   }
 }

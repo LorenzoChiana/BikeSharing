@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { Bike } from '../bike'
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -13,21 +15,22 @@ export class DetailComponent implements OnInit {
   imageUrl: string; // = "/assets/img/default-image.png";
   fileToUpload: File = null;
 
-  detailId: string;
+  private bike: Bike;
+
+  private latitudine : number;
+  private longitudine : number;
 
     constructor(private route: ActivatedRoute, private location: Location) { }
 
     ngOnInit() {
-      this.route.params.subscribe((params) => this.detailId = params.id);
+      this.route.params.subscribe((params) => this.bike =
+        new Bike(params.id, params.nome, params.latitudine, params.longitudine));
+
+        this.latitudine = +this.bike.latitudine;
+        this.longitudine = +this.bike.longitudine;
     }
 
     goBack(): void {
       this.location.back();
-    }
-
-    onFileChanged(event) {
-      var reader = new FileReader()
-      console.log(event.target.result)
-      alert(event.target.result)
     }
 }

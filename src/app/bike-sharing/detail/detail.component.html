@@ -4,11 +4,16 @@
 <title>Detail</title>
 <meta charset="utf-8">
 </head>
+<style>
+agm-map {
+  height: 300px;
+}
+</style>
 <body>
-<p>
- detail component works!
- Il mio id è: {{detailId}}
-</p>
+
+<agm-map [latitude]="latitudine" [longitude]="longitudine">
+  <agm-marker [latitude]="latitudine" [longitude]="longitudine"></agm-marker>
+</agm-map>
 
 <button ng-click="goBack()">go back</button>
 </body>

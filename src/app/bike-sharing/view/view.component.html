@@ -36,7 +36,7 @@ agm-map {
           <td *ngIf="isAdmin"><a [routerLink]="['/edit', kk._id, kk.nome, kk.latitudine, kk.longitudine]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
 
-          <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">info</a></td>
+          <td><a [routerLink]="['/detail', kk._id, kk.nome, kk.latitudine, kk.longitudine]" routerLinkActive="active">info</a></td>
         </tr>
       </tbody>
     </table>

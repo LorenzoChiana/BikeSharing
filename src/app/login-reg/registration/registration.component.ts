@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { LoginRegService } from '../login-reg.service'
 
+import { User } from '../User'
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -16,13 +18,11 @@ export class RegistrationComponent implements OnInit {
   private show: boolean = false;
   private type: string = "password";
 
-  private submitted: boolean;
+  private errorMessage;
 
   constructor(private formBuilder: FormBuilder, private loginRegService : LoginRegService, private route :Router) { }
 
   ngOnInit() {
-    this.submitted = false;
-
     this.registerForm = this.formBuilder.group({
         nomeUtente: ['', Validators.required],
         password: ['', Validators.required]
@@ -32,13 +32,17 @@ export class RegistrationComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
-    this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     }
 
     var name : string = this.f.nomeUtente.value;
     var password : string = this.f.password.value;
+
+    var newUser: User = new User(name, password);
+
+    this.loginRegService.saveUser(newUser)
+    .subscribe(data => { alert(data.data) }, error => this.errorMessage = error);
 
     this.route.navigate(['view']);
   }

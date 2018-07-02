@@ -35,13 +35,6 @@ export class ViewComponent implements OnInit {
     this.location.back();
   }
 
-/*
-  edit(id: number) : void {
-    alert("ViewComponent id = " + id)
-    this.route.navigate(['edit', 'id']);
-  }
-  */
-
   prenota(id) : void {
     /*
     this.newService.deleteUser(id)

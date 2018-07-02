@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'view/:admin', component: ViewComponent },
   { path: 'ins', component: InsertBikeComponent },
   { path: 'edit/:id/:nome/:latitudine/:longitudine', component: EditBikeComponent },
-  { path: 'detail/:id', component: DetailComponent }
+  { path: 'detail/:id/:nome/:latitudine/:longitudine', component: DetailComponent }
 ];
 
 @NgModule({
