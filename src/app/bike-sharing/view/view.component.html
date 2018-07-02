@@ -33,7 +33,7 @@ agm-map {
           <td>{{kk.longitudine}}</td>
 
           <td *ngIf="!isAdmin"><a (click)="prenota(kk._id)" style="color:blueviolet"></a>Prenota</td>
-          <td *ngIf="isAdmin"><a [routerLink]="['/edit', ind]" routerLinkActive="active"
+          <td *ngIf="isAdmin"><a [routerLink]="['/edit', kk._id, kk.nome, kk.latitudine, kk.longitudine]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
 
           <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">info</a></td>

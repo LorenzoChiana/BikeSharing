@@ -10,20 +10,4 @@ export class Bike {
     this.latitudine = latitudine;
     this.longitudine = longitudine;
   }
-
-  getId() {
-    return this.id;
-  }
-
-  getNome() {
-    return this.nome;
-  }
-
-  getLatitudine() {
-    return this.latitudine;
-  }
-
-  getLongitudine() {
-    return this.longitudine;
-  }
 }

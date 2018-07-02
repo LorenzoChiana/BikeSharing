@@ -1,3 +1,40 @@
-<p>
-  edit-bike works!
-</p>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<div class="container">
+<form class="form-horizontal" #bikeEdit="ngForm"   (ngSubmit)="edit(bikeEdit.value)" novalidate>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="nome">Nome:</label>
+      <div class="col-sm-10">
+        <input name="nome" type="text" class="form-control" required value="{{nome}}" [(ngModel)]="nome" />
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="latitudine">Latitudine:</label>
+      <div class="col-sm-10">
+        <input name="latitudine" type="number" class="form-control" required value="{{latitudine}}" [(ngModel)]="latitudine" />
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="longitudine">Longitudine:</label>
+      <div class="col-sm-10">
+        <input name="longitudine" type="number" class="form-control" required value="{{longitudine}}" [(ngModel)]="longitudine" />
+      </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
+    </div>
+  </div>
+</form>
+</div>
+
+<!--
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+-->
+
+<button (click)="goBack()">go back</button>
+<a [routerLink]="['/view', 'admin']" routerLinkActive="active">View Component</a>
