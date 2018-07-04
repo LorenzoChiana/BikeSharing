@@ -15,10 +15,11 @@ import { InsertBikeComponent } from './insert-bike/insert-bike.component';
 import { EditBikeComponent } from './edit-bike/edit-bike.component';
 
 const routes: Routes = [
+  { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
   { path: 'ins', component: InsertBikeComponent },
-  { path: 'edit/:id', component: EditBikeComponent },
-  { path: 'detail/:id', component: DetailComponent }
+  { path: 'edit/:id/:nome/:latitudine/:longitudine/:stato', component: EditBikeComponent },
+  { path: 'detail/:id/:nome/:latitudine/:longitudine/:stato', component: DetailComponent }
 ];
 
 @NgModule({

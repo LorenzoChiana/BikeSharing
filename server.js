@@ -6,15 +6,14 @@ var mongo = require("mongoose");
 var crypto = require('crypto');
 
 var db = mongo.connect("mongodb://localhost:27017/bikeSharing", function(err, response){  
-   if(err){ console.log( err); }  
+   if(err){ console.log(err); }  
    else{ console.log('Connected to ' + db, ' + ', response); }  
 });
      
-var app = express()  
+var app = express();  
 app.use(bodyParser.json({limit:'5mb'}));   
 app.use(bodyParser.urlencoded({extended:true}));  
    
-  
 app.use(function (req, res, next) {        
      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');    
      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');    
@@ -25,61 +24,62 @@ app.use(function (req, res, next) {
   
 var Schema = mongo.Schema;  
   
-var BikeSchema = new Schema({      
- nome: { type: String, required: true },       
- latitudine: { type: Number, required: true },   
- longitudine: { type: Number, required: true },
-},{ versionKey: false });  
-     
-var model = mongo.model('bikes', BikeSchema, 'bikes');  
-  
-app.post("/api/SaveBike/",function(req,res){   
- var mod = new model(req.body);  
- if(req.body.mode =="Save")  
- {  
-    mod.save(function(err,data){  
-      if(err){  
+var UserBikeSchema = new Schema({      
+ nomeUtente: { type: String, required: true },       
+ passwordUtente: { type: String, required: true },
+ tipoUtente: { type: String },
+ // admin: { type: Boolean },
+},{ versionKey: false });
+
+var modelUser = mongo.model('usersBike', UserBikeSchema, 'usersBike');
+
+app.post("/api/SaveUser/",function(req,res) {	
+ var modUser = new modelUser(req.body);  
+ //if(req.body.mode =="Save") {  
+    modUser.save(function(err,data) {  
+      if(err) {  
          res.send(err);                
+      } else {
+         res.send({data:"new User has been Inserted..!!"});  
       }  
-      else{        
-          res.send({data:"Record has been Inserted..!!"});  
-      }  
- });  
-}  
-else   
-{  
- model.findByIdAndUpdate(req.body.id, { name: req.body.name, address: req.body.address},  
-   function(err,data) {  
-   if (err) {  
-   res.send(err);         
-   }  
-   else{        
-          res.send({data:"Record has been Updated..!!"});  
-     }  
- });  
-  
-  
-}  
- })  
-  
-  var regSchema = new mongo.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  hash: String,
-  salt: String
-});
-  
-  regSchema.methods.setPassword = function(password){
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
-};
+	}); 
+	/*	
+	} else {
+		model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+								latitudine: req.body.latitudine, longitudine: req.body.longitudine},  
+	   function(err,data) {  
+		   if (err) {  
+			res.send(err);         
+		   }  
+	   else{        
+			  res.send({data:"Record has been Updated..!!"});  
+		 }  
+	 });
+	}
+	*/
+})
+
+app.get("/api/getAllUser", function(req,res) {  
+	modelUser.find({}, function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{ 
+			res.send(data);  
+		}  
+	})  
+})
+
+app.post("/api/FindUser/", function(req,res) {	
+ var findUser = new modelUser(req.body);  
+ modelUser.findOne({nomeUtente : findUser.nomeUtente}, function (err, data) {
+	 if (err) {
+		 next(err);
+	 } else {
+		 res.send(data);
+	 }
+ })
+})
   
   //req.body.password
   
@@ -114,6 +114,7 @@ else
   
   // funzionalità per inserimento nuovo utente 
   // come generare la password?
+  /*
     app.post("/api/InsBike",function(req,res){   
 		 var newUser = new regSchema(req.body);  
 		 if(req.body.mode =="register")  
@@ -130,7 +131,6 @@ else
 			  }  
 			});  
 		}  
-		/*
 		else   
 		{  
 		 model.findByIdAndUpdate(req.body.id, { name: req.body.name, address: req.body.address},  
@@ -144,61 +144,77 @@ else
 		 });  
 		  
 		  
-		} 
-		*/		
+		} 	
 	})
+	*/
+
+var BikeSchema = new Schema({      
+ nome: { type: String, required: true },       
+ latitudine: { type: Number, required: true },   
+ longitudine: { type: Number, required: true },
+ stato: { type: String }
+},{ versionKey: false });    
+	 
+var model = mongo.model('bikes', BikeSchema, 'bikes'); 
   
- app.post("/api/deleteBike",function(req,res){      
-    model.remove({ _id: req.body.id }, function(err) {    
-     if(err){    
-         res.send(err);    
-     }    
-     else{      
-            res.send({data:"Record has been Deleted..!!"});               
-        }    
- });    
-   })    
-  
-app.get("/api/getAllBike",function(req,res){  
-model.find({},function(err,data){  
-		  if(err){  
-			  res.send(err);  
-		  }  
-		  else{                
-			  res.send(data);  
-			  }  
-	  });  
+app.post("/api/SaveBike/",function(req,res) {   
+ var mod = new model(req.body);  
+ if(req.body.mode =="Save") {  
+    mod.save(function(err,data){  
+      if(err) {  
+         res.send(err);                
+      } else {    
+         res.send({data:"Record has been Inserted..!!"});  
+      }  
+	});  
+} else {
+	model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
+							stato: req.body.stato},  
+   function(err,data) {  
+	   if (err) {  
+		res.send(err);         
+	   }  
+   else{        
+		  res.send({data:"Record has been Updated..!!"});  
+	 }  
+ });
+}
+})  
+
+app.post("/api/deleteBike", function(req,res) {      
+	model.remove({ _id: req.body.id }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Record has been Deleted..!!"});               
+		}    
+	})    
 })
 
-/*
-it('Finds a record by unique id', function(done){
-    MarioChar.findOne({_id: char._id}).then(function(result){
-      assert(result._id.toString() === char._id.toString());
-      done();
-    });
-  });
-*/
-
-app.post("/api/getBike", function(req, res) {
-	model.findById(req.body.id, function (err, data) {
+app.post("/api/modifyStateBike", function(req,res) {      
+	model.findByIdAndUpdate(req.body.id, { stato: req.body.stato }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Stato bici modificato"});               
+		}    
+	})    
+})
+  
+app.get("/api/getAllBike", function(req,res) {  
+	model.find({},function(err,data){  
 		if(err){  
-		  res.send(err);  
-		}  else{                
-		  res.send(data);  
-		}
-	 });
-	/*
-	model.findOne({ _id: req.body.id}, function (err, data) {
-		if(err){  
-		  res.send(err);  
-		}  else{                
-		  res.send(data);  
-		}
-	 });
-	 */
-})  
+			res.send(err);  
+		}  
+		else{     		
+			res.send(data);  
+		}  
+	})  
+})
   
 app.listen(8080, function () {  
-    
- console.log('Example app listening on port 8080!')  
+ console.log('Example app listening on port 8080!')
 })

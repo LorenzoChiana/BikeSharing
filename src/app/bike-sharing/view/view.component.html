@@ -32,23 +32,83 @@ agm-map {
           <td>{{kk.latitudine}}</td>
           <td>{{kk.longitudine}}</td>
 
-          <td *ngIf="!isAdmin"><a (click)="prenota(kk._id)" style="color:blueviolet"></a>Prenota</td>
-          <td *ngIf="isAdmin"><a [routerLink]="['/edit', ind]" routerLinkActive="active"
+<!--          <td *ngIf="!isAdmin && kk.stato == 'libero'"><a (click)="prenota(kk._id)" style="color:blueviolet">Prenota</a></td> -->
+          <!-- (click)="prenota(kk._id)" -->
+          <td *ngIf="!isAdmin && kk.stato == 'libero'">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="color:blueviolet">Prenota</button>
+          </td>
+          <td *ngIf="!isAdmin && kk.stato != 'libero' && kk.stato != nameUser"><a style="color:red">Non puoi prenotare</a></td>
+          <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia la bici</a></td>
+          <td *ngIf="isAdmin"><a [routerLink]="['/edit', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
 
-          <td><a [routerLink]="['/detail', ind]" routerLinkActive="active">info</a></td>
+          <td><a [routerLink]="['/detail', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active">info</a></td>
         </tr>
       </tbody>
     </table>
-    <agm-map [latitude]="lat" [longitude]="lng">
-      <agm-marker [latitude]=52.00 [longitude]=7.00></agm-marker>
-      <agm-marker [latitude]=52.00 [longitude]=7.20></agm-marker>
-      <agm-marker [latitude]=52.00 [longitude]=7.30></agm-marker>
-    </agm-map>
+
+<!--
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+Open Modal</button>
+-->
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
   </div>
-    <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
-  <button (click)="goBack()">go back</button>
 </div>
+
+<!--
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+  </div>
+
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <agm-marker *ngFor="let kk of Repdata;let ind = index" [latitude]="kk.latitudine"
+        [longitude]="kk.longitudine" [label]="kk.nome" color="blue"></agm-marker>
+  </agm-map>
+
+  <div>
+    <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
+    <button (click)="goBack()">go back</button>
+  </div>
+
+</div>
+
+<!-- <div class="container"> -->
+
+<!-- </div> -->
 
 </body>
 </html>

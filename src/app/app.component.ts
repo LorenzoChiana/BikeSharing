@@ -14,4 +14,8 @@ export class AppComponent {
 
 	ngOnInit(){}
 
+  logout() {
+    localStorage.removeItem('login');
+    this.route.navigate(['/']);
+  }
 }
