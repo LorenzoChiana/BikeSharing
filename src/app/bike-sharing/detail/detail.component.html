@@ -14,7 +14,6 @@ agm-map {
 <agm-map [latitude]="latitudine" [longitude]="longitudine">
   <agm-marker [latitude]="latitudine" [longitude]="longitudine"></agm-marker>
 </agm-map>
-
-<button ng-click="goBack()">go back</button>
+<button (click)="goBack()">go back</button>
 </body>
 </html>

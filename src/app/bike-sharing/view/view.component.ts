@@ -13,16 +13,24 @@ import { Location } from '@angular/common';
 export class ViewComponent implements OnInit {
 
    private isAdmin: boolean;
+   private nameUser: string;
    Repdata;
 
-   lat: number = 51.678418;
-   lng: number = 7.809007;
+   private errorMessage;
+
+// Centro di Cesena
+   lat: number = 44.1493031;
+   lng: number = 12.192423;
+
+   zoom: number = 12;
 
   constructor(private newService :CommonService,
     private location: Location,
     private route: ActivatedRoute) {   }
 
   ngOnInit() {
+    this.nameUser = localStorage.getItem('login');
+
     this.viewBike()
     this.isAdmin = (this.route.snapshot.params['admin'] == "admin")
   }
@@ -36,9 +44,19 @@ export class ViewComponent implements OnInit {
   }
 
   prenota(id) : void {
-    /*
-    this.newService.deleteUser(id)
-    .subscribe(data =>   { alert(data.data) ; this.ngOnInit();}, error => this.errorMessage = error )
+    /* temp asteriscato
+
+    alert("Vuoi penotare? = ");
+
+    this.newService.modifyStateBike(id, this.nameUser)
+    .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
     */
+  }
+
+  rilascia(id) : void {
+    alert("Vuoi rilasciare? = ");
+
+    this.newService.modifyStateBike(id, "libero")
+    .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
   }
 }

@@ -39,7 +39,7 @@ export class RegistrationComponent implements OnInit {
     var name : string = this.f.nomeUtente.value;
     var password : string = this.f.password.value;
 
-    var newUser: User = new User(name, password);
+    var newUser: User = new User(name, password, "user");
 
     this.loginRegService.saveUser(newUser)
     .subscribe(data => { alert(data.data) }, error => this.errorMessage = error);

@@ -28,7 +28,7 @@ export class EditBikeComponent implements OnInit {
     this.valbutton = "Update";
 
     this.route.params.subscribe((params) => this.bike =
-      new Bike(params.id, params.nome, params.latitudine, params.longitudine));
+      new Bike(params.id, params.nome, params.latitudine, params.longitudine, params.stato));
 
     this.nome = this.bike.nome;
     this.latitudine = this.bike.latitudine;

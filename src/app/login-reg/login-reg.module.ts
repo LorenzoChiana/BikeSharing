@@ -9,6 +9,8 @@ import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 
+import { LoginRegService } from './login-reg.service';
+
 const appRoutesLogin: Routes = [
     //{ path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'registration', component: RegistrationComponent },
@@ -30,6 +32,7 @@ const appRoutesLogin: Routes = [
   exports: [
     RegistrationComponent, LoginComponent
   ],
+  providers: [LoginRegService],
   declarations: [RegistrationComponent, LoginComponent]
 })
 export class LoginRegModule { }

@@ -24,21 +24,22 @@ app.use(function (req, res, next) {
   
 var Schema = mongo.Schema;  
   
-var UserSchema = new Schema({      
- nome: { type: String, required: true },       
- passwordUser: { type: String, required: true },   
+var UserBikeSchema = new Schema({      
+ nomeUtente: { type: String, required: true },       
+ passwordUtente: { type: String, required: true },
+ tipoUtente: { type: String },
+ // admin: { type: Boolean },
 },{ versionKey: false });
-	
-var modelUser = mongo.model('users', UserSchema, 'users');
 
-app.post("/api/SaveUser/",function(req,res) {
+var modelUser = mongo.model('usersBike', UserBikeSchema, 'usersBike');
+
+app.post("/api/SaveUser/",function(req,res) {	
  var modUser = new modelUser(req.body);  
  //if(req.body.mode =="Save") {  
-    modUser.save(function(err,data){  
+    modUser.save(function(err,data) {  
       if(err) {  
          res.send(err);                
-      } else { 
-		 console.log("data = " + data);
+      } else {
          res.send({data:"new User has been Inserted..!!"});  
       }  
 	}); 
@@ -58,6 +59,28 @@ app.post("/api/SaveUser/",function(req,res) {
 	*/
 })
 
+app.get("/api/getAllUser", function(req,res) {  
+	modelUser.find({}, function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{ 
+			res.send(data);  
+		}  
+	})  
+})
+
+app.post("/api/FindUser/", function(req,res) {	
+ var findUser = new modelUser(req.body);  
+ modelUser.findOne({nomeUtente : findUser.nomeUtente}, function (err, data) {
+	 if (err) {
+		 next(err);
+	 } else {
+		 res.send(data);
+	 }
+ })
+})
+  
   //req.body.password
   
   /*
@@ -129,9 +152,10 @@ var BikeSchema = new Schema({
  nome: { type: String, required: true },       
  latitudine: { type: Number, required: true },   
  longitudine: { type: Number, required: true },
+ stato: { type: String }
 },{ versionKey: false });    
 	 
-var model = mongo.model('bikes', BikeSchema, 'bikes');  
+var model = mongo.model('bikes', BikeSchema, 'bikes'); 
   
 app.post("/api/SaveBike/",function(req,res) {   
  var mod = new model(req.body);  
@@ -139,13 +163,14 @@ app.post("/api/SaveBike/",function(req,res) {
     mod.save(function(err,data){  
       if(err) {  
          res.send(err);                
-      } else {        
+      } else {    
          res.send({data:"Record has been Inserted..!!"});  
       }  
 	});  
 } else {
 	model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
-							latitudine: req.body.latitudine, longitudine: req.body.longitudine},  
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
+							stato: req.body.stato},  
    function(err,data) {  
 	   if (err) {  
 		res.send(err);         
@@ -166,14 +191,25 @@ app.post("/api/deleteBike", function(req,res) {
 			res.send({data:"Record has been Deleted..!!"});               
 		}    
 	})    
-})    
+})
+
+app.post("/api/modifyStateBike", function(req,res) {      
+	model.findByIdAndUpdate(req.body.id, { stato: req.body.stato }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Stato bici modificato"});               
+		}    
+	})    
+})
   
 app.get("/api/getAllBike", function(req,res) {  
 	model.find({},function(err,data){  
 		if(err){  
 			res.send(err);  
 		}  
-		else{                
+		else{     		
 			res.send(data);  
 		}  
 	})  

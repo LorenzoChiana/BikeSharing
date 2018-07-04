@@ -1,9 +1,13 @@
 export class User {
   nomeUtente: string;
-  password: string;
+  passwordUtente: string;
+  //admin: boolean;
+  tipoUtente: string;
 
-  constructor(nomeUtente: string, password: string) {
+  constructor(nomeUtente: string, passwordUtente: string, tipoUtente: string) {
+    //this.id = id;
     this.nomeUtente = nomeUtente;
-    this.password = password;
+    this.passwordUtente = passwordUtente;
+    this.tipoUtente = tipoUtente;
   }
 }

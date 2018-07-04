@@ -10,14 +10,17 @@
     <div class="form-group">
       <!-- <label for="nomeUtente">Nome utente</label> -->
         <input type="text" formControlName="nomeUtente" placeholder="Nome"
-        class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" />
+        class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" required />
+
         <div *ngIf="submitted && f.nomeUtente.errors" class="invalid-feedback">
             <div *ngIf="f.nomeUtente.errors.required">Nome utente richiesto</div>
         </div>
     </div>
+
     <div class="form-group">
       <show-hide-password size="lg" icon="entypo">
-          <input type="password" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
+          <input type="password" formControlName="password" placeholder="Password"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required/>
       </show-hide-password>
       <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
           <div *ngIf="f.password.errors.required">Password richiesta</div>
