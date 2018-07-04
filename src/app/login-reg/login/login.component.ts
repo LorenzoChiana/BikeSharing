@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
 
     private errorMessage;
 
-    private repdata;
-
   constructor(private formBuilder: FormBuilder, private loginRegService : LoginRegService, private route :Router) { }
 
   ngOnInit() {
@@ -54,21 +52,19 @@ export class LoginComponent implements OnInit {
     var password : string = this.f.password.value;
 
     this.loginRegService.findUser(name).subscribe(data => {
-      this.repdata = data;
-    });
-
-    if (this.repdata.nomeUtente != name) {
-      alert("nome utente sconosciuto!!");
-    } else if (this.repdata.passwordUtente != password) {
-      alert("password errata !!");
-    } else {
-      if (this.repdata.tipoUtente == "admin") {
-        this.route.navigate(['view', 'admin'])
+      if (data.nomeUtente != name) {
+        alert("nome utente sconosciuto!!");
+      } else if (data.passwordUtente != password) {
+        alert("password errata !!");
       } else {
-        localStorage.setItem('login', name);
-        this.route.navigate(['view'])
+        if (data.tipoUtente == "admin") {
+          this.route.navigate(['view', 'admin'])
+        } else {
+          localStorage.setItem('login', name);
+          this.route.navigate(['view'])
+        }
       }
-    }
+    });
   }
 
   clickRegister() {

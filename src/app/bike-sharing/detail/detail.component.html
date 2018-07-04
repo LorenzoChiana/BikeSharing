@@ -11,8 +11,20 @@ agm-map {
 </style>
 <body>
 
+<!--
+pinColor = "FE7569"
+-->
+
 <agm-map [latitude]="latitudine" [longitude]="longitudine">
-  <agm-marker [latitude]="latitudine" [longitude]="longitudine"></agm-marker>
+<!--  <agm-marker [latitude]="latitudine" [longitude]="longitudine"></agm-marker> -->
+      <agm-marker [latitude]="latitudine" [longitude]="longitudine" [label]="labelOptions"
+      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
+
+<!--
+<agm-marker
+[label]="labelOptions"
+-->
+
 </agm-map>
 <button (click)="goBack()">go back</button>
 </body>

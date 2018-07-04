@@ -20,6 +20,16 @@ export class DetailComponent implements OnInit {
   private latitudine : number;
   private longitudine : number;
 
+// azzurro: 00FFFF
+
+  labelOptions = {
+    color: '#FFFFFF',
+    fontFamily: '',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    text: 'Bici',
+  }
+
     constructor(private route: ActivatedRoute, private location: Location) { }
 
     ngOnInit() {
