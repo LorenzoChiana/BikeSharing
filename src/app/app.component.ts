@@ -8,7 +8,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(private route :Router){}
+ 	constructor(router:Router) {
+    	router.navigate(['/home']);
+ 	}
 
 	ngOnInit(){}
 
