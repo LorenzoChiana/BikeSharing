@@ -1,15 +1,39 @@
 import { Component, OnInit, Inject } from '@angular/core';
-
-import {CommonService} from '../services/make-request.service';
-
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {CommonService} from '../services/make-request.service';
+
+import { filter } from 'rxjs/operators';
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  idBike: number;
+  nomeBike: string;
+  timeInit: string;
+  timeEnd: string;
+}
+
+export class RentContent {
+  nameUser: string;
+
+  idBike: number;
+  nomeBike: string;
+  timeInit: string;
+  timeEnd: string;
+
+  constructor(nameUser: string,
+              idBike: number,
+              nomeBike: string,
+              timeInit: string,
+              timeEnd: string) {
+
+                this.nameUser = nameUser;
+                this.idBike = idBike;
+                this.nomeBike = nomeBike;
+                this.timeInit = timeInit;
+                this.timeEnd = timeEnd;
+              }
+
 }
 
 @Component({
@@ -31,9 +55,8 @@ export class ViewComponent implements OnInit {
 
    zoom: number = 12;
 
-   // prova
-   animal: string = "this.animal";
-   name: string = "this.name";
+   timeInit: string = "10:30";
+   timeEnd: string = "12:30";
 
   constructor(private newService :CommonService,
     private location: Location,
@@ -51,63 +74,67 @@ export class ViewComponent implements OnInit {
     this.newService.getAllBike().subscribe(data =>  this.Repdata = data)
   }
 
+  filterForState(stato : string) {
+    return this.Repdata.filter(x => x.stato == stato);
+  }
+
   goBack(): void {
     this.location.back();
   }
 
-  prenota(id) : void {
-    /* temp asteriscato
+  prenota(idBike: number, nomeBike: string) : void {
+    var rentContent: RentContent = new RentContent(this.nameUser,
+                                                    idBike, nomeBike,
+                                                    this.timeInit,
+                                                    this.timeEnd);
 
-    alert("Vuoi penotare? = ");
-
-    this.newService.modifyStateBike(id, this.nameUser)
-    .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
-    */
-    this.openDialog()
+    this.openDialog(rentContent, this.newService);
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+  markerClick() : void {
+    alert("cliccato!")
+  }
+
+  openDialog(rentContent : RentContent, newService: CommonService): void {
+    const dialogRef = this.dialog.open(DialogRentBike, {
       width: '250px',
       height: '250px',
-      data: {name: this.name, animal: this.animal}
+      data: {
+        idBike: rentContent.idBike,
+        nomeBike: rentContent.nomeBike,
+        timeInit: rentContent.timeInit,
+        timeEnd: rentContent.timeEnd
+      }
     });
-
-    /*
-
-    possibile uso del seguente trucco:
-
-    if( this.userExperienceService.isLargeScreen() ) {
-            var height = '55vh'
-        } else {
-            var height = '90vh'
-        }
-        */
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.animal = result;
+
+      this.newService.modifyStateBike(rentContent.idBike, rentContent.nameUser)
+      .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
     });
-}
-
-  rilascia(id) : void {
-    alert("Vuoi rilasciare? = ");
-
-    this.newService.modifyStateBike(id, "libero")
-    .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
   }
+
+    rilascia(id) : void {
+      alert("Vuoi rilasciare? = ");
+
+      this.newService.modifyStateBike(id, "libero")
+      .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
+    }
 }
 
 @Component({
   selector: 'dialog',
   templateUrl: 'dialog.html',
 })
-export class DialogOverviewExampleDialog {
+export class DialogRentBike {
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    public dialogRef: MatDialogRef<DialogRentBike>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+
+    alert("close ")
   }
 }

@@ -9,32 +9,6 @@ agm-map {
   height: 200px;
 }
 
-/* parte aggiunta */
-.mat-dialog-container {
-    display: flex !important;
-    flex-direction: column;
-}
-
-.mat-dialog-container > * {
-    display: flex;
-    flex-direction: column;
-}
-
-.mat-dialog-content {
-    max-height: inherit !important;
-}
-
-.mat-dialog-actions {
-    display: block !important;
-    flex-grow: inherit;
-    flex-shrink: inherit;
-    padding: 12px 0 0 !important;
-
-    &:last-child {
-        margin-bottom: 0 !important;
-    }
-}
-
 </style>
 <body>
 <div class="container">
@@ -60,7 +34,7 @@ agm-map {
           <td>{{kk.longitudine}}</td>
 
           <td *ngIf="!isAdmin && kk.stato == 'libero'">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id)" data-target="#myModal" style="color:blueviolet">Prenota</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id, kk.nome)" data-target="#myModal" style="color:blueviolet">Prenota</button>
           </td>
           <td *ngIf="!isAdmin && kk.stato != 'libero' && kk.stato != nameUser"><a style="color:red">Non puoi prenotare</a></td>
           <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia la bici</a></td>
@@ -74,8 +48,11 @@ agm-map {
   </div>
 
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <agm-marker *ngFor="let kk of Repdata;let ind = index" [latitude]="kk.latitudine"
-        [longitude]="kk.longitudine" [label]="kk.nome" color="blue"></agm-marker>
+    <!-- color="black" -->
+    <agm-marker *ngFor="let kk of filterForState('libero');let ind = index"
+    [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="kk.nome"
+    color="white"
+    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'" (markerClick)="prenota(kk._id, kk.nome)"></agm-marker>
   </agm-map>
 
   <div>

@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonService } from './services/make-request.service';
 
 import { DetailComponent } from './detail/detail.component';
-import { ViewComponent, DialogOverviewExampleDialog } from './view/view.component';
+import { ViewComponent, DialogRentBike } from './view/view.component';
 
 import { InsertBikeComponent } from './insert-bike/insert-bike.component';
 import { EditBikeComponent } from './edit-bike/edit-bike.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
   declarations: [
     DetailComponent,
     ViewComponent,
-    DialogOverviewExampleDialog,
+    DialogRentBike,
 	  InsertBikeComponent,
     EditBikeComponent,
   ],
@@ -46,7 +46,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule
   ],
-  entryComponents: [ ViewComponent, DialogOverviewExampleDialog ], // forse da rimuovere
+  entryComponents: [ ViewComponent, DialogRentBike ], // forse da rimuovere
   exports: [ RouterModule, MaterialModule],
   providers: [CommonService],
   bootstrap: []
