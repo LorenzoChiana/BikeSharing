@@ -17,7 +17,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutesMain: Routes = [
-    { path: '', redirectTo: '/', pathMatch: 'full' },
+    //{ path: '', redirectTo: '/', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
 ];
 
