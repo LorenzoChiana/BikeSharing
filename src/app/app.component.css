@@ -669,13 +669,7 @@ td, th {
   padding: 9px 26px; }
 
 .main-menu {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  padding: 18px 35px;
-  background: #000;
+  height: 100vh;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
@@ -933,5 +927,27 @@ body.mobile-nav-active #mobile-nav {
 
 body.mobile-nav-active #mobile-nav-toggle {
   color: #fff; }
+
+.example-icon {
+  padding: 0 14px; }
+
+.example-spacer {
+  flex: 1 1 auto; }
+
+mat-toolbar, mat-toolbar-row, mat-sidenav {
+  background: #000; }
+
+mat-sidenav {
+  width: 200px;
+  color: #fff; }
+
+.black-button, .white-icon {
+  background: black; }
+
+.white-icon {
+  color: white; }
+
+.white-icon svg {
+  fill: #000; }
 
 /*# sourceMappingURL=app.component.css.map */

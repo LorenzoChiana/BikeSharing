@@ -649,6 +649,59 @@ td, th {
   margin-left: 0;
   margin-right: 0; }
 
+/* =================================== */
+/*  Contact Page Styles
+/* =================================== */
+.contact-page-area .map-wrap {
+  margin-bottom: 120px; }
+  @media (max-width: 991px) {
+    .contact-page-area .map-wrap {
+      margin-bottom: 50px; } }
+.contact-page-area .contact-btns {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  padding: 40px;
+  color: #fff;
+  margin-bottom: 30px; }
+  .contact-page-area .contact-btns:hover {
+    color: #fff; }
+.contact-page-area .form-area input {
+  padding: 15px; }
+.contact-page-area .form-area input,
+.contact-page-area .form-area textarea {
+  border-radius: 0;
+  font-size: 12px; }
+.contact-page-area .form-area textarea {
+  height: 190px;
+  margin-top: 0px;
+  padding: 15px; }
+.contact-page-area .form-area .genric-btn {
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  border-radius: 0 !important;
+  font-size: 14px;
+  text-transform: uppercase !important; }
+  .contact-page-area .form-area .genric-btn:hover {
+    border: 1px solid #f9d700;
+    color: #f9d700 !important; }
+@media (max-width: 991px) {
+  .contact-page-area .address-wrap {
+    margin-bottom: 30px; } }
+.contact-page-area .address-wrap .single-contact-address {
+  margin-bottom: 8px; }
+  .contact-page-area .address-wrap .single-contact-address h5 {
+    font-weight: 300;
+    font-size: 16px;
+    margin-bottom: 5px; }
+  .contact-page-area .address-wrap .single-contact-address .lnr {
+    font-size: 30px;
+    font-weight: 500;
+    color: #f9d700;
+    margin-right: 30px; }
+
 /* ====================primary=============== */
 /*  Homepage Styles
 /* =================================== */
@@ -1185,6 +1238,10 @@ td, th {
   .footer-text i {
     color: #f9d700; }
 
+agm-map {
+  height: 300px;
+}
+
 /*-------- end footer Area -------------*/
 
-/*# sourceMappingURL=home.component.css.map */
+/*# sourceMappingURL=contact.component.css.map */
