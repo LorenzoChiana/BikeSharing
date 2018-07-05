@@ -6,6 +6,9 @@ import { AgmCoreModule } from '@agm/core';
 
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+
+import { MaterialModule } from './material.module';
+
 import { CommonService } from './services/make-request.service';
 
 import { DetailComponent } from './detail/detail.component';
@@ -34,9 +37,10 @@ const routes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MaterialModule
   ],
-  exports: [ RouterModule ],
+  exports: [ RouterModule, MaterialModule],
   providers: [CommonService],
   bootstrap: []
 })
