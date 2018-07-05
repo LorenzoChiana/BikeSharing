@@ -649,7 +649,7 @@ td, th {
   margin-left: 0;
   margin-right: 0; }
 
-/* =================================== */
+/* ====================primary=============== */
 /*  Homepage Styles
 /* =================================== */
 .section-gap {
@@ -757,6 +757,7 @@ td, th {
       .banner-content h1 {
         font-size: 32px; } }
   .banner-content h6 {
+    margin-top: 90px;
     font-size: 14px;
     font-weight: 400;
     text-transform: uppercase;
@@ -768,7 +769,8 @@ td, th {
     background-color: #f9d700;
     color: #222;
     font-weight: 600;
-    font-size: 14px; }
+    font-size: 14px;
+    margin-bottom: 20px; }
     .banner-content .primary-btn:hover {
       background-color: #fff; }
   @media (max-width: 767px) {
