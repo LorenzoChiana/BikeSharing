@@ -27,16 +27,12 @@
 <router-outlet></router-outlet>-->
 
 <header id="header">
-  <div class="container main-menu">
-    <div class="row align-items-center justify-content-between d-flex">
-      <!--<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>   -->
-    <nav id="nav-menu-container">
+  <div class="main-menu">
+    <!-- <nav id="nav-menu-container">
       <ul class="nav-menu">
-        <!--<li class="menu-active"><a href="index.html">Home</a></li>-->
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/home']">Home</a>
         </li>
-        <!--<li><a href="about.html">About</a></li>-->
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/about']">About</a>
         </li>
@@ -50,8 +46,47 @@
           <a class="nav-link" [routerLink]="['/login']">Login</a>
         </li>
       </ul>
-    </nav><!-- #nav-menu-container -->    
-    </div>
+    </nav>   --> 
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <button mat-icon-button class="black-button" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon class="white-icon">menu</mat-icon>
+        </button>
+        <div class="row align-items-center justify-content-between d-flex" fxShow="true" fxHide.lt-md="true">
+          <nav id="nav-menu-container">
+            <ul class="nav-menu">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/home']">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/about']">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/services']">Services</a>
+              </li>                                  
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/contact']">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/login']">Login</a>
+              </li>
+            </ul>
+          </nav> 
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-sidenav-container fxFlexFill>
+      <mat-sidenav #sidenav>
+        <mat-nav-list>
+          <a class="nav-link" [routerLink]="['/home']" (click)="sidenav.toggle()">Home</a>
+          <a class="nav-link" [routerLink]="['/about']" (click)="sidenav.toggle()">About</a>
+          <a class="nav-link" [routerLink]="['/services']" (click)="sidenav.toggle()">Services</a>
+          <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">Contact</a>
+          <a class="nav-link" [routerLink]="['/login']" (click)="sidenav.toggle()">Login</a>
+        </mat-nav-list>
+      </mat-sidenav>
+    </mat-sidenav-container>
   </div>
-</header><!-- #header -->
-<router-outlet></router-outlet>
+</header>
+<router-outlet></router-outlet> 
