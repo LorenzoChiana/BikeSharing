@@ -8,6 +8,33 @@
 agm-map {
   height: 200px;
 }
+
+/* parte aggiunta */
+.mat-dialog-container {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.mat-dialog-container > * {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-dialog-content {
+    max-height: inherit !important;
+}
+
+.mat-dialog-actions {
+    display: block !important;
+    flex-grow: inherit;
+    flex-shrink: inherit;
+    padding: 12px 0 0 !important;
+
+    &:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
 </style>
 <body>
 <div class="container">
@@ -35,7 +62,7 @@ agm-map {
 <!--          <td *ngIf="!isAdmin && kk.stato == 'libero'"><a (click)="prenota(kk._id)" style="color:blueviolet">Prenota</a></td> -->
           <!-- (click)="prenota(kk._id)" -->
           <td *ngIf="!isAdmin && kk.stato == 'libero'">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="color:blueviolet">Prenota</button>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id)" data-target="#myModal" style="color:blueviolet">Prenota</button>
           </td>
           <td *ngIf="!isAdmin && kk.stato != 'libero' && kk.stato != nameUser"><a style="color:red">Non puoi prenotare</a></td>
           <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia la bici</a></td>

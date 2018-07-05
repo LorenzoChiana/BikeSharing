@@ -9,13 +9,17 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { CommonService } from './services/make-request.service';
 
 import { DetailComponent } from './detail/detail.component';
-import { ViewComponent } from './view/view.component';
+import { ViewComponent, DialogOverviewExampleDialog } from './view/view.component';
 
 import { InsertBikeComponent } from './insert-bike/insert-bike.component';
 import { EditBikeComponent } from './edit-bike/edit-bike.component';
+
+import 'hammerjs';
 
 const routes: Routes = [
   { path: 'view', component: ViewComponent },
@@ -29,17 +33,20 @@ const routes: Routes = [
   declarations: [
     DetailComponent,
     ViewComponent,
+    DialogOverviewExampleDialog,
 	  InsertBikeComponent,
     EditBikeComponent,
   ],
   imports: [
     NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
+    BrowserAnimationsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
     RouterModule.forChild(routes),
     MaterialModule
   ],
+  entryComponents: [ ViewComponent, DialogOverviewExampleDialog ], // forse da rimuovere
   exports: [ RouterModule, MaterialModule],
   providers: [CommonService],
   bootstrap: []
