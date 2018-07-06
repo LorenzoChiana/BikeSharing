@@ -810,7 +810,7 @@ td, th {
       .banner-content h1 {
         font-size: 32px; } }
   .banner-content h6 {
-    margin-top: 90px;
+    margin-top: 10px;
     font-size: 14px;
     font-weight: 400;
     text-transform: uppercase;
@@ -1095,7 +1095,8 @@ td, th {
   background: url(../../assets/images/top-banner.jpg) center; }
 
 .about-content {
-  margin-top: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 50px 0px;
   text-align: center; }
   @media (max-width: 767px) {
@@ -1237,10 +1238,6 @@ td, th {
   .footer-text a,
   .footer-text i {
     color: #f9d700; }
-
-agm-map {
-  height: 300px;
-}
 
 /*-------- end footer Area -------------*/
 

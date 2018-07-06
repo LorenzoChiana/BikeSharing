@@ -108,7 +108,7 @@
         font-size: 60px;
         font-weight: 600;
         line-height: 1em;
-        margin-top: 10px;
+        margin-top: 20px;
         color: $primary-color;
         @include media-breakpoint-down(md) {
             font-size: 36px;
@@ -126,7 +126,7 @@
         }
     }
     h6 {
-        margin-top: 90px;
+        margin-top: 10px;
         font-size: 14px;
         font-weight: 400;
         text-transform: uppercase;
@@ -491,7 +491,8 @@
 }
 
 .about-content {
-    margin-top: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     padding: 50px 0px;
     text-align: center;
     @media(max-width: 767px) {

@@ -942,10 +942,10 @@ mat-sidenav {
   color: #fff; }
 
 .black-button, .white-icon {
-  background: black; }
+  background: #fff; }
 
 .white-icon {
-  color: white; }
+  color: #000; }
 
 .white-icon svg {
   fill: #000; }
