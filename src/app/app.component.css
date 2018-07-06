@@ -942,12 +942,12 @@ mat-sidenav {
   color: #fff; }
 
 .black-button, .white-icon {
-  background: #fff; }
+  background: black; }
 
 .white-icon {
-  color: #000; }
+  color: white; }
 
 .white-icon svg {
-  fill: #000; }
+  fill: white; }
 
 /*# sourceMappingURL=app.component.css.map */
