@@ -10,7 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material.module';
 
-import { CommonService } from './services/make-request.service';
+import { BikeService } from './services/make-request.service';
+import { PrenotationService } from './services/make-prenotation.service';
 
 import { DetailComponent } from './detail/detail.component';
 import { ViewComponent, DialogRentBike } from './view/view.component';
@@ -18,8 +19,10 @@ import { InsertBikeComponent } from './insert-bike/insert-bike.component';
 import { EditBikeComponent } from './edit-bike/edit-bike.component';
 
 import 'hammerjs';
+import { ViewPrenotationComponent } from './view-prenotation/view-prenotation.component';
 
 const routes: Routes = [
+  { path: 'viewPrenotation', component: ViewPrenotationComponent },
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
   { path: 'ins', component: InsertBikeComponent },
@@ -34,6 +37,7 @@ const routes: Routes = [
     DialogRentBike,
 	  InsertBikeComponent,
     EditBikeComponent,
+    ViewPrenotationComponent,
   ],
   imports: [
     NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
@@ -46,7 +50,7 @@ const routes: Routes = [
   ],
   entryComponents: [ ViewComponent, DialogRentBike ],
   exports: [ RouterModule, MaterialModule],
-  providers: [CommonService],
+  providers: [ BikeService, PrenotationService ],
   bootstrap: []
 })
 export class BikeSharingModule { }

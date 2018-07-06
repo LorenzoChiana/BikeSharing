@@ -3,7 +3,7 @@ import { FormGroup,FormControl,Validators,FormsModule, } from '@angular/forms';
 import { Http,Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { CommonService } from '../services/make-request.service';
+import { BikeService } from '../services/make-request.service';
 
 @Component({
   selector: 'app-insert-bike',
@@ -14,7 +14,7 @@ export class InsertBikeComponent implements OnInit {
 
   private valbutton: string;
 
-  constructor(private commonService :CommonService, private route :Router,
+  constructor(private bikeService :BikeService, private route :Router,
     private activeRoute: ActivatedRoute) {}
 
   ngOnInit() {
@@ -23,7 +23,7 @@ export class InsertBikeComponent implements OnInit {
 
   onSave = function(bike, isValid: boolean) {
    bike.mode= this.valbutton;
-    this.commonService.saveBike(bike)
+    this.bikeService.saveBike(bike)
     .subscribe(data => { alert(data.data) }, error => this.errorMessage = error)
   }
 }

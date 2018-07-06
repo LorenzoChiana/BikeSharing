@@ -4,7 +4,7 @@ import { FormGroup,FormControl,Validators,FormsModule, } from '@angular/forms';
 import { Http,Response, Headers, RequestOptions } from '@angular/http';
 import { Location } from '@angular/common';
 
-import { CommonService } from '../services/make-request.service';
+import { BikeService } from '../services/make-request.service';
 import { Bike } from '../bike'
 
 @Component({
@@ -22,7 +22,7 @@ export class EditBikeComponent implements OnInit {
   private latitudine: number;
   private longitudine: number;
 
-  constructor(private newService :CommonService, private route: ActivatedRoute, private location: Location) {}
+  constructor(private bikeService :BikeService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
     this.valbutton = "Update";
@@ -42,7 +42,9 @@ export class EditBikeComponent implements OnInit {
 
     this.bike.mode = this.valbutton;
 
-   this.newService.saveBike(this.bike).subscribe(data =>  {  alert(data.data); }, error => this.errorMessage = error );
+    alert("tipo della bici = " + typeof(this.bike))
+
+   this.bikeService.saveBike(this.bike).subscribe(data =>  {  alert(data.data); }, error => this.errorMessage = error );
   }
 
   goBack(): void {

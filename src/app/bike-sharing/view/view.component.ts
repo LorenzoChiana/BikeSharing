@@ -1,10 +1,18 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {CommonService} from '../services/make-request.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { BikeService } from '../services/make-request.service';
+import { PrenotationService } from '../services/make-prenotation.service';
+
+import { MouseEvent } from '@agm/core';
+
+import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators/filter';
+
+import { Bike } from '../bike'
+import { Prenotazione } from '../prenotazione'
 
 export interface DialogData {
   idBike: number;
@@ -41,7 +49,7 @@ export class ViewComponent implements OnInit {
    private isAdmin: boolean;
    private nameUser: string;
 
-   private Repdata;
+   private Repdata : Bike[];
    private errorMessage;
 
    // Centro di Cesena
@@ -52,7 +60,8 @@ export class ViewComponent implements OnInit {
    timeInit: string = "10:30";
    timeEnd: string = "12:30";
 
-  constructor(private newService :CommonService,
+  constructor(private bikeService :BikeService,
+    private prenotationService :PrenotationService,
     private location: Location,
     private route: ActivatedRoute,
     public dialog: MatDialog) {   }
@@ -65,26 +74,31 @@ export class ViewComponent implements OnInit {
   }
 
   viewBike() {
-    this.newService.getAllBike().subscribe(data =>  this.Repdata = data)
+    this.bikeService.getAllBike().subscribe(data =>  this.Repdata = data)
   }
 
   filterForState(stato : string) {
-    return this.Repdata.filter(x => x.stato == stato);
+//    return this.Repdata.pipe(filter(x => x.stato == stato));
+      return this.Repdata.filter(x => x.stato == stato);
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  prenota(idBike: number, nomeBike: string) : void {
-    var rentContent: RentContent = new RentContent(this.nameUser, idBike, nomeBike, this.timeInit, this.timeEnd);
-    this.openDialog(rentContent, this.newService);
+  informaz() : void {
+
   }
 
-  openDialog(rentContent : RentContent, newService: CommonService): void {
+  prenota(idBike: number, nomeBike: string) : void {
+    var rentContent: RentContent = new RentContent(this.nameUser, idBike, nomeBike, this.timeInit, this.timeEnd);
+    this.openDialog(rentContent, this.bikeService, this.prenotationService);
+  }
+
+  openDialog(rentContent : RentContent, bikeService: BikeService, prenotationService: PrenotationService): void {
     const dialogRef = this.dialog.open(DialogRentBike, {
-      //width: '300px',
-      //height: '400px',
+      width: '300px',
+      height: '400px',
       data: {
         idBike: rentContent.idBike,
         nomeBike: rentContent.nomeBike,
@@ -95,8 +109,18 @@ export class ViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.timeInit != rentContent.timeInit || result.timeEnd != rentContent.timeEnd) {
-        this.newService.modifyStateBike(rentContent.idBike, rentContent.nameUser)
+        this.bikeService.modifyStateBike(rentContent.idBike, rentContent.nameUser)
         .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
+
+        var today = new Date();
+
+        //today.format('dd-m-yy');
+
+        var todayString = today.toDateString();
+
+        this.prenotationService.savePrenotation(result.timeInit, result.timeEnd,
+          rentContent.nameUser, rentContent.nomeBike, todayString)
+          .subscribe(data => { alert(data.data); }, error => this.errorMessage = error)
       } else {
         alert("stato bici non modificato")
       }
@@ -106,7 +130,7 @@ export class ViewComponent implements OnInit {
     rilascia(id) : void {
       alert("Vuoi rilasciare? = ");
 
-      this.newService.modifyStateBike(id, "libero")
+      this.bikeService.modifyStateBike(id, "libero")
       .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
     }
   }

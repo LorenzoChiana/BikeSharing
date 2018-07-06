@@ -56,12 +56,23 @@ agm-map {
     </table>
   </div>
 
+<!--       (mouseover)="informaz()" (markerClick)="prenota(kk._id, kk.nome)" -->
+
   <div class="map-responsive" id="mapView">
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
       <agm-marker *ngFor="let kk of filterForState('libero');let ind = index"
       [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="kk.nome"
+      (markerClick)="informaz()"
+
       color="white"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'" (markerClick)="prenota(kk._id, kk.nome)"></agm-marker>
+      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+
+      <agm-info-window>
+        <p> Latitudine: {{kk.latitudine}} </p>
+        <p> Longitudine: {{kk.longitudine}} </p>
+        <p> Nome marker: {{kk.nome}} </p>
+      </agm-info-window>
+    </agm-marker>
     </agm-map>
   </div>
 
@@ -69,6 +80,7 @@ agm-map {
 
 <div class="container">
   <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
+  <a *ngIf="isAdmin" [routerLink]="['/viewPrenotation']" routerLinkActive="active">Prenotazioni effettuate</a>
   <button (click)="goBack()">go back</button>
 </div>
 

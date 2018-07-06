@@ -155,10 +155,10 @@ var BikeSchema = new Schema({
  stato: { type: String }
 },{ versionKey: false });    
 	 
-var model = mongo.model('bikes', BikeSchema, 'bikes'); 
+var modelBike = mongo.model('bikes', BikeSchema, 'bikes'); 
   
 app.post("/api/SaveBike/",function(req,res) {   
- var mod = new model(req.body);  
+ var mod = new modelBike(req.body);  
  if(req.body.mode =="Save") {  
     mod.save(function(err,data){  
       if(err) {  
@@ -168,7 +168,7 @@ app.post("/api/SaveBike/",function(req,res) {
       }  
 	});  
 } else {
-	model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+	modelBike.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
 							stato: req.body.stato},  
    function(err,data) {  
@@ -183,7 +183,7 @@ app.post("/api/SaveBike/",function(req,res) {
 })  
 
 app.post("/api/deleteBike", function(req,res) {      
-	model.remove({ _id: req.body.id }, function(err) {    
+	modelBike.remove({ _id: req.body.id }, function(err) {    
 		if(err){    
 			res.send(err);    
 		}    
@@ -194,7 +194,7 @@ app.post("/api/deleteBike", function(req,res) {
 })
 
 app.post("/api/modifyStateBike", function(req,res) {      
-	model.findByIdAndUpdate(req.body.id, { stato: req.body.stato }, function(err) {    
+	modelBike.findByIdAndUpdate(req.body.id, { stato: req.body.stato }, function(err) {    
 		if(err){    
 			res.send(err);    
 		}    
@@ -205,11 +205,84 @@ app.post("/api/modifyStateBike", function(req,res) {
 })
   
 app.get("/api/getAllBike", function(req,res) {  
-	model.find({},function(err,data){  
+	modelBike.find({},function(err,data){  
 		if(err){  
 			res.send(err);  
 		}  
 		else{     		
+			res.send(data);  
+		}  
+	})  
+})
+
+var PrenotationSchema = new Schema({      
+ timeInit: { type: String, required: true },       
+ timeEnd: { type: String, required: true },
+ nomeUtente: { type: String, required: true },
+ nomeBici: { type: String, required: true },
+ data: { type: String, required: true },
+},{ versionKey: false });    
+	 
+var modelPrenotation = mongo.model('prenotazioni', PrenotationSchema, 'prenotazioni'); 
+  
+app.post("/api/SavePrenotation/",function(req,res) {   
+ var mod = new modelPrenotation(req.body);  
+ //if(req.body.mode =="Save") {  
+    mod.save(function(err,data){  
+      if(err) {  
+         res.send(err);                
+      } else {    
+         res.send({data:"Record has been Inserted..!!"});  
+      }  
+	});  
+//} 
+//else {
+	/*
+	modelPrenotation.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
+							stato: req.body.stato},  
+   function(err,data) {  
+	   if (err) {  
+		res.send(err);         
+	   }  
+   else{        
+		  res.send({data:"Record has been Updated..!!"});  
+	 }  
+ });
+ */
+//}
+})  
+
+app.post("/api/deletePrenotation", function(req,res) {      
+	modelPrenotation.remove({ _id: req.body.id }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Record has been Deleted..!!"});               
+		}    
+	})    
+})
+
+app.post("/api/modifyStatePrenotation", function(req,res) {      
+	modelPrenotation.findByIdAndUpdate(req.body.id, { timeInit: req.body.timeInit }, { timeEnd: req.body.timeEnd },
+	function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Stato prenotazione modificato"});               
+		}    
+	})    
+})
+  
+app.get("/api/getAllPrenotation", function(req,res) {  
+	modelPrenotation.find({},function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{
+			console.log("getAllPrenotation = " + data);
 			res.send(data);  
 		}  
 	})  
