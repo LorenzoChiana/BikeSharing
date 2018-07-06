@@ -6,9 +6,18 @@
 </head>
 <style>
 agm-map {
-  height: 200px;
+  width: 100%;
+  height: 50vh;
 }
 
+/* css alla men peggio */
+#mapView {
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
 </style>
 <body>
 <div class="container">
@@ -47,19 +56,20 @@ agm-map {
     </table>
   </div>
 
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-    <!-- color="black" -->
-    <agm-marker *ngFor="let kk of filterForState('libero');let ind = index"
-    [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="kk.nome"
-    color="white"
-    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'" (markerClick)="prenota(kk._id, kk.nome)"></agm-marker>
-  </agm-map>
-
-  <div>
-    <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
-    <button (click)="goBack()">go back</button>
+  <div class="map-responsive" id="mapView">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
+      <agm-marker *ngFor="let kk of filterForState('libero');let ind = index"
+      [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="kk.nome"
+      color="white"
+      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'" (markerClick)="prenota(kk._id, kk.nome)"></agm-marker>
+    </agm-map>
   </div>
 
+</div>
+
+<div class="container">
+  <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
+  <button (click)="goBack()">go back</button>
 </div>
 
 </body>

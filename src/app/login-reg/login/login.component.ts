@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {LoginRegService} from '../login-reg.service'
-
-import { User } from '../User'
-
 import {Observable} from 'rxjs/Rx';
+
+import {LoginRegService} from '../login-reg.service'
+import { User } from '../User'
 
 @Component({
   selector: 'app-login',
@@ -15,20 +14,17 @@ import {Observable} from 'rxjs/Rx';
   providers: [LoginRegService]
 })
 export class LoginComponent implements OnInit {
-  //constructor(private logService :LoginService, private route: ActivatedRoute) {} da riprendere in avanti
-
   private loginForm: FormGroup;
   private submitted: boolean;
 
-    lat: number = 51.678418;
-    lng: number = 7.809007;
+  lat: number = 51.678418;
+  lng: number = 7.809007;
 
-    private errorMessage;
+  private errorMessage;
 
   constructor(private formBuilder: FormBuilder, private loginRegService : LoginRegService, private route :Router) { }
 
   ngOnInit() {
-
     this.submitted = false;
 
     this.loginForm = this.formBuilder.group({
@@ -40,11 +36,9 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-
     this.submitted = true;
 
     if (this.loginForm.invalid) {
-      //alert("invalid form");
       return;
     }
 

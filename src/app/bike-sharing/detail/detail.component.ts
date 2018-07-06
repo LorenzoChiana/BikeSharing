@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -12,13 +11,13 @@ import { Bike } from '../bike'
 })
 export class DetailComponent implements OnInit {
 
-  imageUrl: string; // = "/assets/img/default-image.png";
-  fileToUpload: File = null;
-
-  private bike: Bike;
-
+  private imageUrl: string; // = "/assets/img/default-image.png";
   private latitudine : number;
   private longitudine : number;
+
+  private zoom: number = 12;
+
+  private bike: Bike;
 
 // azzurro: 00FFFF
 

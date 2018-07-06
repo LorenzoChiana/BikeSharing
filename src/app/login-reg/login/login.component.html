@@ -4,11 +4,9 @@
 <body> <!-- aggiunto-->
   <h2>Login</h2>
 <div class="container">
-  <!-- class="form-horizontal" -->
 <form [formGroup]="loginForm"  (ngSubmit)="onSubmit()" novalidate>
   <div class="form-content"> <!-- aggiunto-->
     <div class="form-group">
-      <!-- <label for="nomeUtente">Nome utente</label> -->
         <input type="text" formControlName="nomeUtente" placeholder="Nome"
         class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" required />
 
@@ -26,7 +24,6 @@
           <div *ngIf="f.password.errors.required">Password richiesta</div>
       </div>
     </div>
-
   </div> <!-- aggiunto-->
   <div class="container">
     <div class="row">
@@ -38,7 +35,6 @@
       </div>
     </div>
   </div>
-
 </form>
 
 </div>
