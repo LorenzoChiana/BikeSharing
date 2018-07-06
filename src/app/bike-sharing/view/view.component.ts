@@ -1,10 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {CommonService} from '../services/make-request.service';
 
-import { filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators/filter';
 
 export interface DialogData {
   idBike: number;
@@ -21,19 +21,14 @@ export class RentContent {
   timeInit: string;
   timeEnd: string;
 
-  constructor(nameUser: string,
-              idBike: number,
-              nomeBike: string,
-              timeInit: string,
-              timeEnd: string) {
-
+  constructor(nameUser: string, idBike: number, nomeBike: string,
+              timeInit: string, timeEnd: string) {
                 this.nameUser = nameUser;
                 this.idBike = idBike;
                 this.nomeBike = nomeBike;
                 this.timeInit = timeInit;
                 this.timeEnd = timeEnd;
               }
-
 }
 
 @Component({
@@ -45,15 +40,14 @@ export class ViewComponent implements OnInit {
 
    private isAdmin: boolean;
    private nameUser: string;
-   Repdata;
 
+   private Repdata;
    private errorMessage;
 
-// Centro di Cesena
-   lat: number = 44.1493031;
-   lng: number = 12.192423;
-
-   zoom: number = 12;
+   // Centro di Cesena
+   private lat: number = 44.1493031;
+   private lng: number = 12.192423;
+   private zoom: number = 12;
 
    timeInit: string = "10:30";
    timeEnd: string = "12:30";
@@ -64,10 +58,10 @@ export class ViewComponent implements OnInit {
     public dialog: MatDialog) {   }
 
   ngOnInit() {
-    this.nameUser = localStorage.getItem('login');
+    this.nameUser = localStorage.getItem('login')
+    this.isAdmin = (this.route.snapshot.params['admin'] == "admin")
 
     this.viewBike()
-    this.isAdmin = (this.route.snapshot.params['admin'] == "admin")
   }
 
   viewBike() {
@@ -83,22 +77,14 @@ export class ViewComponent implements OnInit {
   }
 
   prenota(idBike: number, nomeBike: string) : void {
-    var rentContent: RentContent = new RentContent(this.nameUser,
-                                                    idBike, nomeBike,
-                                                    this.timeInit,
-                                                    this.timeEnd);
-
+    var rentContent: RentContent = new RentContent(this.nameUser, idBike, nomeBike, this.timeInit, this.timeEnd);
     this.openDialog(rentContent, this.newService);
-  }
-
-  markerClick() : void {
-    alert("cliccato!")
   }
 
   openDialog(rentContent : RentContent, newService: CommonService): void {
     const dialogRef = this.dialog.open(DialogRentBike, {
-      width: '250px',
-      height: '250px',
+      //width: '300px',
+      //height: '400px',
       data: {
         idBike: rentContent.idBike,
         nomeBike: rentContent.nomeBike,
@@ -108,10 +94,12 @@ export class ViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-
-      this.newService.modifyStateBike(rentContent.idBike, rentContent.nameUser)
-      .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
+      if (result.timeInit != rentContent.timeInit || result.timeEnd != rentContent.timeEnd) {
+        this.newService.modifyStateBike(rentContent.idBike, rentContent.nameUser)
+        .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
+      } else {
+        alert("stato bici non modificato")
+      }
     });
   }
 
@@ -121,7 +109,7 @@ export class ViewComponent implements OnInit {
       this.newService.modifyStateBike(id, "libero")
       .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
     }
-}
+  }
 
 @Component({
   selector: 'dialog',

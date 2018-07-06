@@ -1,12 +1,25 @@
-<h1 mat-dialog-title>Prenotazione bici: {{data.nomeBike}}</h1>
-<div mat-dialog-content>
-  <p>Scegli orario</p>
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.timeInit">
-    <input matInput [(ngModel)]="data.timeEnd">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
-</div>
+<style>
+/* css alla men peggio */
+  .formInput {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+  <div class="container">
+    <h1 mat-dialog-title>Prenotazione bici: {{data.nomeBike}}</h1>
+    <div mat-dialog-content>
+      <div class="formInput">
+        <p>Scegli orario</p>
+        <mat-form-field>
+          <input matInput [(ngModel)]="data.timeInit">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="data.timeEnd">
+        </mat-form-field>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+  </div>

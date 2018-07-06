@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { LoginRegService } from '../login-reg.service'
-
 import { User } from '../User'
 
 @Component({

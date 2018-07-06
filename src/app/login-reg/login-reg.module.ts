@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { BikeSharingModule } from '../bike-sharing/bike-sharing.module';
@@ -25,9 +24,6 @@ const appRoutesLogin: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutesLogin),
     ShowHidePasswordModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
-    }),
   ],
   exports: [
     RegistrationComponent, LoginComponent

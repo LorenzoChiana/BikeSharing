@@ -4,11 +4,9 @@
 <body> <!-- aggiunto-->
   <h2>Register</h2>
 <div class="container">
-  <!-- class="form-horizontal" -->
 <form [formGroup]="registerForm"  (ngSubmit)="onSubmit()" novalidate>
   <div class="form-content"> <!-- aggiunto-->
     <div class="form-group">
-      <!-- <label for="nomeUtente">Nome utente</label> -->
         <input type="text" formControlName="nomeUtente" placeholder="Nome"
         class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" />
         <div *ngIf="submitted && f.nomeUtente.errors" class="invalid-feedback">
@@ -30,8 +28,6 @@
       <input type="submit" class="btn btn-primary" value="Register"/>
     </div>
   </div>
-
 </form>
-
 </div>
 </body>
