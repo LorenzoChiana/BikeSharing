@@ -742,7 +742,7 @@ td, th {
     font-size: 60px;
     font-weight: 600;
     line-height: 1em;
-    margin-top: 10px;
+    margin-top: 20px;
     color: #f9d700; }
     @media (max-width: 991.98px) {
       .banner-content h1 {
@@ -757,7 +757,7 @@ td, th {
       .banner-content h1 {
         font-size: 32px; } }
   .banner-content h6 {
-    margin-top: 90px;
+    margin-top: 10px;
     font-size: 14px;
     font-weight: 400;
     text-transform: uppercase;
@@ -1042,7 +1042,8 @@ td, th {
   background: url(../../assets/images/top-banner.jpg) center; }
 
 .about-content {
-  margin-top: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   padding: 50px 0px;
   text-align: center; }
   @media (max-width: 767px) {
