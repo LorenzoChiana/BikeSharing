@@ -3,35 +3,26 @@
     <thead>
       <tr>
         <td>Id</td>
+        <td>Data</td>
+        <td>Utente</td>
+        <td>Bici</td>
         <td>Tempo Inizio</td>
         <td>Tempo Fine</td>
-        <td>Nome utente</td>
-        <td>Nome bici</td>
-        <td>Data</td>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let kk of Repdata;let ind = index">
-
+      <tr *ngFor="let kk of repData;let ind = index">
         <td>{{ind + 1}}</td>
-        <td>{{kk.timeInit}}</td>
-        <td>{{kk.timeEnd}}</td>
+        <td>{{kk.data}}</td>
         <td>{{kk.nomeUtente}}</td>
         <td>{{kk.nomeBici}}</td>
-        <td>{{kk.data}}</td>
-
-        <!--
-        <td *ngIf="!isAdmin && kk.stato == 'libero'">
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id, kk.nome)" data-target="#myModal" style="color:blueviolet">Prenota</button>
-        </td>
-        <td *ngIf="!isAdmin && kk.stato != 'libero' && kk.stato != nameUser"><a style="color:red">Non puoi prenotare</a></td>
-        <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia la bici</a></td>
-        <td *ngIf="isAdmin"><a [routerLink]="['/edit', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active"
-          style="color:blueviolet">Edit</a></td>
-
-        <td><a [routerLink]="['/detail', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active">info</a></td>
-      -->
+        <td>{{kk.timeInit}}</td>
+        <td>{{kk.timeEnd}}</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="container">
+  <button (click)="goBack()">go back</button>
 </div>

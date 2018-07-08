@@ -42,8 +42,6 @@ export class EditBikeComponent implements OnInit {
 
     this.bike.mode = this.valbutton;
 
-    alert("tipo della bici = " + typeof(this.bike))
-
    this.bikeService.saveBike(this.bike).subscribe(data =>  {  alert(data.data); }, error => this.errorMessage = error );
   }
 

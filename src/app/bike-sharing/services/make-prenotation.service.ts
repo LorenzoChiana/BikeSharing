@@ -11,22 +11,6 @@ export class PrenotationService {
 
   constructor(private http: Http) { }
 
-/*
-  savePrenotation(prenotation){
-    return this.http.post('http://localhost:8080/api/SavePrenotation/', prenotation)
-            .map((response: Response) =>response.json())
-  }
-  */
-
-/*
-nomeUtente: { type: String, required: true },
- nomeBici: { type: String, required: true },
- data: { type: String, required: true },
-
-  result.timeInit, result.timeEnd,
-    rentContent.nameUser, rentContent.nomeBike, todayString
-    */
-
   savePrenotation(timeStart: string, timeEnd: string, nameUser: string, nomeBike: string, todayString: string){
     const prenotation = {
       timeInit: timeStart,
@@ -40,10 +24,14 @@ nomeUtente: { type: String, required: true },
   }
 
   getAllPrenotation(){
-    alert("getAllPrenotation")
     return this.http.get('http://localhost:8080/api/getAllPrenotation/')
               .map((response: Response) => response.json())
   }
+
+  getUserPrenotation(nameUser){
+     return this.http.post('http://localhost:8080/api/getUserPrenotation/',{'nomeUtente': nameUser}).
+     map((response: Response) =>response.json())
+   }
 
   modifyStatePrenotation(id, timeInit, timeEnd){
      return this.http.post('http://localhost:8080/api/modifyStatePrenotation/',{'id': id,

@@ -22,7 +22,7 @@ import 'hammerjs';
 import { ViewPrenotationComponent } from './view-prenotation/view-prenotation.component';
 
 const routes: Routes = [
-  { path: 'viewPrenotation', component: ViewPrenotationComponent },
+  { path: 'viewPrenotation/:nameUser/:isAdmin', component: ViewPrenotationComponent },
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
   { path: 'ins', component: InsertBikeComponent },

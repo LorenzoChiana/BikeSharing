@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, Inject, Injectable, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -9,14 +9,16 @@ import { PrenotationService } from '../services/make-prenotation.service';
 import { MouseEvent } from '@agm/core';
 
 import { Observable } from 'rxjs/Observable';
-import { filter } from 'rxjs/operators/filter';
+//import { filter } from 'rxjs/operators/filter';
+
+import { filter } from 'rxjs/operators';
 
 import { Bike } from '../bike'
 import { Prenotazione } from '../prenotazione'
 
 export interface DialogData {
   idBike: number;
-  nomeBike: string;
+  codeBike: string;
   timeInit: string;
   timeEnd: string;
 }
@@ -25,15 +27,15 @@ export class RentContent {
   nameUser: string;
 
   idBike: number;
-  nomeBike: string;
+  codeBike: string;
   timeInit: string;
   timeEnd: string;
 
-  constructor(nameUser: string, idBike: number, nomeBike: string,
+  constructor(nameUser: string, idBike: number, codeBike: string,
               timeInit: string, timeEnd: string) {
                 this.nameUser = nameUser;
                 this.idBike = idBike;
-                this.nomeBike = nomeBike;
+                this.codeBike = codeBike;
                 this.timeInit = timeInit;
                 this.timeEnd = timeEnd;
               }
@@ -49,7 +51,7 @@ export class ViewComponent implements OnInit {
    private isAdmin: boolean;
    private nameUser: string;
 
-   private Repdata : Bike[];
+   private repData : Bike[];
    private errorMessage;
 
    // Centro di Cesena
@@ -60,6 +62,8 @@ export class ViewComponent implements OnInit {
    timeInit: string = "10:30";
    timeEnd: string = "12:30";
 
+   @Input() disableAutoPan: boolean;
+
   constructor(private bikeService :BikeService,
     private prenotationService :PrenotationService,
     private location: Location,
@@ -67,31 +71,30 @@ export class ViewComponent implements OnInit {
     public dialog: MatDialog) {   }
 
   ngOnInit() {
-    this.nameUser = localStorage.getItem('login')
-    this.isAdmin = (this.route.snapshot.params['admin'] == "admin")
+    this.nameUser = localStorage.getItem('login');
+    this.isAdmin = (this.route.snapshot.params['admin'] == "admin");
 
-    this.viewBike()
+    this.viewBike();
   }
 
   viewBike() {
-    this.bikeService.getAllBike().subscribe(data =>  this.Repdata = data)
+    this.bikeService.getAllBike().subscribe(data => this.repData = data);
   }
 
   filterForState(stato : string) {
-//    return this.Repdata.pipe(filter(x => x.stato == stato));
-      return this.Repdata.filter(x => x.stato == stato);
+      return this.repData.filter(x => x.stato == stato);
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  informaz() : void {
+  infoBike() : void {
 
   }
 
-  prenota(idBike: number, nomeBike: string) : void {
-    var rentContent: RentContent = new RentContent(this.nameUser, idBike, nomeBike, this.timeInit, this.timeEnd);
+  prenota(idBike: number, codeBike: string) : void {
+    var rentContent: RentContent = new RentContent(this.nameUser, idBike, codeBike, this.timeInit, this.timeEnd);
     this.openDialog(rentContent, this.bikeService, this.prenotationService);
   }
 
@@ -101,7 +104,7 @@ export class ViewComponent implements OnInit {
       height: '400px',
       data: {
         idBike: rentContent.idBike,
-        nomeBike: rentContent.nomeBike,
+        codeBike: rentContent.codeBike,
         timeInit: rentContent.timeInit,
         timeEnd: rentContent.timeEnd
       }
@@ -119,18 +122,18 @@ export class ViewComponent implements OnInit {
         var todayString = today.toDateString();
 
         this.prenotationService.savePrenotation(result.timeInit, result.timeEnd,
-          rentContent.nameUser, rentContent.nomeBike, todayString)
-          .subscribe(data => { alert(data.data); }, error => this.errorMessage = error)
+          rentContent.nameUser, rentContent.codeBike, todayString)
+          .subscribe(data => { alert(data.data); }, error => this.errorMessage = error);
       } else {
-        alert("stato bici non modificato")
+        //alert("stato bici non modificato");
       }
     });
   }
 
     rilascia(id) : void {
-      alert("Vuoi rilasciare? = ");
+      alert("Vuoi rilasciare la bici? ");
 
-      this.bikeService.modifyStateBike(id, "libero")
+      this.bikeService.modifyStateBike(id, "free")
       .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
     }
   }
@@ -146,7 +149,5 @@ export class DialogRentBike {
 
   onNoClick(): void {
     this.dialogRef.close();
-
-    alert("close ")
   }
 }

@@ -149,7 +149,7 @@ app.post("/api/FindUser/", function(req,res) {
 	*/
 
 var BikeSchema = new Schema({      
- nome: { type: String, required: true },       
+ codice: { type: String, required: true },       
  latitudine: { type: Number, required: true },   
  longitudine: { type: Number, required: true },
  stato: { type: String }
@@ -168,7 +168,7 @@ app.post("/api/SaveBike/",function(req,res) {
       }  
 	});  
 } else {
-	modelBike.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+	modelBike.findByIdAndUpdate(req.body.id, { codice: req.body.codice, 
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
 							stato: req.body.stato},  
    function(err,data) {  
@@ -215,12 +215,12 @@ app.get("/api/getAllBike", function(req,res) {
 	})  
 })
 
-var PrenotationSchema = new Schema({      
+var PrenotationSchema = new Schema({ 
+ data: { type: String, required: true },   
+ nomeUtente: { type: String, required: true }, 
+ codiceBici: { type: String, required: true },
  timeInit: { type: String, required: true },       
  timeEnd: { type: String, required: true },
- nomeUtente: { type: String, required: true },
- nomeBici: { type: String, required: true },
- data: { type: String, required: true },
 },{ versionKey: false });    
 	 
 var modelPrenotation = mongo.model('prenotazioni', PrenotationSchema, 'prenotazioni'); 
@@ -275,6 +275,16 @@ app.post("/api/modifyStatePrenotation", function(req,res) {
 		}    
 	})    
 })
+
+app.post("/api/getUserPrenotation", function(req,res) {  
+	modelPrenotation.find({nomeUtente : req.body.nomeUtente}, function (err, data) {
+	 if (err) {
+		 next(err);
+	 } else {
+		 res.send(data);
+	 }
+ })    
+})
   
 app.get("/api/getAllPrenotation", function(req,res) {  
 	modelPrenotation.find({},function(err,data){  
@@ -282,7 +292,6 @@ app.get("/api/getAllPrenotation", function(req,res) {
 			res.send(err);  
 		}  
 		else{
-			console.log("getAllPrenotation = " + data);
 			res.send(data);  
 		}  
 	})  

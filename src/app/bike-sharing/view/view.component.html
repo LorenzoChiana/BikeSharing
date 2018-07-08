@@ -26,7 +26,7 @@ agm-map {
       <thead>
         <tr>
           <td>Id</td>
-          <td>Nome</td>
+          <td>Codice</td>
           <td>Latitudine</td>
           <td>Longitudine</td>
           <td *ngIf="!isAdmin">Prenotazione</td>
@@ -35,18 +35,18 @@ agm-map {
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let kk of Repdata;let ind = index">
+        <tr *ngFor="let kk of repData;let ind = index">
 
           <td>{{ind + 1}}</td>
-          <td>{{kk.nome}}</td>
+          <td>{{kk.codice}}</td>
           <td>{{kk.latitudine}}</td>
           <td>{{kk.longitudine}}</td>
 
-          <td *ngIf="!isAdmin && kk.stato == 'libero'">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id, kk.nome)" data-target="#myModal" style="color:blueviolet">Prenota</button>
+          <td *ngIf="!isAdmin && kk.stato == 'free'">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id, kk.codice)" data-target="#myModal" style="color:blueviolet">Prenota</button>
           </td>
-          <td *ngIf="!isAdmin && kk.stato != 'libero' && kk.stato != nameUser"><a style="color:red">Non puoi prenotare</a></td>
-          <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia la bici</a></td>
+          <td *ngIf="!isAdmin && kk.stato != 'free' && kk.stato != nameUser"><a style="color:red">Non disponibile</a></td>
+          <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia</a></td>
           <td *ngIf="isAdmin"><a [routerLink]="['/edit', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
 
@@ -56,21 +56,20 @@ agm-map {
     </table>
   </div>
 
-<!--       (mouseover)="informaz()" (markerClick)="prenota(kk._id, kk.nome)" -->
-
   <div class="map-responsive" id="mapView">
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
-      <agm-marker *ngFor="let kk of filterForState('libero');let ind = index"
-      [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="kk.nome"
-      (markerClick)="informaz()"
-
+      <agm-marker *ngFor="let kk of filterForState('free');let ind = index"
+      [label]="kk.codice" [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+      (markerClick)="prenota(kk._id, kk.codice)"
       color="white"
       [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
 
-      <agm-info-window>
-        <p> Latitudine: {{kk.latitudine}} </p>
-        <p> Longitudine: {{kk.longitudine}} </p>
-        <p> Nome marker: {{kk.nome}} </p>
+      <!-- {{kk.codice}} {{kk.latitudine}} {{kk.longitudine}} -->
+
+      <agm-info-window [disableAutoPan]="true">
+        <p> Codice: </p>
+        <p> Latitudine: </p>
+        <p> Longitudine: </p>
       </agm-info-window>
     </agm-marker>
     </agm-map>
@@ -80,7 +79,9 @@ agm-map {
 
 <div class="container">
   <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
-  <a *ngIf="isAdmin" [routerLink]="['/viewPrenotation']" routerLinkActive="active">Prenotazioni effettuate</a>
+  <a [routerLink]="['/viewPrenotation', nameUser, isAdmin]"
+                     routerLinkActive="active">Lista prenotazioni</a>
+
   <button (click)="goBack()">go back</button>
 </div>
 
