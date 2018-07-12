@@ -666,6 +666,10 @@ td, th {
   margin-bottom: 30px; }
   .contact-page-area .contact-btns:hover {
     color: #fff; }
+.contact-page-area #map {
+  width: 100%;
+  height: 445px;
+  margin-bottom: 40px; }
 .contact-page-area .form-area input {
   padding: 15px; }
 .contact-page-area .form-area input,
@@ -795,7 +799,7 @@ td, th {
     font-size: 60px;
     font-weight: 600;
     line-height: 1em;
-    margin-top: 10px;
+    margin-top: 20px;
     color: #f9d700; }
     @media (max-width: 991.98px) {
       .banner-content h1 {

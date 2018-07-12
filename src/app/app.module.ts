@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginRegModule } from './login-reg/login-reg.module';
-import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -19,7 +18,6 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutesMain: Routes = [
     //{ path: '', redirectTo: '/', pathMatch: 'full' },
@@ -41,16 +39,12 @@ const appRoutesMain: Routes = [
     FormsModule,
     LoginRegModule,
     RouterModule.forRoot(appRoutesMain),
-    BrowserAnimationsModule,
     MatIconModule,
     MatListModule,
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
-    FlexLayoutModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
-    })
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
