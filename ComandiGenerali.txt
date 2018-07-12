@@ -10,3 +10,7 @@ git log HEAD..origin/master // guardare le differenze
 git stash // comando per eliminare le modifiche fatte in locale
 
 git remote add origin https://github.com/lorenz95/TraumaTracker.git // aggiungere modifiche
+
+Comandi mongoDb
+
+./mongoexport.exe --db bikeSharing --collection bikes --out resultExport.json // output in formato json di una collezione
