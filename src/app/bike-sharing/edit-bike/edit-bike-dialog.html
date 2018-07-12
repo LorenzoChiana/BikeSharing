@@ -1,0 +1,31 @@
+<style>
+/* css alla men peggio */
+  .formInput {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="container">
+  <h1 mat-dialog-title>Edit bici: {{data.codice}}</h1>
+  <div mat-dialog-content>
+    <div class="formInput">
+      <mat-form-field>
+        <label>Codice:</label>
+        <input matInput [(ngModel)]="data.codice">
+      </mat-form-field>
+      <mat-form-field>
+        <label>Stato:</label>
+        <input matInput [(ngModel)]="data.stato">
+      </mat-form-field>
+      <mat-form-field>
+        <label>Rack:</label>
+        <input matInput [(ngModel)]="data.rack">
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Close</button>
+    <button mat-button (click)="onUpdate()">Update</button>
+  </div>
+</div>

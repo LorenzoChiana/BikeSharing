@@ -5,11 +5,6 @@
 <meta charset="utf-8">
 </head>
 <style>
-/*
-agm-map {
-  height: 300px;
-}
-*/
 agm-map {
   width: 100%;
   height: 50vh;
@@ -26,14 +21,88 @@ agm-map {
 </style>
 <body>
 
+<div class="container">
+  <h1>Elenco Bici</h1>
+
+<!-- mappa bici -->
+
 <div class="map-responsive" id="mapView">
   <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom"
            [fullscreenControl]='true' [mapTypeControl]='true'>
-        <agm-marker [latitude]="latitudine" [longitude]="longitudine" [label]="labelOptions"
-        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
+
+    <agm-marker *ngFor="let kk of bikeRack; let ind = index"
+    [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="labelOptions"
+    [markerDraggable]="isAdmin"
+    (dragEnd)="dragBike($event, kk)"
+    (markerClick)="selectBike(kk)"
+    color="black"
+    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
+
+    <agm-marker *ngFor="let kk of bikeUser; let ind = index"
+    [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="labelOptions"
+    [markerDraggable]="true"
+    (dragEnd)="dragBike($event, kk)"
+    (markerClick)="releaseBike(kk)"
+    color="black"
+    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+
+    <agm-marker *ngIf="currentLat && currentLong"
+    [latitude]="currentLat" [longitude]="currentLong" [label]="labelOptions"
+    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
 
   </agm-map>
 </div>
-<button (click)="goBack()">go back</button>
+
+<!-- elenco bici -->
+
+<div class="table-container" style="overflow: auto;">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>Codice</td>
+        <td>Stato</td>
+        <td *ngIf="isAdmin">Rack</td>
+        <td *ngIf="!isAdmin">Prenotazione</td>
+        <td *ngIf="isAdmin">Edit</td>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let kk of bikeRack;let ind = index">
+          <td *ngIf="isAdmin || kk.stato == 'libero'">{{ind + 1}}</td>
+          <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.codice}}</td>
+          <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.stato}}</td>
+          <td *ngIf="isAdmin">{{kk.rack}}</td>
+
+          <td *ngIf="!isAdmin && kk.stato == 'libero'">
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+            (click)="selectBike(kk)" data-target="#myModal" style="color:blueviolet">Prenota</button>
+          </td>
+
+          <td *ngIf="!isAdmin && kk.stato != 'libero'"><a style="color:red">Non disponibile</a></td>
+          <td *ngIf="isAdmin"><a [routerLink]="['/editBike', kk._id]" routerLinkActive="active"
+            style="color:blueviolet">Edit</a></td>
+        </tr>
+
+        <tr *ngFor="let kk of bikeUser;let ind = index">
+          <td>{{ind + 1}}</td>
+          <td>{{kk.codice}}</td>
+          <td>{{kk.stato}}</td>
+
+          <td>
+            <a style="color:green" (click)="releaseBike(kk)">Rilascia</a>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<!-- pulsanti navigazione -->
+<div class="container">
+  <button (click)="goBack()">go back</button>
+</div>
+
 </body>
 </html>

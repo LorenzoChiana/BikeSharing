@@ -3,7 +3,7 @@ import { FormGroup,FormControl,Validators,FormsModule, } from '@angular/forms';
 import { Http,Response, Headers, RequestOptions } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { BikeService } from '../services/make-request.service';
+import { BikeService } from '../services/bike.service';
 
 @Component({
   selector: 'app-insert-bike',

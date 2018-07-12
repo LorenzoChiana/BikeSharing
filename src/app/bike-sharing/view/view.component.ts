@@ -1,45 +1,16 @@
 import { Component, OnInit, Inject, Injectable, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
-import { BikeService } from '../services/make-request.service';
-import { PrenotationService } from '../services/make-prenotation.service';
-
 import { MouseEvent } from '@agm/core';
 
-import { Observable } from 'rxjs/Observable';
-//import { filter } from 'rxjs/operators/filter';
+import { RackService } from '../services/rack.service';
+import { BikeService } from '../services/bike.service';
 
+import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators';
 
-import { Bike } from '../bike'
-import { Prenotazione } from '../prenotazione'
-
-export interface DialogData {
-  idBike: number;
-  codeBike: string;
-  timeInit: string;
-  timeEnd: string;
-}
-
-export class RentContent {
-  nameUser: string;
-
-  idBike: number;
-  codeBike: string;
-  timeInit: string;
-  timeEnd: string;
-
-  constructor(nameUser: string, idBike: number, codeBike: string,
-              timeInit: string, timeEnd: string) {
-                this.nameUser = nameUser;
-                this.idBike = idBike;
-                this.codeBike = codeBike;
-                this.timeInit = timeInit;
-                this.timeEnd = timeEnd;
-              }
-}
+import { Rack, Bike, Rent } from '../structDb'
 
 @Component({
   selector: 'app-view',
@@ -51,54 +22,82 @@ export class ViewComponent implements OnInit {
    private isAdmin: boolean;
    private nameUser: string;
 
-   private repData : Bike[];
+   private rackes : Rack[];
    private errorMessage;
 
    // Centro di Cesena
-   private lat: number = 44.1493031;
-   private lng: number = 12.192423;
-   private zoom: number = 12;
+   private latitudine: number = 44.144207;
+   private longitudine: number = 12.231784;
 
-   timeInit: string = "10:30";
-   timeEnd: string = "12:30";
+   private zoom: number = 14;
 
-   @Input() disableAutoPan: boolean;
+   private currentLat : number;
+   private currentLong : number;
 
   constructor(private bikeService :BikeService,
-    private prenotationService :PrenotationService,
+    private rackService :RackService,
     private location: Location,
+    private router :Router,
     private route: ActivatedRoute,
     public dialog: MatDialog) {   }
 
   ngOnInit() {
     this.nameUser = localStorage.getItem('login');
-    this.isAdmin = (this.route.snapshot.params['admin'] == "admin");
+    this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
 
-    this.viewBike();
+    this.viewRack();
   }
 
-  viewBike() {
-    this.bikeService.getAllBike().subscribe(data => this.repData = data);
-  }
+  viewRack() {
+    this.rackService.getAllRack().subscribe(data => {
+      this.rackes = data;
 
-  filterForState(stato : string) {
-      return this.repData.filter(x => x.stato == stato);
+      // aggiornamento num bici rack
+      for (var i = 0; i < this.rackes.length; i++) {
+        this.rackes[i].numBike = 0;
+        this.bikeService.getRackBike(this.rackes[i].codice).subscribe(data => {
+          var numBike = data.length;
+          if ( numBike > 0) {
+            var code = data[0].rack;
+            for(var k = 0; k < this.rackes.length; k++) {
+              if (this.rackes[k].codice == code) {
+                this.rackes[k].numBike = data.length;
+                break;
+              }
+            }
+          }
+        });
+      }
+
+    });
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  infoBike() : void {
-
+  infoRack(idRack : number) {
+    this.router.navigate(['detail', idRack, this.nameUser]);
   }
 
-  prenota(idBike: number, codeBike: string) : void {
-    var rentContent: RentContent = new RentContent(this.nameUser, idBike, codeBike, this.timeInit, this.timeEnd);
-    this.openDialog(rentContent, this.bikeService, this.prenotationService);
+  dragRack(event, rack): void {
+    rack.latitudine = event.coords.lat;
+    rack.longitudine = event.coords.lng;
+
+    this.rackService.updateRack(rack)
+        .subscribe(data => { }, error => this.errorMessage = error)
   }
 
-  openDialog(rentContent : RentContent, bikeService: BikeService, prenotationService: PrenotationService): void {
+  /*
+  infoRack(idBike: number, codiceBike: string, latitudineBike: number, longitudineBike: number) : void {
+      var rack : Rack = new Rack(idBike, codiceBike, latitudineBike, longitudineBike);
+
+      this.route.navigate(['detail', rack, this.nameUser]);
+  }
+  */
+
+/*
+  openDialogRelease(rentContent : RentContent, bikeService: BikeService, rentService: RentService): void {
     const dialogRef = this.dialog.open(DialogRentBike, {
       width: '300px',
       height: '400px',
@@ -116,38 +115,15 @@ export class ViewComponent implements OnInit {
         .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
 
         var today = new Date();
-
-        //today.format('dd-m-yy');
-
         var todayString = today.toDateString();
 
-        this.prenotationService.savePrenotation(result.timeInit, result.timeEnd,
-          rentContent.nameUser, rentContent.codeBike, todayString)
+        this.prenotationService.savePrenotation(todayString, rentContent.nameUser, rentContent.codeBike,
+          result.timeInit, result.timeEnd)
           .subscribe(data => { alert(data.data); }, error => this.errorMessage = error);
       } else {
         //alert("stato bici non modificato");
       }
     });
   }
-
-    rilascia(id) : void {
-      alert("Vuoi rilasciare la bici? ");
-
-      this.bikeService.modifyStateBike(id, "free")
-      .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
-    }
+  */
   }
-
-@Component({
-  selector: 'dialog',
-  templateUrl: 'dialog.html',
-})
-export class DialogRentBike {
-  constructor(
-    public dialogRef: MatDialogRef<DialogRentBike>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-}

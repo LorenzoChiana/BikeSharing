@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Edit Rack Component</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  agm-map {
+    width: 100%;
+    height: 50vh;
+  }
+
+  /* css alla men peggio */
+  #mapView {
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+  </style>
+</head>
+<body>
+<h1>Edit Parcheggio bici </h1>
+
+<div class="container">
+<form class="form-horizontal" #rackEdit="ngForm"   (ngSubmit)="edit(rackEdit.value)" novalidate>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="codice">Codice:</label>
+      <div class="col-sm-10">
+        <input name="codice" type="text" class="form-control" required value="{{codice}}" [(ngModel)]="codice" />
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="indirizzo">Indirizzo:</label>
+      <div class="col-sm-10">
+        <input name="indirizzo" type="text" class="form-control" required value="{{indirizzo}}" [(ngModel)]="indirizzo" />
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="numero bici">Numero Bici:</label>
+      <div class="col-sm-10">
+        <input name="numBike" type="number" class="form-control" required value="{{numBike}}" [(ngModel)]="numBike" />
+      </div>
+  </div>
+  <!--
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="latitudine">Latitudine:</label>
+      <div class="col-sm-10">
+        <input name="latitudine" type="number" class="form-control" required value="{{latitudine}}" [(ngModel)]="latitudine" />
+      </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="longitudine">Longitudine:</label>
+      <div class="col-sm-10">
+        <input name="longitudine" type="number" class="form-control" required value="{{longitudine}}" [(ngModel)]="longitudine" />
+      </div>
+  </div>
+-->
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
+    </div>
+  </div>
+</form>
+
+<div class="map-responsive" id="mapView">
+  <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
+    <agm-marker
+    [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
+    [markerDraggable]="true"
+    (dragEnd)="dragRack($event, rack)"
+    (markerClick)="infoRack(rack._id)"
+    color="white"
+    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+
+  </agm-marker>
+  </agm-map>
+</div>
+
+</div>
+
+<button (click)="goBack()">go back</button>
+<a [routerLink]="['/view', 'admin']" routerLinkActive="active">View Component</a>
+</body>
+</html>

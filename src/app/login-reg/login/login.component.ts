@@ -51,10 +51,15 @@ export class LoginComponent implements OnInit {
       } else if (data.passwordUtente != password) {
         alert("password errata !!");
       } else {
+        localStorage.setItem('login', name);
+        localStorage.setItem('isAdmin', 'false');
+
+        //localStorage.removeItem('isAdmin');
+
         if (data.tipoUtente == "admin") {
+          localStorage.setItem('isAdmin', 'true');
           this.route.navigate(['view', 'admin'])
         } else {
-          localStorage.setItem('login', name);
           this.route.navigate(['view'])
         }
       }
