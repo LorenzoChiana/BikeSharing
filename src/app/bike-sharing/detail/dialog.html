@@ -1,0 +1,28 @@
+<style>
+/* css alla men peggio */
+  .formInput {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="container">
+  <h1 mat-dialog-title>Prenotazione bici: {{data.codeBike}}</h1>
+  <div mat-dialog-content>
+    <div class="formInput">
+      <p>Scegli orario</p>
+      <mat-form-field>
+        <input matInput [(ngModel)]="data.timeInit">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="data.timeEnd">
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Annulla</button>
+    <button mat-button (click)="onConfirm()">Conferma</button>
+
+    <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Conferma</button> -->
+  </div>
+</div>

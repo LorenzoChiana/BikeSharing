@@ -33,32 +33,6 @@ var UserBikeSchema = new Schema({
 
 var modelUser = mongo.model('usersBike', UserBikeSchema, 'usersBike');
 
-app.post("/api/SaveUser/",function(req,res) {	
- var modUser = new modelUser(req.body);  
- //if(req.body.mode =="Save") {  
-    modUser.save(function(err,data) {  
-      if(err) {  
-         res.send(err);                
-      } else {
-         res.send({data:"new User has been Inserted..!!"});  
-      }  
-	}); 
-	/*	
-	} else {
-		model.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
-								latitudine: req.body.latitudine, longitudine: req.body.longitudine},  
-	   function(err,data) {  
-		   if (err) {  
-			res.send(err);         
-		   }  
-	   else{        
-			  res.send({data:"Record has been Updated..!!"});  
-		 }  
-	 });
-	}
-	*/
-})
-
 app.get("/api/getAllUser", function(req,res) {  
 	modelUser.find({}, function(err,data){  
 		if(err){  
@@ -80,129 +54,28 @@ app.post("/api/FindUser/", function(req,res) {
 	 }
  })
 })
-  
-  //req.body.password
-  
-  /*
-  module.exports.register = function(req, res) {
 
-  // if(!req.body.name || !req.body.email || !req.body.password) {
-  //   sendJSONresponse(res, 400, {
-  //     "message": "All fields required"
-  //   });
-  //   return;
-  // }
-
-  var user = new User();
-
-  user.name = req.body.name;
-  user.email = req.body.email;
-
-  user.setPassword(req.body.password);
-
-  user.save(function(err) {
-    var token;
-    token = user.generateJwt();
-    res.status(200);
-    res.json({
-      "token" : token
-    });
-  });
-
-};
-  */
-  
-  // funzionalità per inserimento nuovo utente 
-  // come generare la password?
-  /*
-    app.post("/api/InsBike",function(req,res){   
-		 var newUser = new regSchema(req.body);  
-		 if(req.body.mode =="register")  
-		 {  
-	 
-			newUser.setPassword(req.body.password);
-	 
-			newUser.save(function(err,data){  
-			  if(err){  
-				 res.send(err);                
-			  }  
-			  else{        
-				  res.send({data:"Record has been Inserted..!!"});  
-			  }  
-			});  
-		}  
-		else   
-		{  
-		 model.findByIdAndUpdate(req.body.id, { name: req.body.name, address: req.body.address},  
-		   function(err,data) {  
-		   if (err) {  
-		   res.send(err);         
-		   }  
-		   else{        
-				  res.send({data:"Record has been Updated..!!"});  
-			 }  
-		 });  
-		  
-		  
-		} 	
-	})
-	*/
+app.post("/api/SaveUser/",function(req,res) {	
+ var modUser = new modelUser(req.body);  
+ //if(req.body.mode =="Save") {  
+    modUser.save(function(err,data) {  
+      if(err) {  
+         res.send(err);                
+      } else {
+         res.send({data:"new User has been Inserted..!!"});  
+      }  
+	}); 
+})
 
 var BikeSchema = new Schema({      
  codice: { type: String, required: true },       
  latitudine: { type: Number, required: true },   
  longitudine: { type: Number, required: true },
- stato: { type: String }
+ stato: { type: String },
+ rack: { type: String }
 },{ versionKey: false });    
 	 
 var modelBike = mongo.model('bikes', BikeSchema, 'bikes'); 
-  
-app.post("/api/SaveBike/",function(req,res) {   
- var mod = new modelBike(req.body);  
- if(req.body.mode =="Save") {  
-    mod.save(function(err,data){  
-      if(err) {  
-         res.send(err);                
-      } else {    
-         res.send({data:"Record has been Inserted..!!"});  
-      }  
-	});  
-} else {
-	modelBike.findByIdAndUpdate(req.body.id, { codice: req.body.codice, 
-							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
-							stato: req.body.stato},  
-   function(err,data) {  
-	   if (err) {  
-		res.send(err);         
-	   }  
-   else{        
-		  res.send({data:"Record has been Updated..!!"});  
-	 }  
- });
-}
-})  
-
-app.post("/api/deleteBike", function(req,res) {      
-	modelBike.remove({ _id: req.body.id }, function(err) {    
-		if(err){    
-			res.send(err);    
-		}    
-		else{      
-			res.send({data:"Record has been Deleted..!!"});               
-		}    
-	})    
-})
-
-app.post("/api/modifyStateBike", function(req,res) {      
-	modelBike.findByIdAndUpdate(req.body.id, { stato: req.body.stato }, function(err) {    
-		if(err){    
-			res.send(err);    
-		}    
-		else{      
-			res.send({data:"Stato bici modificato"});               
-		}    
-	})    
-})
   
 app.get("/api/getAllBike", function(req,res) {  
 	modelBike.find({},function(err,data){  
@@ -214,20 +87,42 @@ app.get("/api/getAllBike", function(req,res) {
 		}  
 	})  
 })
-
-var PrenotationSchema = new Schema({ 
- data: { type: String, required: true },   
- nomeUtente: { type: String, required: true }, 
- codiceBici: { type: String, required: true },
- timeInit: { type: String, required: true },       
- timeEnd: { type: String, required: true },
-},{ versionKey: false });    
-	 
-var modelPrenotation = mongo.model('prenotazioni', PrenotationSchema, 'prenotazioni'); 
   
-app.post("/api/SavePrenotation/",function(req,res) {   
- var mod = new modelPrenotation(req.body);  
- //if(req.body.mode =="Save") {  
+app.post("/api/getBike", function(req,res) {
+	modelBike.findById(req.body._id, function(err, data) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{	
+			res.send(data);                 
+		}    
+	})
+})
+  
+app.post("/api/getRackBike", function(req,res) {
+	modelBike.find({ $and: [ {stato: { $eq: "libero" }}, {rack: req.body.rackCode} ] },function(err,data){
+		if(err){  
+			res.send(err);  
+		}  
+		else{
+			res.send(data);  
+		}  
+	})  
+})
+
+app.post("/api/getUserBike", function(req,res) {  
+	modelBike.find({stato: req.body.stato},function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{     		
+			res.send(data);  
+		}  
+	})  
+})
+  
+app.post("/api/SaveBike/",function(req,res) {   
+ var mod = new modelBike(req.body);  
     mod.save(function(err,data){  
       if(err) {  
          res.send(err);                
@@ -235,10 +130,155 @@ app.post("/api/SavePrenotation/",function(req,res) {
          res.send({data:"Record has been Inserted..!!"});  
       }  
 	});  
-//} 
+})
+
+app.post("/api/UpdateBike/",function(req,res) {
+	modelBike.findByIdAndUpdate(req.body._id, { codice: req.body.codice, 
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
+							stato: req.body.stato, rack: req.body.rack},  
+   function(err,data) {
+	   if (err) {  
+		res.send(err);         
+	   }  
+   else{        
+		  res.send({data:"Record has been Updated..!!"});  
+	 }  
+ });
+})
+
+app.post("/api/deleteBike", function(req,res) {      
+	modelBike.remove({ _id: req.body._id }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Record has been Deleted..!!"});               
+		}    
+	})    
+})
+
+app.post("/api/modifyStateBike", function(req,res) {      
+	modelBike.findByIdAndUpdate(req.body._id, { stato: req.body.stato, rack: req.body.rack }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{
+			res.send({data:"Stato bici modificato"});               
+		}    
+	})    
+})
+
+var RackSchema = new Schema({      
+ codice: { type: String, required: true },       
+ latitudine: { type: Number, required: true },   
+ longitudine: { type: Number, required: true },
+ indirizzo: { type: String, required: true },
+ numBike: { type: Number, required: true },
+},{ versionKey: false });    
+	 
+var modelRack = mongo.model('rackes', RackSchema, 'rackes'); 
+  
+app.get("/api/getAllRack", function(req,res) {  
+	modelRack.find({},function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{     		
+			res.send(data);  
+		}  
+	})  
+})
+  
+app.post("/api/getRack", function(req,res) {      
+	modelRack.findById(req.body._id, function(err, data) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{
+			res.send(data);                 
+		}    
+	})    
+})
+  
+app.post("/api/SaveRack/",function(req,res) {   
+ var mod = new modelRack(req.body); 
+	  mod.save(function(err,data){  
+	  if(err) {  
+		 res.send(err);                
+	  } else {    
+		 res.send({data:"Record has been Inserted..!!"});  
+	  }  
+	});
+})  
+
+app.post("/api/UpdateRack/",function(req,res) {		
+	modelRack.findByIdAndUpdate(req.body._id, { codice: req.body.codice,
+								latitudine: req.body.latitudine, longitudine: req.body.longitudine, 
+								indirizzo: req.body.indirizzo, numBike: req.body.numBike},  
+	function(err,data) {
+		if (err) {  
+			res.send(err);         
+		}  
+		else{ 
+		  res.send({data:"Record has been Updated..!!"});  
+		}  
+	});
+})
+
+app.post("/api/deleteRack", function(req,res) {      
+	modelRack.remove({ _id: req.body._id }, function(err) {    
+		if(err){    
+			res.send(err);    
+		}    
+		else{      
+			res.send({data:"Record has been Deleted..!!"});               
+		}    
+	})    
+})
+
+var RentSchema = new Schema({ 
+ data: { type: String, required: true },   
+ nameUser: { type: String, required: true }, 
+ codeBike: { type: String, required: true },
+ timeInit: { type: String, required: true },       
+ timeEnd: { type: String, required: true },
+},{ versionKey: false });    
+	 
+var modelRent = mongo.model('rent', RentSchema, 'rent'); 
+
+app.post("/api/getUserRent", function(req,res) {  
+	modelRent.find({nomeUtente : req.body.nomeUtente}, function (err, data) {
+	 if (err) {
+		 next(err);
+	 } else {
+		 res.send(data);
+	 }
+ })    
+})
+  
+app.get("/api/getAllRent", function(req,res) {  
+	modelRent.find({},function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{
+			res.send(data);  
+		}  
+	})  
+})
+
+app.post("/api/SaveRent/",function(req,res) {   
+ var mod = new modelRent(req.body);    
+    mod.save(function(err,data){  
+      if(err) {  
+         res.send(err);                
+      } else {   
+         res.send({data:"Record has been Inserted..!!"});  
+      }  
+	});  
 //else {
 	/*
-	modelPrenotation.findByIdAndUpdate(req.body.id, { nome: req.body.nome, 
+	modelPrenotation.findByIdAndUpdate(req.body._id, { nome: req.body.nome, 
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
 							stato: req.body.stato},  
    function(err,data) {  
@@ -253,8 +293,8 @@ app.post("/api/SavePrenotation/",function(req,res) {
 //}
 })  
 
-app.post("/api/deletePrenotation", function(req,res) {      
-	modelPrenotation.remove({ _id: req.body.id }, function(err) {    
+app.post("/api/deleteRent", function(req,res) {      
+	modelRent.remove({ _id: req.body._id }, function(err) {    
 		if(err){    
 			res.send(err);    
 		}    
@@ -264,37 +304,16 @@ app.post("/api/deletePrenotation", function(req,res) {
 	})    
 })
 
-app.post("/api/modifyStatePrenotation", function(req,res) {      
-	modelPrenotation.findByIdAndUpdate(req.body.id, { timeInit: req.body.timeInit }, { timeEnd: req.body.timeEnd },
+app.post("/api/modifyStateRent", function(req,res) {      
+	modelRent.findByIdAndUpdate(req.body._id, { timeInit: req.body.timeInit }, { timeEnd: req.body.timeEnd },
 	function(err) {    
 		if(err){    
 			res.send(err);    
 		}    
 		else{      
-			res.send({data:"Stato prenotazione modificato"});               
+			res.send({data:"Stato rent modificato"});               
 		}    
 	})    
-})
-
-app.post("/api/getUserPrenotation", function(req,res) {  
-	modelPrenotation.find({nomeUtente : req.body.nomeUtente}, function (err, data) {
-	 if (err) {
-		 next(err);
-	 } else {
-		 res.send(data);
-	 }
- })    
-})
-  
-app.get("/api/getAllPrenotation", function(req,res) {  
-	modelPrenotation.find({},function(err,data){  
-		if(err){  
-			res.send(err);  
-		}  
-		else{
-			res.send(data);  
-		}  
-	})  
 })
   
 app.listen(8080, function () {  

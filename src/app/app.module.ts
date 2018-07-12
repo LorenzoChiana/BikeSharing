@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginRegModule } from './login-reg/login-reg.module';
 
+import { AgmCoreModule } from '@agm/core';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -22,7 +24,7 @@ import {
 const appRoutesMain: Routes = [
     //{ path: '', redirectTo: '/', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'about', component: AboutComponent },    
+    { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
 ];
 
@@ -44,7 +46,10 @@ const appRoutesMain: Routes = [
     MatToolbarModule,
     MatSidenavModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

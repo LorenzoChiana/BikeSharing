@@ -10,24 +10,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material.module';
 
-import { BikeService } from './services/make-request.service';
-import { PrenotationService } from './services/make-prenotation.service';
+import { RackService } from './services/rack.service';
+import { BikeService } from './services/bike.service';
+import { RentService } from './services/rent.service';
 
-import { DetailComponent } from './detail/detail.component';
-import { ViewComponent, DialogRentBike } from './view/view.component';
+import { DetailComponent, DialogRentBike } from './detail/detail.component';
+import { ViewComponent } from './view/view.component';
 import { InsertBikeComponent } from './insert-bike/insert-bike.component';
-import { EditBikeComponent } from './edit-bike/edit-bike.component';
+import { EditBikeComponent, EditBikeDialog } from './edit-bike/edit-bike.component';
 
 import 'hammerjs';
-import { ViewPrenotationComponent } from './view-prenotation/view-prenotation.component';
+import { ViewRentComponent } from './view-rent/view-rent.component';
+import { EditRackComponent } from './edit-rack/edit-rack.component';
 
 const routes: Routes = [
-  { path: 'viewPrenotation/:nameUser/:isAdmin', component: ViewPrenotationComponent },
+  { path: 'viewRent/:nameUser/:isAdmin', component: ViewRentComponent },
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
   { path: 'ins', component: InsertBikeComponent },
-  { path: 'edit/:id/:nome/:latitudine/:longitudine/:stato', component: EditBikeComponent },
-  { path: 'detail/:id/:nome/:latitudine/:longitudine/:stato', component: DetailComponent }
+  { path: 'editBike/:id', component: EditBikeComponent },
+  { path: 'editRack/:idRack', component: EditRackComponent },
+//  { path: 'detail/:id/:codice/:latitudine/:longitudine/:nameUser', component: DetailComponent }
+  { path: 'detail/:idRack/:nameUser', component: DetailComponent }
 ];
 
 @NgModule({
@@ -37,7 +41,9 @@ const routes: Routes = [
     DialogRentBike,
 	  InsertBikeComponent,
     EditBikeComponent,
-    ViewPrenotationComponent,
+    EditBikeDialog,
+    ViewRentComponent,
+    EditRackComponent,
   ],
   imports: [
     NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
@@ -48,9 +54,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule
   ],
-  entryComponents: [ ViewComponent, DialogRentBike ],
+  entryComponents: [ ViewComponent, DialogRentBike, EditBikeDialog ],
   exports: [ RouterModule, MaterialModule],
-  providers: [ BikeService, PrenotationService ],
+  providers: [ RackService, BikeService, RentService ],
   bootstrap: []
 })
 export class BikeSharingModule { }

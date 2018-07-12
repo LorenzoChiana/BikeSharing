@@ -10,7 +10,7 @@ agm-map {
   height: 50vh;
 }
 
-/* css alla men peggio */
+/* css mappa */
 #mapView {
   margin-top: 5%;
   margin-bottom: 5%;
@@ -19,67 +19,63 @@ agm-map {
   padding-bottom: 2%;
 }
 </style>
+
 <body>
+
 <div class="container">
+  <h1>Elenco rastrelliere</h1>
+
+  <!-- mappa rastrelliere -->
+
+  <div class="map-responsive" id="mapView">
+    <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
+      <agm-marker *ngFor="let rack of rackes; let ind = index"
+      [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
+
+      (dragEnd)="dragRack($event, rack)"
+      (markerClick)="infoRack(rack._id)"
+      color="white"
+      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+    </agm-marker>
+    </agm-map>
+  </div>
+
+  <!-- elenco rastrelliere -->
+
   <div class="table-container" style="overflow: auto;">
     <table class="table">
       <thead>
         <tr>
           <td>Id</td>
           <td>Codice</td>
-          <td>Latitudine</td>
-          <td>Longitudine</td>
-          <td *ngIf="!isAdmin">Prenotazione</td>
+          <td>Indirizzo</td>
+          <td>N. Bici</td>
           <td *ngIf="isAdmin">Edit</td>
-          <td>Informazioni aggiuntive</td>
+          <td>Informazioni</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let kk of repData;let ind = index">
+        <tr *ngFor="let rack of rackes;let ind = index">
 
           <td>{{ind + 1}}</td>
-          <td>{{kk.codice}}</td>
-          <td>{{kk.latitudine}}</td>
-          <td>{{kk.longitudine}}</td>
+          <td>{{rack.codice}}</td>
+          <td>{{rack.indirizzo}}</td>
+          <td>{{rack.numBike}}</td>
 
-          <td *ngIf="!isAdmin && kk.stato == 'free'">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" (click)="prenota(kk._id, kk.codice)" data-target="#myModal" style="color:blueviolet">Prenota</button>
-          </td>
-          <td *ngIf="!isAdmin && kk.stato != 'free' && kk.stato != nameUser"><a style="color:red">Non disponibile</a></td>
-          <td *ngIf="!isAdmin && kk.stato == nameUser"><a style="color:green" (click)="rilascia(kk._id)">Rilascia</a></td>
-          <td *ngIf="isAdmin"><a [routerLink]="['/edit', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active"
+          <td *ngIf="isAdmin"><a [routerLink]="['/editRack', rack._id]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
-
-          <td><a [routerLink]="['/detail', kk._id, kk.nome, kk.latitudine, kk.longitudine, kk.stato]" routerLinkActive="active">info</a></td>
+          <td><a [routerLink]="['/detail', rack._id, nameUser]" routerLinkActive="active">info</a></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="map-responsive" id="mapView">
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
-      <agm-marker *ngFor="let kk of filterForState('free');let ind = index"
-      [label]="kk.codice" [latitude]="kk.latitudine" [longitude]="kk.longitudine"
-      (markerClick)="prenota(kk._id, kk.codice)"
-      color="white"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
-
-      <!-- {{kk.codice}} {{kk.latitudine}} {{kk.longitudine}} -->
-
-      <agm-info-window [disableAutoPan]="true">
-        <p> Codice: </p>
-        <p> Latitudine: </p>
-        <p> Longitudine: </p>
-      </agm-info-window>
-    </agm-marker>
-    </agm-map>
-  </div>
-
 </div>
 
+<!-- pulsanti navigazione -->
 <div class="container">
   <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
-  <a [routerLink]="['/viewPrenotation', nameUser, isAdmin]"
+  <a [routerLink]="['/viewRent', nameUser, isAdmin]"
                      routerLinkActive="active">Lista prenotazioni</a>
 
   <button (click)="goBack()">go back</button>
