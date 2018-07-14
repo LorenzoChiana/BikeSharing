@@ -93,7 +93,7 @@ agm-map {
         <td>{{kk.stato}}</td>
         <td>{{kk.totKm}}</td>
         <td>
-          <a style="color:red" (click)="selectBike(kk,1)">Rilascia</a>
+          <button type="button" class="btn btn-danger" (click)="selectBike(kk,1)">Rilascia</button>
         </td>
       </tr>
 
@@ -105,9 +105,11 @@ agm-map {
           <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.totKm}}</td>
           <td *ngIf="isAdmin">{{kk.rack}}</td>
 
+          <!-- style="color:blueviolet" -->
+
           <td *ngIf="!isAdmin && kk.stato == 'libero'">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-            (click)="selectBike(kk,0)" data-target="#myModal" style="color:blueviolet">Prenota</button>
+            <button type="button" class="btn btn-success" data-toggle="modal"
+            (click)="selectBike(kk,0)" data-target="#myModal">Prenota</button>
           </td>
 
           <td *ngIf="!isAdmin && kk.stato != 'libero'"><a style="color:red">Non disponibile</a></td>

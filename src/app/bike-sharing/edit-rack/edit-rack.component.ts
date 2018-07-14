@@ -19,8 +19,9 @@ export class EditRackComponent implements OnInit {
   private nameUser: string;
 
   private valbutton: string;
+  private valbutton2: string;
 
-  private rack: Rack;
+  private curRack: Rack;
 
   private idRack: number;
   private codice: string;
@@ -32,6 +33,8 @@ export class EditRackComponent implements OnInit {
   private latitudine: number = 44.144207;
   private longitudine: number = 12.231784;
   private zoom: number = 14;
+
+  private deltaLat: number = 0.0001;
 
   private errorMessage;
 
@@ -45,34 +48,57 @@ export class EditRackComponent implements OnInit {
     this.nameUser = localStorage.getItem('login');
     this.valbutton = "Update";
 
+    this.curRack = new Rack(0, '<codice>', this.latitudine, this.longitudine,
+                               '<indirizzo>', 0, 0);
+
     this.rackService.getRack(this.idRack).subscribe((data) => {
-      this.rack = data;
+      this.curRack = data;
 
-      this.codice = this.rack.codice;
-      this.indirizzo = this.rack.indirizzo;
-      this.numBike = this.rack.numBike;
-      this.numPlace = this.rack.numPlace;
+      this.codice = this.curRack.codice;
+      this.indirizzo = this.curRack.indirizzo;
+      this.numBike = this.curRack.numBike;
+      this.numPlace = this.curRack.numPlace;
 
-      this.latitudine = this.rack.latitudine;
-      this.longitudine = this.rack.longitudine;
+      this.latitudine = this.curRack.latitudine;
+      this.longitudine = this.curRack.longitudine;
 
-      // aggiornamento numBike del rack
-      this.bikeService.getRackBike(this.rack.codice).subscribe((data) => {
+      // aggiornamento numBike del curRack
+      this.bikeService.getRackBike(this.curRack.codice).subscribe((data) => {
         this.numBike = data.length;
       });
     });
   }
 
-  edit = function() {
+  updateRack(): void {
+    this.curRack.codice = this.codice;
+    this.curRack.indirizzo = this.indirizzo;
+    this.curRack.latitudine = this.latitudine;
+    this.curRack.longitudine = this.longitudine;
+    this.curRack.numBike = this.numBike;
+    this.curRack.numPlace = this.numPlace;
 
-    this.rack.codice = this.codice;
-    this.rack.indirizzo = this.indirizzo;
-    this.rack.latitudine = this.latitudine;
-    this.rack.longitudine = this.longitudine;
-    this.rack.numBike = this.numBike;
-    this.rack.numPlace = this.numPlace;
+   this.rackService.updateRack(this.curRack).subscribe(data =>  {  }, error => this.errorMessage = error );
+  }
 
-   this.rackService.updateRack(this.rack).subscribe(data =>  {  }, error => this.errorMessage = error );
+  insertRack(): void {
+    this.curRack.codice = this.codice;
+    this.curRack.indirizzo = this.indirizzo;
+    this.curRack.latitudine = this.latitudine + this.deltaLat; // per evitare sovrapposizione
+    this.curRack.longitudine = this.longitudine;
+    this.curRack.numBike = this.numBike;
+    this.curRack.numPlace = this.numPlace;
+
+   this.rackService.saveRack(this.curRack).subscribe(data => {}, error => this.errorMessage = error );
+  }
+
+  deleteRack(): void{
+    this.rackService.deleteRack(this.curRack._id).subscribe(data => {
+      this.goBack();
+    }, error => this.errorMessage = error );
+  }
+
+  close(): void {
+    this.goBack();
   }
 
   infoRack(rack : Rack) {

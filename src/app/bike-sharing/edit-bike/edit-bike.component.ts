@@ -27,9 +27,8 @@ export class EditBikeComponent implements OnInit {
   private nameUser: string;
   private isAdmin: boolean;
 
-  private valbutton: string;
-
-  private bike: Bike;
+  private curBike: Bike;
+  private curRack: Rack;
 
   private idBike: number;
   private codice: string;
@@ -54,33 +53,59 @@ export class EditBikeComponent implements OnInit {
     this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
     this.route.params.subscribe((params) => this.idBike = params.idBike);
 
-    this.valbutton = "Update";
+    this.curBike = new Bike(0, '<codice>', this.latitudine, this.longitudine,
+                               'libero', '<rack>', 0);
 
     this.bikeService.getBike(this.idBike).subscribe((data) => {
-      this.bike = data;
+      this.curBike = data;
 
-      this.codice = this.bike.codice;
-      this.latitudine = this.bike.latitudine;
-      this.longitudine = this.bike.longitudine;
-      this.stato = this.bike.stato;
-      this.rack = this.bike.rack;
-      this.totKm = this.bike.totKm;
+      this.codice = this.curBike.codice;
+      this.latitudine = this.curBike.latitudine;
+      this.longitudine = this.curBike.longitudine;
+      this.stato = this.curBike.stato;
+      this.rack = this.curBike.rack;
+      this.totKm = this.curBike.totKm;
+
+      /*
+      // aggiornamento curRack
+      this.rackService.getRack(this.curBike.rack).subscribe((data) => {
+        this.curRack = data;
+      });
+      */
     });
   }
 
-  edit = function() {
-    this.bike.codice = this.codice;
-    this.bike.rack = this.rack;
-    this.bike.stato = this.stato;
-    this.bike.totKm = this.totKm;
+  updateBike(): void {
+    this.curBike.codice = this.codice;
+    this.curBike.rack = this.rack;
+    this.curBike.stato = this.stato;
+    this.curBike.totKm = this.totKm;
 
-    this.bike.mode = this.valbutton;
-    this.bikeService.updateBike(this.bike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
+    this.bikeService.updateBike(this.curBike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
+  }
+
+  insertBike(): void {
+    this.curBike.codice = this.codice;
+    this.curBike.rack = this.rack;
+    this.curBike.stato = this.stato;
+    this.curBike.totKm = this.totKm;
+
+    this.bikeService.saveBike(this.curBike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
+  }
+
+  deleteBike(): void{
+    this.bikeService.deleteBike(this.curBike._id).subscribe(data => {
+      this.goBack();
+    }, error => this.errorMessage = error );
+  }
+
+  close(): void {
+    this.goBack();
   }
 
   dragBike(event, bike): void {
-    this.bike.latitudine = event.coords.lat;
-    this.bike.longitudine = event.coords.lng;
+    this.curBike.latitudine = event.coords.lat;
+    this.curBike.longitudine = event.coords.lng;
   }
 
   goBack(): void {

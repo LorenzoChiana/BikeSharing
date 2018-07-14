@@ -27,7 +27,8 @@ agm-map {
   <div class="container">
     <button (click)="goBack()">Back</button>
     <a [routerLink]="['/view-rent', nameUser, isAdmin]" routerLinkActive="active">Prenotazioni</a>
-    <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
+    <!-- <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a> -->
+    <!-- tolto perchè Inserimento fatto in link di rack-->
   </div>
 
   <!-- titolo -->
@@ -56,8 +57,9 @@ agm-map {
           <td>Codice</td>
           <td>Indirizzo</td>
           <td>N. Bici</td>
+          <td>N. Place</td>
           <td *ngIf="isAdmin">Edit</td>
-          <td>Informazioni</td>
+          <td>Bici</td>
         </tr>
       </thead>
       <tbody>
@@ -67,10 +69,11 @@ agm-map {
           <td>{{rack.codice}}</td>
           <td>{{rack.indirizzo}}</td>
           <td>{{rack.numBike}}</td>
+          <td>{{rack.numPlace}}</td>
 
           <td *ngIf="isAdmin"><a [routerLink]="['/edit-rack', rack._id]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
-          <td><a [routerLink]="['/rent-bike', rack._id]" routerLinkActive="active">Info bici</a></td>
+          <td><a [routerLink]="['/rent-bike', rack._id]" routerLinkActive="active">Bici</a></td>
         </tr>
       </tbody>
     </table>

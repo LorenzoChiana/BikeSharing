@@ -38,10 +38,10 @@
   <agm-map [latitude]="latitudine" [longitude]="longitudine"
   [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
     <agm-marker
-    [label]="bike.codice" [latitude]="bike.latitudine" [longitude]="bike.longitudine"
+    [label]="curBike.codice" [latitude]="curBike.latitudine" [longitude]="curBike.longitudine"
     [markerDraggable]="true"
-    (dragEnd)="dragBike($event, bike)"
-    (markerClick)="dialogBike(bike)"
+    (dragEnd)="dragBike($event, curBike)"
+    (markerClick)="dialogBike(curBike)"
     color="black"
     [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'">
 
@@ -50,7 +50,7 @@
 </div>
 
 <!-- form dati bici -->
-<form class="form-horizontal" #bikeEdit="ngForm"   (ngSubmit)="edit(bikeEdit.value)" novalidate>
+<form class="form-horizontal" #bikeEdit="ngForm" novalidate>
 
   <div class="form-content"> <!-- form content -->
     <div class="form-group">
@@ -81,10 +81,29 @@
 
   <!-- div pulsanti -->
   <div class="form-group">
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-3">
+        <button class="btn btn-default" (click)="close()">Close</button>
+      </div>
+      <div class="col-sm-offset-1 col-sm-3">
+        <button class="btn btn-primary" (click)="updateBike()">Update</button>
+      </div>
+      <div class="col-sm-offset-1 col-sm-3">
+        <button class="btn btn-primary" (click)="insertBike()">Insert</button>
+      </div>
+      <div class="col-sm-offset-1 col-sm-3">
+        <button class="btn btn-danger" (click)="deleteBike()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!--
+  <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
     </div>
-  </div> <!-- end pulsanti -->
+  </div>
+  -->
 
 </form> <!-- end form -->
 </div> <!-- end content body -->

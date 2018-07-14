@@ -99,7 +99,7 @@ export class ViewComponent implements OnInit {
   openDialog(rack : Rack, rackService: RackService): void {
     const dialogRef = this.dialog.open(ViewRackDialog, {
       width: '300px',
-      height: '400px',
+      height: '450px',
       data: {
         rack: rack
       }

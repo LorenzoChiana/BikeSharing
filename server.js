@@ -123,7 +123,9 @@ app.post("/api/getUserBike", function(req,res) {
 })
   
 app.post("/api/SaveBike/",function(req,res) {   
- var mod = new modelBike(req.body);  
+ var mod = new modelBike({codice: req.body.codice,
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
+							rack: req.body.rack, stato: req.body.stato, totKm: req.body.totKm});
     mod.save(function(err,data){  
       if(err) {  
          res.send(err);                
@@ -201,15 +203,19 @@ app.post("/api/getRack", function(req,res) {
 		}    
 	})    
 })
-  
-app.post("/api/SaveRack/",function(req,res) {   
- var mod = new modelRack(req.body); 
+
+app.post("/api/SaveRack/",function(req,res) { 
+	var mod = new modelRack({codice: req.body.codice,
+							latitudine: req.body.latitudine, longitudine: req.body.longitudine, 
+							indirizzo: req.body.indirizzo, numBike: req.body.numBike, 
+							numPlace: req.body.numPlace});  
 	  mod.save(function(err,data){  
-	  if(err) {  
-		 res.send(err);                
-	  } else {    
-		 res.send({data:"Record has been Inserted..!!"});  
-	  }  
+		  if(err) {  
+			 res.send(err);                
+		  } else {  
+			 console.log("send data = ", req.body.codice);		  
+			 res.send({data:"Record has been Inserted..!!"});  
+		  }  
 	});
 })  
 

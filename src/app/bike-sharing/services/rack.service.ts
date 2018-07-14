@@ -32,6 +32,8 @@ export class RackService {
   }
 
   saveRack(rack){
+    alert("saveRack insertRack this.rack.codice = " + rack.codice);
+
      return this.http.post('http://localhost:8080/api/SaveRack/', rack)
              .map((response: Response) =>response.json())
    }

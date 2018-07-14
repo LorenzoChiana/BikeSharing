@@ -159,6 +159,7 @@ export class RentBikeComponent implements OnInit {
         this.router.navigate(['edit-bike', bike._id]);
       } else {
         if (mode == 0) { // selezione bici libera
+          this.curBike = bike; // memorizzo bike corrente
           this.rentDialog(bike);
         } else { // selezione bici in uso utente
           this.curBike = bike; // memorizzo bike corrente
@@ -283,7 +284,7 @@ export class RentBikeComponent implements OnInit {
               rentService: RentService, rackService: RackService): void {
       const dialogRef = this.dialog.open(DialogRentBike, {
         width: '300px',
-        height: '400px',
+        height: '500px',
         data: {
           mode: rentContent.mode,
           rent: rentContent.rent,
