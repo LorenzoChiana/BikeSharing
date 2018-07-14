@@ -24,12 +24,18 @@ export class ContactComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-      
+
     var marker = new google.maps.Marker({
         position: markerCenter
     });
     marker.setMap(this.map);
-    
+
   }
+
+  /*
+  initMap(): void {
+
+  }
+  */
 
 }

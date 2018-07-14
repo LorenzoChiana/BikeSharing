@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Injectable, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MouseEvent } from '@agm/core';
@@ -7,10 +7,14 @@ import { MouseEvent } from '@agm/core';
 import { RackService } from '../services/rack.service';
 import { BikeService } from '../services/bike.service';
 
+import { Rack, Bike, Rent } from '../structDb'
+
 import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators';
 
-import { Rack, Bike, Rent } from '../structDb'
+export interface DialogData {
+  rack: Rack;
+}
 
 @Component({
   selector: 'app-view',
@@ -76,8 +80,8 @@ export class ViewComponent implements OnInit {
     this.location.back();
   }
 
-  infoRack(idRack : number) {
-    this.router.navigate(['detail', idRack, this.nameUser]);
+  selectRack(rack: Rack) {
+    this.dialogRack(rack);
   }
 
   dragRack(event, rack): void {
@@ -88,42 +92,46 @@ export class ViewComponent implements OnInit {
         .subscribe(data => { }, error => this.errorMessage = error)
   }
 
-  /*
-  infoRack(idBike: number, codiceBike: string, latitudineBike: number, longitudineBike: number) : void {
-      var rack : Rack = new Rack(idBike, codiceBike, latitudineBike, longitudineBike);
-
-      this.route.navigate(['detail', rack, this.nameUser]);
+  dialogRack(rack : Rack) {
+    this.openDialog(rack, this.rackService);
   }
-  */
 
-/*
-  openDialogRelease(rentContent : RentContent, bikeService: BikeService, rentService: RentService): void {
-    const dialogRef = this.dialog.open(DialogRentBike, {
+  openDialog(rack : Rack, rackService: RackService): void {
+    const dialogRef = this.dialog.open(ViewRackDialog, {
       width: '300px',
       height: '400px',
       data: {
-        idBike: rentContent.idBike,
-        codeBike: rentContent.codeBike,
-        timeInit: rentContent.timeInit,
-        timeEnd: rentContent.timeEnd
+        rack: rack
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.timeInit != rentContent.timeInit || result.timeEnd != rentContent.timeEnd) {
-        this.bikeService.modifyStateBike(rentContent.idBike, rentContent.nameUser)
-        .subscribe(data => { alert(data.data); this.ngOnInit(); }, error => this.errorMessage = error)
-
-        var today = new Date();
-        var todayString = today.toDateString();
-
-        this.prenotationService.savePrenotation(todayString, rentContent.nameUser, rentContent.codeBike,
-          result.timeInit, result.timeEnd)
-          .subscribe(data => { alert(data.data); }, error => this.errorMessage = error);
-      } else {
-        //alert("stato bici non modificato");
+      if (result) {
+        if (this.isAdmin == true) {
+          this.router.navigate(['edit-rack', result.rack._id]);
+        } else {
+          this.router.navigate(['rent-bike', result.rack._id]);
+        }
       }
     });
   }
-  */
+
+}
+
+@Component({
+  selector: 'view-dialog',
+  templateUrl: 'view-dialog.html',
+})
+export class ViewRackDialog {
+  constructor(
+    public dialogRef: MatDialogRef<ViewRackDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onSelect(): void {
+    this.dialogRef.close(this.data);
   }
+
+  onClose(): void {
+    this.dialogRef.close();
+  }
+}

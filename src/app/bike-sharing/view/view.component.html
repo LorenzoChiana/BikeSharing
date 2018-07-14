@@ -23,17 +23,24 @@ agm-map {
 <body>
 
 <div class="container">
+  <!-- pulsanti navigazione -->
+  <div class="container">
+    <button (click)="goBack()">Back</button>
+    <a [routerLink]="['/view-rent', nameUser, isAdmin]" routerLinkActive="active">Prenotazioni</a>
+    <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
+  </div>
+
+  <!-- titolo -->
   <h1>Elenco rastrelliere</h1>
 
   <!-- mappa rastrelliere -->
-
   <div class="map-responsive" id="mapView">
     <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
       <agm-marker *ngFor="let rack of rackes; let ind = index"
       [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
 
       (dragEnd)="dragRack($event, rack)"
-      (markerClick)="infoRack(rack._id)"
+      (markerClick)="selectRack(rack)"
       color="white"
       [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
     </agm-marker>
@@ -41,7 +48,6 @@ agm-map {
   </div>
 
   <!-- elenco rastrelliere -->
-
   <div class="table-container" style="overflow: auto;">
     <table class="table">
       <thead>
@@ -62,24 +68,15 @@ agm-map {
           <td>{{rack.indirizzo}}</td>
           <td>{{rack.numBike}}</td>
 
-          <td *ngIf="isAdmin"><a [routerLink]="['/editRack', rack._id]" routerLinkActive="active"
+          <td *ngIf="isAdmin"><a [routerLink]="['/edit-rack', rack._id]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
-          <td><a [routerLink]="['/detail', rack._id, nameUser]" routerLinkActive="active">info</a></td>
+          <td><a [routerLink]="['/rent-bike', rack._id]" routerLinkActive="active">Info bici</a></td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> <!-- end elenco -->
 
-</div>
-
-<!-- pulsanti navigazione -->
-<div class="container">
-  <a *ngIf="isAdmin" [routerLink]="['/ins']" routerLinkActive="active">Inserimento</a>
-  <a [routerLink]="['/viewRent', nameUser, isAdmin]"
-                     routerLinkActive="active">Lista prenotazioni</a>
-
-  <button (click)="goBack()">go back</button>
-</div>
+</div> <!-- end div content -->
 
 </body>
 </html>

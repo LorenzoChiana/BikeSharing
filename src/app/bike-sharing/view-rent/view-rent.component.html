@@ -1,28 +1,46 @@
-<div class="table-container" style="overflow: auto;">
-  <table class="table">
-    <thead>
-      <tr>
-        <td>Id</td>
-        <td>Data</td>
-        <td>Utente</td>
-        <td>Bici</td>
-        <td>Tempo Inizio</td>
-        <td>Tempo Fine</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let kk of repData;let ind = index">
-        <td>{{ind + 1}}</td>
-        <td>{{kk.data}}</td>
-        <td>{{kk.nomeUtente}}</td>
-        <td>{{kk.nomeBici}}</td>
-        <td>{{kk.timeInit}}</td>
-        <td>{{kk.timeEnd}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<!doctype html>
+<html lang="en">
+<head>
+<title>View Rent Component</title>
+<meta charset="utf-8">
+</head>
 
+<body>
 <div class="container">
-  <button (click)="goBack()">go back</button>
+  <!-- pulsanti navigazione -->
+  <div class="container">
+    <button (click)="goBack()">Back</button>
+  </div>
+
+  <h1>Lista prenotazioni</h1>
+
+  <div class="table-container" style="overflow: auto;">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Data</td>
+          <td>Utente</td>
+          <td>Bici</td>
+          <td>Inizio</td>
+          <td>Fine</td>
+          <td>Tempo</td>
+          <td>Costo</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let kk of rents;let ind = index">
+          <td>{{ind + 1}}</td>
+          <td>{{kk.data}}</td>
+          <td>{{kk.nameUser}}</td>
+          <td>{{kk.codeBike}}</td>
+          <td>{{kk.timeInit}}</td>
+          <td>{{kk.timeEnd}}</td>
+          <td>{{kk.tempo}}</td>
+          <td>{{kk.costo}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+</body>

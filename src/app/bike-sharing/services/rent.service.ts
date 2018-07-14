@@ -11,28 +11,29 @@ export class RentService {
 
   constructor(private http: Http) { }
 
-  saveRent(todayString: string, nameUser: string, codeBike: string, timeStart: string, timeEnd: string){
-    const rent = {
-      data: todayString,
-      nameUser: nameUser,
-      codeBike: codeBike,
-      timeInit: timeStart,
-      timeEnd: timeEnd
-    }
-
+  saveRent(rent){
     return this.http.post('http://localhost:8080/api/SaveRent/', rent)
-            .map((response: Response) => {
-              response.json()
-            })
+            .map((response: Response) => {response.json()})
   }
 
-  getAllRent(){
+  updateRent(rent){
+    return this.http.post('http://localhost:8080/api/UpdateRent/', rent)
+              .map((response: Response) =>response.json())
+  }
+
+  getAllRent():Observable<Rent[]>{
     return this.http.get('http://localhost:8080/api/getAllRent/')
               .map((response: Response) => response.json())
   }
 
-  getUserRent(nameUser){
-     return this.http.post('http://localhost:8080/api/getUserRent/',{'nomeUtente': nameUser}).
+  getUserRent(nameUser):Observable<Rent[]>{
+     return this.http.post('http://localhost:8080/api/getUserRent/',{'nomeUtente': nameUser})
+          .map((response: Response) =>response.json())
+   }
+
+  getBikeRent(nameUser, codeBike, timeEnd){
+     return this.http.post('http://localhost:8080/api/getBikeRent/',{'nomeUtente': nameUser,
+     'codeBike': codeBike, 'timeEnd': timeEnd}).
      map((response: Response) =>response.json())
    }
 

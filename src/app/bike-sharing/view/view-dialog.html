@@ -7,29 +7,25 @@
 </style>
 
 <div class="container">
-  <h1 mat-dialog-title>Edit bici: {{data.codice}}</h1>
+  <h1 mat-dialog-title>Info rack: {{data.rack.codice}}</h1>
   <div mat-dialog-content>
     <div class="formInput">
       <mat-form-field>
         <label>Codice:</label>
-        <input matInput [(ngModel)]="data.bike.codice">
+        <input matInput [(ngModel)]="data.rack.indirizzo">
       </mat-form-field>
       <mat-form-field>
-        <label>Rack:</label>
-        <input matInput [(ngModel)]="data.bike.rack">
+        <label>N. bici:</label>
+        <input matInput [(ngModel)]="data.rack.numBike">
       </mat-form-field>
       <mat-form-field>
-        <label>Stato:</label>
-        <input matInput [(ngModel)]="data.bike.stato">
-      </mat-form-field>
-      <mat-form-field>
-        <label>Kilometri:</label>
-        <input matInput [(ngModel)]="data.bike.totKm">
+        <label>N. posti:</label>
+        <input matInput [(ngModel)]="data.rack.numPlace">
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="onClose()">Close</button>
-    <button mat-button (click)="onUpdate()">Update</button>
+    <button mat-button (click)="onSelect()">Seleziona</button>
   </div>
 </div>

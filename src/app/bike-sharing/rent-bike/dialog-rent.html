@@ -1,0 +1,41 @@
+<style>
+/* css alla men peggio */
+  .formInput {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="container">
+  <h1 mat-dialog-title *ngIf="data.mode == 'rent'" >Prenotazione bici: {{data.rent.codeBike}}</h1>
+  <h1 mat-dialog-title *ngIf="data.mode == 'release'">Rilascio bici: {{data.rent.codeBike}}</h1>
+  <div mat-dialog-content>
+    <div class="formInput">
+      <p *ngIf="data.mode == 'release'">
+        Rack: {{data.codeRack}} distanza di: {{data.distRack}} metri.
+      </p>
+      <mat-form-field>
+        <label>Ora Inizio:</label>
+        <input matInput [(ngModel)]="data.rent.timeInit">
+      </mat-form-field>
+      <mat-form-field>
+        <label>Ora Fine:</label>
+        <input matInput [(ngModel)]="data.rent.timeEnd">
+      </mat-form-field>
+      <mat-form-field *ngIf="data.mode == 'release'">
+        <label>Tempo:</label>
+        <input matInput [(ngModel)]="data.rent.tempo">
+      </mat-form-field>
+      <mat-form-field *ngIf="data.mode == 'release'">
+        <label>Costo:</label>
+        <input matInput [(ngModel)]="data.rent.costo">
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Annulla</button>
+    <button mat-button (click)="onConfirm()">Conferma</button>
+
+    <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Conferma</button> -->
+  </div>
+</div>

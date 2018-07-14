@@ -15,12 +15,7 @@ import { RentService } from '../services/rent.service';
 import { Rack, Bike, Rent } from '../structDb'
 
 export interface DialogData {
-  _id: number;
-  codice: string;
-  latitudine: number;
-  longitudine: number;
-  stato: string;
-  rack: string;
+  bike: Bike;
 }
 
 @Component({
@@ -38,11 +33,13 @@ export class EditBikeComponent implements OnInit {
 
   private idBike: number;
   private codice: string;
-  private latitudine: number;
-  private longitudine: number;
   private stato: string;
   private rack: string;
+  private totKm: number;
 
+  // Centro di Cesena
+  private latitudine: number = 44.144207;
+  private longitudine: number = 12.231784;
   private zoom: number = 14;
 
   private errorMessage;
@@ -55,8 +52,8 @@ export class EditBikeComponent implements OnInit {
   ngOnInit() {
     this.nameUser = localStorage.getItem('login');
     this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
+    this.route.params.subscribe((params) => this.idBike = params.idBike);
 
-    this.route.params.subscribe((params) => this.idBike = params.id);
     this.valbutton = "Update";
 
     this.bikeService.getBike(this.idBike).subscribe((data) => {
@@ -67,6 +64,7 @@ export class EditBikeComponent implements OnInit {
       this.longitudine = this.bike.longitudine;
       this.stato = this.bike.stato;
       this.rack = this.bike.rack;
+      this.totKm = this.bike.totKm;
     });
   }
 
@@ -74,10 +72,10 @@ export class EditBikeComponent implements OnInit {
     this.bike.codice = this.codice;
     this.bike.rack = this.rack;
     this.bike.stato = this.stato;
+    this.bike.totKm = this.totKm;
 
     this.bike.mode = this.valbutton;
-
-   this.bikeService.updateBike(this.bike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
+    this.bikeService.updateBike(this.bike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
   }
 
   dragBike(event, bike): void {
@@ -98,18 +96,13 @@ export class EditBikeComponent implements OnInit {
       width: '300px',
       height: '400px',
       data: {
-        _id: bike._id,
-        codice: bike.codice,
-        latitudine: bike.latitudine,
-        longitudine: bike.longitudine,
-        stato: bike.stato,
-        rack: bike.rack,
+        bike: bike
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.bikeService.updateBike(result).subscribe(data => { /*alert(data.data); */}, error => this.errorMessage = error);
+        this.bikeService.updateBike(result.bike).subscribe(data => { /*alert(data.data); */}, error => this.errorMessage = error);
       }
     });
   }

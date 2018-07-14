@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Detail</title>
+<title>Rent-Bike</title>
 <meta charset="utf-8">
 </head>
 <style>
@@ -22,6 +22,12 @@ agm-map {
 <body>
 
 <div class="container">
+
+  <!-- pulsanti navigazione -->
+  <div class="container">
+    <button (click)="goBack()">Back</button>
+  </div>
+
   <h1>Elenco Bici</h1>
 
 <!-- mappa bici -->
@@ -31,20 +37,30 @@ agm-map {
            [fullscreenControl]='true' [mapTypeControl]='true'>
 
     <agm-marker *ngFor="let kk of bikeRack; let ind = index"
-    [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="labelOptions"
+    [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+    [label]="kk.codice"
     [markerDraggable]="isAdmin"
     (dragEnd)="dragBike($event, kk)"
-    (markerClick)="selectBike(kk)"
+    (markerClick)="selectBike(kk, 0)"
     color="black"
     [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
 
     <agm-marker *ngFor="let kk of bikeUser; let ind = index"
-    [latitude]="kk.latitudine" [longitude]="kk.longitudine" [label]="labelOptions"
+    [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+    [label]="kk.codice"
     [markerDraggable]="true"
     (dragEnd)="dragBike($event, kk)"
-    (markerClick)="releaseBike(kk)"
+    (markerClick)="selectBike(kk, 1)"
     color="black"
     [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+
+    <agm-marker *ngFor="let kk of racks; let ind = index"
+    [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+    [label]="kk.codice"
+    [markerDraggable]="false"
+    (markerClick)="selectRack(kk)"
+    color="black"
+    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
 
     <agm-marker *ngIf="currentLat && currentLong"
     [latitude]="currentLat" [longitude]="currentLong" [label]="labelOptions"
@@ -62,46 +78,46 @@ agm-map {
         <td>Id</td>
         <td>Codice</td>
         <td>Stato</td>
+        <td>Km</td>
         <td *ngIf="isAdmin">Rack</td>
         <td *ngIf="!isAdmin">Prenotazione</td>
         <td *ngIf="isAdmin">Edit</td>
       </tr>
     </thead>
     <tbody>
+
+      <!-- bici utente -->
+      <tr *ngFor="let kk of bikeUser;let ind = index">
+        <td>{{ind + 1}}</td>
+        <td>{{kk.codice}}</td>
+        <td>{{kk.stato}}</td>
+        <td>{{kk.totKm}}</td>
+        <td>
+          <a style="color:red" (click)="selectBike(kk,1)">Rilascia</a>
+        </td>
+      </tr>
+
+      <!-- bici del rack -->
         <tr *ngFor="let kk of bikeRack;let ind = index">
           <td *ngIf="isAdmin || kk.stato == 'libero'">{{ind + 1}}</td>
           <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.codice}}</td>
           <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.stato}}</td>
+          <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.totKm}}</td>
           <td *ngIf="isAdmin">{{kk.rack}}</td>
 
           <td *ngIf="!isAdmin && kk.stato == 'libero'">
             <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-            (click)="selectBike(kk)" data-target="#myModal" style="color:blueviolet">Prenota</button>
+            (click)="selectBike(kk,0)" data-target="#myModal" style="color:blueviolet">Prenota</button>
           </td>
 
           <td *ngIf="!isAdmin && kk.stato != 'libero'"><a style="color:red">Non disponibile</a></td>
-          <td *ngIf="isAdmin"><a [routerLink]="['/editBike', kk._id]" routerLinkActive="active"
+          <td *ngIf="isAdmin"><a [routerLink]="['/edit-bike', kk._id]" routerLinkActive="active"
             style="color:blueviolet">Edit</a></td>
-        </tr>
-
-        <tr *ngFor="let kk of bikeUser;let ind = index">
-          <td>{{ind + 1}}</td>
-          <td>{{kk.codice}}</td>
-          <td>{{kk.stato}}</td>
-
-          <td>
-            <a style="color:green" (click)="releaseBike(kk)">Rilascia</a>
-          </td>
         </tr>
     </tbody>
   </table>
 </div>
 
-</div>
-
-<!-- pulsanti navigazione -->
-<div class="container">
-  <button (click)="goBack()">go back</button>
 </div>
 
 </body>

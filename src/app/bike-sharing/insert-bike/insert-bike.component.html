@@ -1,58 +1,67 @@
+<!doctype html>
+<html lang="en">
 <head>
+  <title>Insert Bike Component</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="container">
-<form class="form-horizontal" #bikeForm="ngForm"   (ngSubmit)="onSave(bikeForm.value)" novalidate>
 
-  <p>Is "myForm" valid? {{bikeForm.valid}}</p>
-  <div class="form-content">
-    <!-- <div class="form-inline"> -->
-
-      <div class="form-group">
-      <label class="control-label col-sm-2" for="name">Codice:</label>
-        <div class="col-sm-10">
-          <input name="Id" type="hidden" class="form-control"    [(ngModel)]="_id" />
-          <input name="nome" type="text" class="form-control" required  [(ngModel)]="codice"/>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="latitudine">Latitudine:</label>
-          <div class="col-sm-10">
-            <input name="latitudine" required class="form-control" type="number" required  [(ngModel)]="latitudine"/>
-          </div>
-      </div>
-      <div class="form-group">
-          <label class="control-label col-sm-2" for="longitudine">Longitudine:</label>
-            <div class="col-sm-10">
-              <input name="longitudine" required class="form-control" type="number" required [(ngModel)]="longitudine"/>
-            </div>
-      </div>
-      <div class="form-group">
-          <label class="control-label col-sm-2" for="longitudine">Stato:</label>
-            <div class="col-sm-10">
-              <input name="stato" required class="form-control" type="text" required [(ngModel)]="stato"/>
-            </div>
-      </div>
-      <div class="form-group">
-          <label class="control-label col-sm-2" for="longitudine">Rack:</label>
-            <div class="col-sm-10">
-              <input name="rack" required class="form-control" type="text" required [(ngModel)]="rack"/>
-            </div>
-      </div>
-
-    <!-- </div> -->
+  <!-- pulsanti navigazione -->
+  <div class="container">
+    <button (click)="goBack()">Back</button>
+    <a [routerLink]="['/view','admin']" routerLinkActive="active">Map Racks</a>
   </div>
 
+  <!-- titolo -->
+  <h1>Inserimento Bici</h1>
+
+<!-- form inserimento -->
+<form class="form-horizontal" #bikeForm="ngForm" (ngSubmit)="onSave(bikeForm.value)" novalidate>
+
+  <div class="form-content"> <!-- form content -->
+    <div class="form-group">
+    <label class="control-label col-sm-2" for="name">Codice:</label>
+      <div class="col-sm-10">
+        <input name="Id" type="hidden" class="form-control"    [(ngModel)]="_id" />
+        <input name="nome" type="text" class="form-control" required  [(ngModel)]="codice"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="latitudine">Latitudine:</label>
+        <div class="col-sm-10">
+          <input name="latitudine" required class="form-control" type="number" required  [(ngModel)]="latitudine"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="longitudine">Longitudine:</label>
+          <div class="col-sm-10">
+            <input name="longitudine" required class="form-control" type="number" required [(ngModel)]="longitudine"/>
+          </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="longitudine">Stato:</label>
+          <div class="col-sm-10">
+            <input name="stato" required class="form-control" type="text" required [(ngModel)]="stato"/>
+          </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="longitudine">Rack:</label>
+        <div class="col-sm-10">
+          <input name="rack" required class="form-control" type="text" required [(ngModel)]="rack"/>
+        </div>
+    </div>
+  </div><!-- end content form -->
+
+  <!-- div pulsanti -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
     </div>
-  </div>
-</form>
+  </div> <!-- end pulsanti -->
 
-<a [routerLink]="['/view','admin']" routerLinkActive="active">View Component</a>
-
-</div> <!-- temp: da rimuoberw -->
+</form> <!-- end form -->
+</div> <!-- end content body -->
 
 </body>
+</html>

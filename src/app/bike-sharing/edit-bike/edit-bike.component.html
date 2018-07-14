@@ -23,11 +23,20 @@
 <body>
 
 <div class="container">
+
+<!-- pulsanti navigazione -->
+<div class="container">
+  <button (click)="goBack()">Back</button>
+  <a [routerLink]="['/view', 'admin']" routerLinkActive="active">Map Rack</a>
+</div>
+
+  <!-- titolo -->
   <h1>Edit Bike</h1>
 
 <!-- mappa localizzazione bici -->
 <div class="map-responsive" id="mapView">
-  <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
+  <agm-map [latitude]="latitudine" [longitude]="longitudine"
+  [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
     <agm-marker
     [label]="bike.codice" [latitude]="bike.latitudine" [longitude]="bike.longitudine"
     [markerDraggable]="true"
@@ -42,38 +51,43 @@
 
 <!-- form dati bici -->
 <form class="form-horizontal" #bikeEdit="ngForm"   (ngSubmit)="edit(bikeEdit.value)" novalidate>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="codice">Codice:</label>
-      <div class="col-sm-10">
-        <input name="codice" type="text" class="form-control" required value="{{codice}}" [(ngModel)]="codice" />
-      </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="stato">Stato:</label>
-      <div class="col-sm-10">
-        <input name="stato" type="text" class="form-control" required value="{{stato}}" [(ngModel)]="stato" />
-      </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="rack">Rack:</label>
-      <div class="col-sm-10">
-        <input name="rack" type="text" class="form-control" required value="{{rack}}" [(ngModel)]="rack" />
-      </div>
-  </div>
+
+  <div class="form-content"> <!-- form content -->
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="codice">Codice:</label>
+        <div class="col-sm-10">
+          <input name="codice" type="text" class="form-control" required value="{{codice}}" [(ngModel)]="codice" />
+        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="stato">Stato:</label>
+        <div class="col-sm-10">
+          <input name="stato" type="text" class="form-control" required value="{{stato}}" [(ngModel)]="stato" />
+        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="rack">Rack:</label>
+        <div class="col-sm-10">
+          <input name="rack" type="text" class="form-control" required value="{{rack}}" [(ngModel)]="rack" />
+        </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="rack">Kilometri:</label>
+        <div class="col-sm-10">
+          <input name="totKm" type="text" class="form-control" required value="{{totKm}}" [(ngModel)]="totKm" />
+        </div>
+    </div>
+  </div><!-- end content form -->
+
+  <!-- div pulsanti -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
     </div>
-  </div>
-</form>
+  </div> <!-- end pulsanti -->
 
-</div>
-
-<!-- pulsanti navigazione -->
-<div class="container">
-  <button (click)="goBack()">go back</button>
-  <a [routerLink]="['/view', 'admin']" routerLinkActive="active">View Component</a>
-</div>
+</form> <!-- end form -->
+</div> <!-- end content body -->
 
 </body>
 </html>

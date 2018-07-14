@@ -72,7 +72,8 @@ var BikeSchema = new Schema({
  latitudine: { type: Number, required: true },   
  longitudine: { type: Number, required: true },
  stato: { type: String },
- rack: { type: String }
+ rack: { type: String },
+ totKm: { type: Number }, 
 },{ versionKey: false });    
 	 
 var modelBike = mongo.model('bikes', BikeSchema, 'bikes'); 
@@ -135,7 +136,7 @@ app.post("/api/SaveBike/",function(req,res) {
 app.post("/api/UpdateBike/",function(req,res) {
 	modelBike.findByIdAndUpdate(req.body._id, { codice: req.body.codice, 
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
-							stato: req.body.stato, rack: req.body.rack},  
+							stato: req.body.stato, rack: req.body.rack, totKm: req.body.totKm},  
    function(err,data) {
 	   if (err) {  
 		res.send(err);         
@@ -174,6 +175,7 @@ var RackSchema = new Schema({
  longitudine: { type: Number, required: true },
  indirizzo: { type: String, required: true },
  numBike: { type: Number, required: true },
+ numPlace: { type: Number, required: true },
 },{ versionKey: false });    
 	 
 var modelRack = mongo.model('rackes', RackSchema, 'rackes'); 
@@ -214,7 +216,7 @@ app.post("/api/SaveRack/",function(req,res) {
 app.post("/api/UpdateRack/",function(req,res) {		
 	modelRack.findByIdAndUpdate(req.body._id, { codice: req.body.codice,
 								latitudine: req.body.latitudine, longitudine: req.body.longitudine, 
-								indirizzo: req.body.indirizzo, numBike: req.body.numBike},  
+								indirizzo: req.body.indirizzo, numBike: req.body.numBike, numPlace: req.body.numPlace},  
 	function(err,data) {
 		if (err) {  
 			res.send(err);         
@@ -242,12 +244,14 @@ var RentSchema = new Schema({
  codeBike: { type: String, required: true },
  timeInit: { type: String, required: true },       
  timeEnd: { type: String, required: true },
+ tempo: { type: Number, required: true },
+ costo: { type: Number, required: true },
 },{ versionKey: false });    
 	 
 var modelRent = mongo.model('rent', RentSchema, 'rent'); 
 
 app.post("/api/getUserRent", function(req,res) {  
-	modelRent.find({nomeUtente : req.body.nomeUtente}, function (err, data) {
+	modelRent.find({nameUser: req.body.nomeUtente}, function(err,data){
 	 if (err) {
 		 next(err);
 	 } else {
@@ -255,7 +259,18 @@ app.post("/api/getUserRent", function(req,res) {
 	 }
  })    
 })
-  
+
+app.post("/api/getBikeRent", function(req,res) {
+	modelRent.find({ $and: [ {nameUser: req.body.nomeUtente}, {codeBike: req.body.codeBike},
+							 {timeEnd: req.body.timeEnd} ] }
+		,function(err,data){
+	 if (err) {
+		 next(err);
+	 } else {
+		 res.send(data);
+	 }
+ })    
+})
 app.get("/api/getAllRent", function(req,res) {  
 	modelRent.find({},function(err,data){  
 		if(err){  
@@ -267,31 +282,35 @@ app.get("/api/getAllRent", function(req,res) {
 	})  
 })
 
-app.post("/api/SaveRent/",function(req,res) {   
- var mod = new modelRent(req.body);    
-    mod.save(function(err,data){  
-      if(err) {  
-         res.send(err);                
-      } else {   
-         res.send({data:"Record has been Inserted..!!"});  
-      }  
+app.post("/api/SaveRent/",function(req,res) {
+	var mod = new modelRent({data: req.body.data,
+							nameUser: req.body.nameUser, codeBike: req.body.codeBike, 
+							timeInit: req.body.timeInit, timeEnd: req.body.timeEnd,
+							tempo: req.body.tempo, costo: req.body.costo});  
+	mod.save(function(err,data) {
+		if (err) {  
+			res.send(err);         
+		}  
+		else{
+		  res.send({data:"Record has been Inserted..!!"});  
+		}  
 	});  
-//else {
-	/*
-	modelPrenotation.findByIdAndUpdate(req.body._id, { nome: req.body.nome, 
-							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
-							stato: req.body.stato},  
-   function(err,data) {  
-	   if (err) {  
-		res.send(err);         
-	   }  
-   else{        
+})
+
+app.post("/api/UpdateRent/",function(req,res) {		
+	modelRent.findByIdAndUpdate(req.body._id, { data: req.body.data,
+								nameUser: req.body.nameUser, codeBike: req.body.codeBike, 
+								timeInit: req.body.timeInit, timeEnd: req.body.timeEnd,
+								tempo: req.body.tempo, costo: req.body.costo},  
+	function(err,data) {
+		if (err) {  
+			res.send(err);         
+		}  
+		else{ 
 		  res.send({data:"Record has been Updated..!!"});  
-	 }  
- });
- */
-//}
-})  
+		}  
+	});
+})
 
 app.post("/api/deleteRent", function(req,res) {      
 	modelRent.remove({ _id: req.body._id }, function(err) {    

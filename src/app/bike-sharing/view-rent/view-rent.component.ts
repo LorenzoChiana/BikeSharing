@@ -15,22 +15,20 @@ export class ViewRentComponent implements OnInit {
   private isAdmin : boolean;
   private nameUser : string;
 
-  private repData : Rent[];
+  private rents : Rent[];
 
   constructor(private rentService :RentService,
     private location: Location,
     private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activeRoute.params.subscribe((params) => {
-      this.isAdmin = params.isAdmin;
-      this.nameUser = params.nameUser;
-    });
+    this.nameUser = localStorage.getItem('login');
+    this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
 
     if (this.isAdmin == true) {
-      this.rentService.getAllRent().subscribe(data =>  this.repData = data);
+      this.rentService.getAllRent().subscribe(data =>  this.rents = data);
     } else {
-      this.rentService.getUserRent(this.nameUser).subscribe(data =>  this.repData = data);
+      this.rentService.getUserRent(this.nameUser).subscribe(data =>  this.rents = data);
     }
   }
 

@@ -24,8 +24,9 @@ export class EditRackComponent implements OnInit {
 
   private idRack: number;
   private codice: string;
-  private numBike: number;
   private indirizzo: string;
+  private numBike: number;
+  private numPlace: number;
 
   // Centro di Cesena
   private latitudine: number = 44.144207;
@@ -44,33 +45,13 @@ export class EditRackComponent implements OnInit {
     this.nameUser = localStorage.getItem('login');
     this.valbutton = "Update";
 
-    /*
-    this.rackService.getRack(this.idRack).then(res => {
-      this.rack =  res.json();
-
-      //this.rack.id = data.id;
-
-      this.codice = this.rack.codice;
-      this.numBike = this.rack.numBike;
-      this.indirizzo = this.rack.indirizzo;
-
-      this.latitudine = this.rack.latitudine;
-      this.longitudine = this.rack.longitudine;
-
-      // aggiornamento numBike del rack
-      this.bikeService.getRackBike(this.rack.codice).subscribe((data) => {
-        this.numBike = data.length;
-      });
-    });
-    */
-
-    /* vecchia versione senza promise */
     this.rackService.getRack(this.idRack).subscribe((data) => {
       this.rack = data;
 
       this.codice = this.rack.codice;
-      this.numBike = this.rack.numBike;
       this.indirizzo = this.rack.indirizzo;
+      this.numBike = this.rack.numBike;
+      this.numPlace = this.rack.numPlace;
 
       this.latitudine = this.rack.latitudine;
       this.longitudine = this.rack.longitudine;
@@ -85,16 +66,17 @@ export class EditRackComponent implements OnInit {
   edit = function() {
 
     this.rack.codice = this.codice;
-    this.rack.numBike = this.numBike;
     this.rack.indirizzo = this.indirizzo;
     this.rack.latitudine = this.latitudine;
     this.rack.longitudine = this.longitudine;
+    this.rack.numBike = this.numBike;
+    this.rack.numPlace = this.numPlace;
 
    this.rackService.updateRack(this.rack).subscribe(data =>  {  }, error => this.errorMessage = error );
   }
 
-  infoRack(idRack : number) {
-    this.router.navigate(['detail', idRack, this.nameUser]);
+  infoRack(rack : Rack) {
+    this.router.navigate(['rent-bike', rack._id]);
   }
 
   dragRack(event, rack): void {
