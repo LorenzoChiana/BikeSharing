@@ -8,7 +8,8 @@ import { Rent } from '../structDb';
 @Component({
   selector: 'app-view-rent',
   templateUrl: './view-rent.component.html',
-  styleUrls: ['./view-rent.component.css']
+  //styleUrls: ['./view-rent.component.css']
+  styleUrls: ['../view/view.component.css']
 })
 export class ViewRentComponent implements OnInit {
 
@@ -16,6 +17,8 @@ export class ViewRentComponent implements OnInit {
   private nameUser : string;
 
   private rents : Rent[];
+  private totTempo: number;
+  private totCosto: number;
 
   constructor(private rentService :RentService,
     private location: Location,
@@ -26,9 +29,25 @@ export class ViewRentComponent implements OnInit {
     this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
 
     if (this.isAdmin == true) {
-      this.rentService.getAllRent().subscribe(data =>  this.rents = data);
+      this.rentService.getAllRent().subscribe(data => {
+        this.rents = data;
+        this.calcolaTotali();
+      });
     } else {
-      this.rentService.getUserRent(this.nameUser).subscribe(data =>  this.rents = data);
+      this.rentService.getUserRent(this.nameUser).subscribe(data =>  {
+        this.rents = data;
+        this.calcolaTotali();
+      });
+    }
+  }
+
+  calcolaTotali(): void {
+    this.totTempo = 0;
+    this.totCosto = 0;
+
+    for (var i: number = 0; i < this.rents.length; i++) {
+      this.totTempo += this.rents[i].tempo;
+      this.totCosto += this.rents[i].costo;
     }
   }
 

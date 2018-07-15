@@ -249,7 +249,7 @@ var RentSchema = new Schema({
  nameUser: { type: String, required: true }, 
  codeBike: { type: String, required: true },
  timeInit: { type: String, required: true },       
- timeEnd: { type: String, required: true },
+ timeEnd: { type: String },
  tempo: { type: Number, required: true },
  costo: { type: Number, required: true },
 },{ versionKey: false });    
@@ -338,6 +338,52 @@ app.post("/api/modifyStateRent", function(req,res) {
 		else{      
 			res.send({data:"Stato rent modificato"});               
 		}    
+	})    
+})
+  
+var CommentSchema = new Schema({ 
+ data: { type: String, required: true },   
+ nameUser: { type: String, required: true }, 
+ codeBike: { type: String, required: true },
+ testo: { type: String },
+ icona: { type: String }
+},{ versionKey: false });
+  
+var modelComment = mongo.model('comments', CommentSchema, 'comments'); 
+  
+app.post("/api/SaveComment/",function(req,res) {
+	var mod = new modelComment({data: req.body.data,
+							nameUser: req.body.nameUser, codeBike: req.body.codeBike, 
+							testo: req.body.testo, icona: req.body.icona});  
+	mod.save(function(err,data) {
+		if (err) {  
+			res.send(err);         
+		}  
+		else{
+		  res.send({data:"Record has been Inserted..!!"});  
+		}  
+	});  
+})
+  
+app.get("/api/getAllComment", function(req,res) {  
+	modelComment.find({},function(err,data){  
+		if(err){  
+			res.send(err);  
+		}  
+		else{
+			res.send(data);  
+		}  
+	})  
+})
+  
+app.post("/api/getBikeComment", function(req,res) {
+	modelComment.find({codeBike: req.body.codeBike}
+			,function(err,data){
+		 if (err) {
+			 next(err);
+		 } else {
+			 res.send(data);
+		 }
 	})    
 })
   

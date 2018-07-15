@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>View Rent Component</title>
+<title>Lista commenti</title>
 <meta charset="utf-8">
 </head>
 
@@ -12,7 +12,7 @@
     <button (click)="goBack()">Back</button>
   </div>
 
-  <h1>Lista prenotazioni</h1>
+  <h1>Lista commenti</h1>
 
   <div class="table-container" style="overflow: auto;">
     <table class="table">
@@ -22,32 +22,16 @@
           <td>Data</td>
           <td>Utente</td>
           <td>Bici</td>
-          <td>Inizio</td>
-          <td>Fine</td>
-          <td>Tempo</td>
-          <td>Costo</td>
+          <td>Testo</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let kk of rents;let ind = index">
+        <tr *ngFor="let kk of comments;let ind = index">
           <td>{{ind + 1}}</td>
           <td>{{kk.data}}</td>
           <td>{{kk.nameUser}}</td>
           <td>{{kk.codeBike}}</td>
-          <td>{{kk.timeInit}}</td>
-          <td>{{kk.timeEnd}}</td>
-          <td>{{kk.tempo}}</td>
-          <td>{{kk.costo}}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>Totali: </td>
-          <td>{{totTempo}}</td>
-          <td>{{totCosto}}</td>
+          <td>{{kk.testo}}</td>
         </tr>
       </tbody>
     </table>

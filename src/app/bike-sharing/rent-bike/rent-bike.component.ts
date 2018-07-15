@@ -7,8 +7,9 @@ import { MouseEvent } from '@agm/core';
 import { RackService } from '../services/rack.service';
 import { BikeService } from '../services/bike.service';
 import { RentService } from '../services/rent.service';
+import { CommentService } from '../services/comment.service';
 
-import { Bike, Rent, Rack } from '../structDb';
+import { Bike, Rent, Rack, Comment } from '../structDb';
 
 import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators';
@@ -35,10 +36,27 @@ export class RentContent {
               }
 }
 
+export interface DialogDataComment {
+  rent: Rent;
+  comment: Comment;
+}
+
+export class CommentContent {
+  mode: string;
+  rent: Rent;
+  comment: Comment;
+
+  constructor(mode: string, comment: Comment) {
+                this.mode = mode;
+                this.comment = comment;
+              }
+}
+
 @Component({
   selector: 'app-detail',
   templateUrl: './rent-bike.component.html',
-  styleUrls: ['./rent-bike.component.css']
+  styleUrls: ['../view/view.component.css'] // prova a dare css
+  //styleUrls: ['./rent-bike.component.css']
 })
 export class RentBikeComponent implements OnInit {
   private nameUser: string;
@@ -53,14 +71,16 @@ export class RentBikeComponent implements OnInit {
   private curRack: Rack;
   private curBike: Bike;
   private curRent: Rent;
-
-  private zoom: number = 15;
+  private curComment: Comment;
 
   private secondiMinuto: number = 1; // 60
 
   // Centro di Cesena
   private latitudine: number = 44.144207;
   private longitudine: number = 12.231784;
+
+  private zoom: number = 15;
+  private showMap: boolean = true;
 
   private deltaX: number = 0.0001;
 
@@ -90,17 +110,22 @@ export class RentBikeComponent implements OnInit {
     constructor(
       private router: Router,
       private route: ActivatedRoute,
+
       private rackService :RackService,
       private bikeService :BikeService,
       private rentService: RentService,
+      private commentService: CommentService,
+
       private location: Location,
-      public dialog: MatDialog) {
+      public dialog: MatDialog,) {
         this.Math = Math;
       }
 
     ngOnInit() {
       this.nameUser = localStorage.getItem('login');
       this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
+
+      this.curRack = new Rack(0, '', 0, 0, '', 0, 0); // rack nullo
 
       this.route.params.subscribe((params) => {
 
@@ -125,15 +150,33 @@ export class RentBikeComponent implements OnInit {
       });
     }
 
+    toggleMap() : void {
+      this.showMap = !this.showMap;
+    }
+
+    home() : void {
+      this.router.navigate(['view']);
+    }
+
+    goBack(): void {
+        this.location.back();
+    }
+
+    commentiBike(bike: Bike) : void {
+      this.router.navigate(['view-comment', bike.codice]);
+    }
+
     ricaricaBici() : void {
       if  (this.isAdmin == true) {
         this.bikeService.getAllBike().subscribe((data) => { this.bikeRack = data; });
       } else {
-        this.bikeService.getUserBike(this.nameUser).subscribe((data) => this.bikeUser = data);
-        this.bikeService.getRackBike(this.curRack.codice).subscribe((data) => {
-          this.bikeRack = data;
+        this.bikeService.getUserBike(this.nameUser).subscribe((data) => {
+          this.bikeUser = data;
 
-          this.shiftRackBike()
+          this.bikeService.getRackBike(this.curRack.codice).subscribe((data) => {
+            this.bikeRack = data;
+            this.shiftRackBike();
+          });
         });
       }
     }
@@ -146,11 +189,22 @@ export class RentBikeComponent implements OnInit {
 
         bike.latitudine = lat;
         bike.longitudine = lng;
-        var km :number = this.Math.round(metri) /  1000.0 ;
-        bike.totKm = bike.totKm + km;
+
+        metri = (bike.totKm * 1000) + metri ;
+        var km : number = metri /  1000.0;
+
+        km = this.round(km, 3);
+        bike.totKm = km;
         bike.mode = "update";
 
         this.bikeService.updateBike(bike).subscribe(data => {}, error => this.errorMessage = error)
+    }
+
+    round(numero : number, precision : number): number {
+    	var factor = this.Math.pow(10, precision);
+    	var temp = numero * factor;
+    	var roundedTemp = this.Math.round(temp);
+    	return roundedTemp / factor;
     }
 
     selectBike(bike : Bike, mode: number): void {
@@ -180,7 +234,7 @@ export class RentBikeComponent implements OnInit {
       var todayString: string = now.toDateString();
 
       var timeInit: string = now.getHours() + ":" + now.getMinutes();
-      var timeEnd: string = "00:00";
+      var timeEnd: string = "";
       var tempo: number = 0;
       var costo: number = 0;
 
@@ -197,7 +251,7 @@ export class RentBikeComponent implements OnInit {
         this.curRack = nearRack;
         this.curBike = bike;
 
-        this.rentService.getBikeRent(this.nameUser, this.curBike.codice, "00:00").subscribe((data) => {
+        this.rentService.getBikeRent(this.nameUser, this.curBike.codice, "").subscribe((data) => {
           this.rents = data;
           this.curRent = this.rents[0];
 
@@ -208,7 +262,7 @@ export class RentBikeComponent implements OnInit {
           var t1 = this.curRent.timeInit.split(":");
           oldDate.setHours(parseInt(t1[0]));
           oldDate.setMinutes(parseInt(t1[1]));
-          oldDate.setSeconds(0); //parseInt(t1[2]));
+          oldDate.setSeconds(0);
 
           var diffTempo: number = (now.valueOf() - oldDate.valueOf());
           var tempo: number = diffTempo / (1000.0 * this.secondiMinuto);
@@ -222,6 +276,14 @@ export class RentBikeComponent implements OnInit {
 
           this.openDialog(rentContent, this.bikeService, this.rentService, this.rackService);
         });
+      }
+
+      commentDialog() : void {
+        this.curComment = new Comment(0, this.curRent.data, this.curRent.nameUser, this.curRent.codeBike,
+                                      "", "");
+
+        var commentContent: CommentContent = new CommentContent("insert", this.curComment);
+        this.openDialogComment(commentContent);
       }
 
       shiftRackBike() : void {
@@ -282,9 +344,17 @@ export class RentBikeComponent implements OnInit {
 
     openDialog(rentContent : RentContent, bikeService: BikeService,
               rentService: RentService, rackService: RackService): void {
+
+      var wD: string = '300px';
+      var hD: string = '550px';
+
+      if (rentContent.mode == 'rent') {
+        hD = '320px';
+      }
+
       const dialogRef = this.dialog.open(DialogRentBike, {
-        width: '300px',
-        height: '500px',
+        width: wD,
+        height: hD,
         data: {
           mode: rentContent.mode,
           rent: rentContent.rent,
@@ -299,6 +369,7 @@ export class RentBikeComponent implements OnInit {
             this.rentBike(rentContent, result);
           } else {
             this.releaseBike(rentContent, result);
+            this.commentDialog();
           }
         }
       });
@@ -341,11 +412,28 @@ export class RentBikeComponent implements OnInit {
       this.rentService.updateRent(this.curRent)
       .subscribe(data => { /*alert(data.data);*/ }, error => this.errorMessage = error);
 
-      this.ricaricaBici();
+      //this.ricaricaBici();
       }
   }
-  goBack(): void {
-      this.location.back();
+
+  openDialogComment(commentContent : CommentContent): void {
+    const dialogRef = this.dialog.open(DialogComment, {
+      width: '300px',
+      height: '350px',
+      data: {
+        mode: commentContent.mode,
+        comment: commentContent.comment
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { //  Conferma
+        if (result.comment.testo != '') { // commento valido
+          this.commentService.saveComment(result.comment);
+        }
+      }
+      this.ricaricaBici();
+    });
   }
 }
 
@@ -364,5 +452,23 @@ export class DialogRentBike {
 
   onClose(): void {
     this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'dialog-comment',
+  templateUrl: 'dialog-comment.html',
+})
+export class DialogComment {
+  constructor(
+    public dialogRefComment: MatDialogRef<DialogComment>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataComment) {}
+
+  onConfirmComment(): void {
+    this.dialogRefComment.close(this.data);
+  }
+
+  onCloseComment(): void {
+    this.dialogRefComment.close();
   }
 }

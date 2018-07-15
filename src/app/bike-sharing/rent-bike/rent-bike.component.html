@@ -10,10 +10,10 @@ agm-map {
   height: 50vh;
 }
 
-/* css alla men peggio */
+/* css mappa */
 #mapView {
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 
   padding-top: 2%;
   padding-bottom: 2%;
@@ -22,17 +22,20 @@ agm-map {
 <body>
 
 <div class="container">
-
   <!-- pulsanti navigazione -->
   <div class="container">
-    <button (click)="goBack()">Back</button>
+    <button (click)="home()">Parcheggi</button>
+    <button *ngIf="showMap" (click)="toggleMap()">Elenco</button>
+    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
+    <button (click)="rentList()">Prenotazioni</button>
+    <button (click)="goBack()">Indietro</button>
   </div>
 
-  <h1>Elenco Bici</h1>
+  <h1>Bici: {{curRack.codice}}-{{curRack.indirizzo}}</h1>
 
 <!-- mappa bici -->
 
-<div class="map-responsive" id="mapView">
+  <div *ngIf="showMap" class="map-responsive" id="mapView">
   <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom"
            [fullscreenControl]='true' [mapTypeControl]='true'>
 
@@ -70,7 +73,6 @@ agm-map {
 </div>
 
 <!-- elenco bici -->
-
 <div class="table-container" style="overflow: auto;">
   <table class="table">
     <thead>
@@ -80,7 +82,8 @@ agm-map {
         <td>Stato</td>
         <td>Km</td>
         <td *ngIf="isAdmin">Rack</td>
-        <td *ngIf="!isAdmin">Prenotazione</td>
+        <td>Commenti</td>
+        <td *ngIf="!isAdmin">Operazioni</td>
         <td *ngIf="isAdmin">Edit</td>
       </tr>
     </thead>
@@ -92,9 +95,9 @@ agm-map {
         <td>{{kk.codice}}</td>
         <td>{{kk.stato}}</td>
         <td>{{kk.totKm}}</td>
-        <td>
-          <button type="button" class="btn btn-danger" (click)="selectBike(kk,1)">Rilascia</button>
-        </td>
+        <!-- commenti -->
+        <td><a [routerLink]="['/view-comment', kk.codice]" routerLinkActive="active">Commenti</a></td>
+        <td><button type="button" class="btn btn-danger" (click)="selectBike(kk,1)">Rilascia</button></td>
       </tr>
 
       <!-- bici del rack -->
@@ -105,11 +108,12 @@ agm-map {
           <td *ngIf="isAdmin || kk.stato == 'libero'">{{kk.totKm}}</td>
           <td *ngIf="isAdmin">{{kk.rack}}</td>
 
-          <!-- style="color:blueviolet" -->
+          <!-- commenti -->
+          <td><a [routerLink]="['/view-comment', kk.codice]" routerLinkActive="active">Commenti</a></td>
 
           <td *ngIf="!isAdmin && kk.stato == 'libero'">
             <button type="button" class="btn btn-success" data-toggle="modal"
-            (click)="selectBike(kk,0)" data-target="#myModal">Prenota</button>
+            (click)="selectBike(kk,0)" data-target="#myModal">Preleva</button>
           </td>
 
           <td *ngIf="!isAdmin && kk.stato != 'libero'"><a style="color:red">Non disponibile</a></td>

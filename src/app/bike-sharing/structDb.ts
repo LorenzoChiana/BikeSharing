@@ -64,3 +64,22 @@ export class Rent {
     this.costo = costo;
   }
 }
+
+export class Comment {
+  _id: number;
+  data: string;
+  nameUser: string;
+  codeBike: string;
+  testo: string;
+  icona: string;
+
+  constructor(_id: number, data: string, nameUser: string, codeBike: string,
+              testo: string, icona: string) {
+    this._id = _id;
+    this.data = data;
+    this.nameUser = nameUser;
+    this.codeBike = codeBike;
+    this.testo = testo;
+    this.icona = icona;
+  }
+}

@@ -1,0 +1,30 @@
+<style>
+/* css alla men peggio */
+  .formInput {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="container">
+  <h1 mat-dialog-title>Lascia un commento</h1>
+  <div mat-dialog-content>
+    <div class="formInput">
+      <p>
+        Data: {{data.comment.data}}. <br/>
+        Utente: {{data.comment.nameUser}}. <br/>
+        Bike: {{data.comment.codeBike}}.
+      </p>
+      <mat-form-field>
+        <label>Commento:</label>
+        <input matInput [(ngModel)]="data.comment.testo">
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCloseComment()">Annulla</button>
+    <button mat-button (click)="onConfirmComment()">Conferma</button>
+
+    <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Conferma</button> -->
+  </div>
+</div>

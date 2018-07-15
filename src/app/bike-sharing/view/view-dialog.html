@@ -7,20 +7,20 @@
 </style>
 
 <div class="container">
-  <h1 mat-dialog-title>Info rack: {{data.rack.codice}}</h1>
+  <h1 mat-dialog-title>Parcheggio: {{data.rack.codice}}</h1>
   <div mat-dialog-content>
     <div class="formInput">
       <mat-form-field>
         <label>Indirizzo:</label>
-        <input matInput [(ngModel)]="data.rack.indirizzo">
+        <input matInput [(ngModel)]="data.rack.indirizzo" readonly>
       </mat-form-field>
       <mat-form-field>
         <label>N. bici:</label>
-        <input matInput [(ngModel)]="data.rack.numBike">
+        <input matInput [(ngModel)]="data.rack.numBike" readonly>
       </mat-form-field>
       <mat-form-field>
         <label>N. posti:</label>
-        <input matInput [(ngModel)]="data.rack.numPlace">
+        <input matInput [(ngModel)]="data.rack.numPlace" readonly>
       </mat-form-field>
     </div>
   </div>

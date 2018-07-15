@@ -34,6 +34,7 @@ export class ViewComponent implements OnInit {
    private longitudine: number = 12.231784;
 
    private zoom: number = 14;
+   private showMap: boolean = true;
 
    private currentLat : number;
    private currentLong : number;
@@ -76,12 +77,28 @@ export class ViewComponent implements OnInit {
     });
   }
 
+  toggleMap() : void {
+    this.showMap = !this.showMap;
+  }
+
   goBack(): void {
     this.location.back();
   }
 
-  selectRack(rack: Rack) {
+  rentList() : void {
+    this.router.navigate(['view-rent', this.nameUser, this.isAdmin]);
+  }
+
+  infoRack(rack: Rack): void {
     this.dialogRack(rack);
+  }
+
+  selectRack(rack: Rack) : void {
+    this.router.navigate(['rent-bike', rack._id]);
+  }
+
+  editRack(rack: Rack): void {
+    this.router.navigate(['edit-rack', rack._id]);
   }
 
   dragRack(event, rack): void {
@@ -92,7 +109,7 @@ export class ViewComponent implements OnInit {
         .subscribe(data => { }, error => this.errorMessage = error)
   }
 
-  dialogRack(rack : Rack) {
+  dialogRack(rack: Rack) : void {
     this.openDialog(rack, this.rackService);
   }
 
@@ -108,9 +125,9 @@ export class ViewComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (this.isAdmin == true) {
-          this.router.navigate(['edit-rack', result.rack._id]);
+          this.selectRack(result.rack);
         } else {
-          this.router.navigate(['rent-bike', result.rack._id]);
+          this.selectRack(result.rack);
         }
       }
     });
