@@ -125,8 +125,8 @@ export class RentBikeComponent implements OnInit {
       }
 
     ngOnInit() {
-      this.nameUser = localStorage.getItem('login');
-      this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
+      this.nameUser = sessionStorage.getItem('login');
+      this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
 
       this.curRack = new Rack(0, '', 0, 0, '', 0, 0); // rack nullo
 

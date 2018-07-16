@@ -48,8 +48,8 @@ export class ViewComponent implements OnInit {
     public dialog: MatDialog) {   }
 
   ngOnInit() {
-    this.nameUser = localStorage.getItem('login');
-    this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
+    this.nameUser = sessionStorage.getItem('login');
+    this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
 
     this.viewRack();
   }

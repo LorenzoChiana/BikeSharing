@@ -24,7 +24,10 @@
                 <a class="nav-link" [routerLink]="['/contact']">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/login']">Login</a>
+                <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']">Login</a>
+              </li>
+              <li class="nav-item" *ngIf="loggedIn()">
+                <a class="nav-link" (click)="logout()" href="#">Logout</a>
               </li>
             </ul>
           </nav>
@@ -39,7 +42,8 @@
           <a class="nav-link" [routerLink]="['/about']" (click)="sidenav.toggle()">About</a>
           <a class="nav-link" [routerLink]="['/services']" (click)="sidenav.toggle()">Services</a>
           <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">Contact</a>
-          <a class="nav-link" [routerLink]="['/login']" (click)="sidenav.toggle()">Login</a>
+          <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']" (click)="sidenav.toggle()">Login</a>
+          <a class="nav-link" *ngIf="loggedIn()" (click)="logout()" href="#">Logout</a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content fxFlexFill>

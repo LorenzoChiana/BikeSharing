@@ -51,8 +51,8 @@ export class EditBikeComponent implements OnInit {
     public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.nameUser = localStorage.getItem('login');
-    this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
+    this.nameUser = sessionStorage.getItem('login');
+    this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
     this.route.params.subscribe((params) => this.idBike = params.idBike);
 
     this.curBike = new Bike(0, '<codice>', this.latitudine, this.longitudine,

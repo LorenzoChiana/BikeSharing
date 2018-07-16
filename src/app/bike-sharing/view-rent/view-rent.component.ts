@@ -25,8 +25,8 @@ export class ViewRentComponent implements OnInit {
     private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.nameUser = localStorage.getItem('login');
-    this.isAdmin = (localStorage.getItem('isAdmin') == 'true');
+    this.nameUser = sessionStorage.getItem('login');
+    this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
 
     if (this.isAdmin == true) {
       this.rentService.getAllRent().subscribe(data => {

@@ -51,13 +51,13 @@ export class LoginComponent implements OnInit {
       } else if (data.passwordUtente != password) {
         alert("password errata !!");
       } else {
-        localStorage.setItem('login', name);
-        localStorage.setItem('isAdmin', 'false');
+        sessionStorage.setItem('login', name);
+        sessionStorage.setItem('isAdmin', 'false');
 
-        //localStorage.removeItem('isAdmin');
+        //sessionStorage.removeItem('isAdmin');
 
         if (data.tipoUtente == "admin") {
-          localStorage.setItem('isAdmin', 'true');
+          sessionStorage.setItem('isAdmin', 'true');
           this.route.navigate(['view', 'admin'])
         } else {
           this.route.navigate(['view'])

@@ -15,7 +15,11 @@ export class AppComponent {
 	ngOnInit(){}
 
 	logout(router:Router) {
-	  	localStorage.removeItem('login');
+	  	sessionStorage.clear();
 	    router.navigate(['/']);
 	}
+
+	loggedIn() {
+    	return sessionStorage.length != 0;
+  	}
 }

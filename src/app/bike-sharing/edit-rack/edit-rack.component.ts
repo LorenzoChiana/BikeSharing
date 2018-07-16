@@ -47,7 +47,7 @@ export class EditRackComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => this.idRack = params.idRack);
 
-    this.nameUser = localStorage.getItem('login');
+    this.nameUser = sessionStorage.getItem('login');
     this.valbutton = "Update";
 
     this.curRack = new Rack(0, '<codice>', this.latitudine, this.longitudine,
