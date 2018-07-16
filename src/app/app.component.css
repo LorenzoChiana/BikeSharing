@@ -669,7 +669,7 @@ td, th {
   padding: 9px 26px; }
 
 .main-menu {
-  height: 100vh;
+  height: 90vh;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
