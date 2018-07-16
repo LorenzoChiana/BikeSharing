@@ -104,8 +104,14 @@ export class ViewComponent implements OnInit {
     this.router.navigate(['view-comment', '']);
   }
 
+  preleva() : void {
+      alert("Seleziona un parcheggio");
+      //this.bikeList();
+  }
+
   rilascia() : void {
-      alert("Seleziona un parcheggio di rilascio");
+      //alert("Seleziona un parcheggio di rilascio");
+      this.bikeList();
   }
 
   infoRack(rack: Rack): void {

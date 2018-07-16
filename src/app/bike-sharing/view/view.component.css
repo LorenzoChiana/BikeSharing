@@ -8,7 +8,8 @@ body {
   overflow: auto;
   text-align: center;
   color: #fff;
-  padding: 3em; }
+  padding: 3em;
+}
   body .col-lg-4 {
     padding: 0; }
   body a {

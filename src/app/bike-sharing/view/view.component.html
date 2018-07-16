@@ -30,27 +30,18 @@ agm-map {
   mat-toolbar, mat-toolbar-row, mat-sidenav {
     background: #2c3e50;
   }
-
 </style>
 
 <body>
 
 <div class="container">
 
-<!-- toolbar material
-    <mat-toolbar>
-      <mat-toolbar-row>
-
-      </mat-toolbar-row>
-    </mat-toolbar>
--->
-
   <!-- pulsanti navigazione -->
   <div class="tool-bar">
     <button (click)="goBack()">Indietro</button>
     <button (click)="rackList()">Parcheggi</button>
-    <button (click)="bikeList()">Preleva</button>
-    <button (click)="bikeList()">Rilascia</button>
+    <button (click)="preleva()">Preleva</button>
+    <button (click)="rilascia()">Rilascia</button>
     <button (click)="rentList()">Prenotazioni</button>
     <button (click)="commentList()">Commenti</button>
   </div>
@@ -62,7 +53,7 @@ agm-map {
     <h1 style="color:white;">Seleziona un parcheggio</h1>
   </div>
 
-  <!-- mappa rastrelliere -->
+  <!-- mappa parcheggi -->
   <div *ngIf="showMap" class="map-responsive" id="mapView">
     <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
     Parcheggi bici
@@ -78,7 +69,7 @@ agm-map {
     </agm-map>
   </div>
 
-  <!-- elenco rastrelliere -->
+  <!-- elenco parcheggi -->
   <div class="table-container" style="overflow: auto;">
     <table class="table table-hover">
       <thead>

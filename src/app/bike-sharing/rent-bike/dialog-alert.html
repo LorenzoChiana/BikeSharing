@@ -1,0 +1,21 @@
+<style>
+/* css alla men peggio */
+  .formInput {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<div class="container">
+  <h1 mat-dialog-title>Alert Dialog</h1>
+  <div mat-dialog-content>
+    <div class="formInput">
+      <p>
+        {{data.msg}}. <br/>
+      </p>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCloseAlert()">Chiudi</button>
+  </div>
+</div>

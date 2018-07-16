@@ -8,9 +8,6 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//import {PopupModule} from 'ng2-opd-popup'; //
-//import {Subject} from 'rxjs/Subject'; //
-
 import { MaterialModule } from './material.module';
 
 import { RackService } from './services/rack.service';
@@ -18,7 +15,7 @@ import { BikeService } from './services/bike.service';
 import { RentService } from './services/rent.service';
 import { CommentService } from './services/comment.service';
 
-import { RentBikeComponent, DialogRentBike, DialogComment } from './rent-bike/rent-bike.component';
+import { RentBikeComponent, DialogRentBike, DialogComment, DialogAlert } from './rent-bike/rent-bike.component';
 import { ViewComponent, ViewRackDialog } from './view/view.component';
 import { InsertBikeComponent } from './insert-bike/insert-bike.component';
 import { EditBikeComponent, EditBikeDialog } from './edit-bike/edit-bike.component';
@@ -42,10 +39,14 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     RentBikeComponent,
+
     ViewComponent,
     ViewRackDialog,
+
     DialogRentBike,
     DialogComment,
+    DialogAlert,
+
 	  InsertBikeComponent,
     EditBikeComponent,
     EditBikeDialog,
@@ -61,9 +62,8 @@ const routes: Routes = [
     }),
     RouterModule.forChild(routes),
     MaterialModule,
-    //PopupModule.forRoot() //
   ],
-  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, EditBikeDialog, DialogComment],
+  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, EditBikeDialog, DialogComment, DialogAlert],
   exports: [ RouterModule, MaterialModule],
   providers: [ RackService, BikeService, RentService, CommentService ],
   bootstrap: []

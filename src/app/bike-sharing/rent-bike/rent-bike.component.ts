@@ -4,8 +4,6 @@ import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MouseEvent } from '@agm/core';
 
-//import {PopupModule} from 'ng2-opd-popup'; //
-
 import { RackService } from '../services/rack.service';
 import { BikeService } from '../services/bike.service';
 import { RentService } from '../services/rent.service';
@@ -52,6 +50,11 @@ export class CommentContent {
                 this.mode = mode;
                 this.comment = comment;
               }
+}
+
+/**/
+export interface DialogDataAlert {
+  testo: string;
 }
 
 @Component({
@@ -167,7 +170,7 @@ export class RentBikeComponent implements OnInit {
     }
 
     preleva() : void {
-      alert("Seleziona bici da prelevare");
+      this.openDialogAlert("Seleziona bici da prelevare");
     }
 
     rentList() : void {
@@ -183,42 +186,9 @@ export class RentBikeComponent implements OnInit {
         this.curBike = this.bikeUser[0];
         this.releaseDialog(this.curBike);
       } else {
-        alert("Nessuna bici da rilasciare");
+        this.alertDialog("Nessuna bici da rilasciare");
       }
     }
-
-    /* alert per: Nessuna bici da rilasciare
-
-    ClickButton(){
-
-   this.popup.options = {
-
-   header: "Popup Header",
-
-   color: "#5cb85c",
-
-   widthProsentage: 40,
-
-   animationDuration: 1,
-
-   showButtons: true,
-
-   confirmBtnContent: "OK",
-
-   cancleBtnContent: "Close",
-
-   confirmBtnClass: "btn btn-default",
-
-   cancleBtnClass: "btn btn-default",
-
-   animation: "fadeInDown",
-
-};
-
- this.popup.show();
-
-}
-    */
 
     editBike(bike: Bike) : void {
       this.router.navigate(['edit-bike', bike._id]);
@@ -348,6 +318,10 @@ export class RentBikeComponent implements OnInit {
         this.openDialogComment(commentContent, this.commentService);
       }
 
+      alertDialog(msg: string) : void {
+        this.openDialogAlert(msg);
+      }
+
       shiftRackBike() : void {
         var lat1 = this.curRack.latitudine;
         var lng1 = this.curRack.longitudine;
@@ -444,15 +418,15 @@ export class RentBikeComponent implements OnInit {
 
       this.curBike.stato = this.nameUser;
       this.bikeService.modifyStateBike(this.curBike._id, this.curBike.stato, this.curBike.rack)
-      .subscribe(data => { /*alert(data.data);*/ this.ngOnInit(); }, error => this.errorMessage = error);
+      .subscribe(data => { this.ngOnInit(); }, error => this.errorMessage = error);
         if (this.curRack.numBike > 0) {
           this.curRack.numBike--;
         }
         this.rackService.updateRack(this.curRack)
-        .subscribe(data => { /*alert(data);*/ }, error => this.errorMessage = error);
+        .subscribe(data => {}, error => this.errorMessage = error);
 
         this.rentService.saveRent(this.curRent)
-          .subscribe(data => {/*alert("saveRent = " + data)*/}, error => this.errorMessage = error);
+          .subscribe(data => {}, error => this.errorMessage = error);
 
         this.reloadBike();
     }
@@ -462,9 +436,10 @@ export class RentBikeComponent implements OnInit {
       this.release = false;
 
       if (this.distRack > this.distMin) { // distanza minima per riposizionamento
-        alert ("Bici troppo distante dal rack "+ this.curRack.codice);
+
+        this.openDialogAlert("Bici troppo distante dal rack "+ this.curRack.codice);
       } else if (this.curRack.numPlace - this.curRack.numBike <= 0) { // distanza minima per riposizionamento
-          alert ("parcheggio bici esaurito ");
+          this.openDialogAlert("Parcheggio bici esaurito");
       } else {
       this.release = true;
 
@@ -474,14 +449,14 @@ export class RentBikeComponent implements OnInit {
       this.curBike.stato = "libero";
       this.curBike.rack = this.curRack.codice;
       this.bikeService.updateBike(this.curBike)
-      .subscribe(data => { /*alert(data.data);*/ }, error => this.errorMessage = error);
+      .subscribe(data => { }, error => this.errorMessage = error);
 
       this.curRack.numBike++;
       this.rackService.updateRack(this.curRack)
-      .subscribe(data => { /*alert(data.data); */ }, error => this.errorMessage = error);
+      .subscribe(data => { }, error => this.errorMessage = error);
 
       this.rentService.updateRent(this.curRent)
-      .subscribe(data => { /*alert(data.data);*/ }, error => this.errorMessage = error);
+      .subscribe(data => { }, error => this.errorMessage = error);
 
       //this.reloadBike();
       }
@@ -508,8 +483,22 @@ export class RentBikeComponent implements OnInit {
       this.reloadBike();
     });
   }
+
+  openDialogAlert(msg: string): void {
+    const dialogRef = this.dialog.open(DialogAlert, {
+      width: '300px',
+      height: '200px',
+      data: {
+        msg: msg,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }
 
+/*---- dialog rents ----*/
 @Component({
   selector: 'dialog-rent',
   templateUrl: 'dialog-rent.html',
@@ -528,6 +517,7 @@ export class DialogRentBike {
   }
 }
 
+/*---- dialog commenti ----*/
 @Component({
   selector: 'dialog-comment',
   templateUrl: 'dialog-comment.html',
@@ -543,5 +533,20 @@ export class DialogComment {
 
   onCloseComment(): void {
     this.dialogRefComment.close();
+  }
+}
+
+/*---- dialog alert ----*/
+@Component({
+  selector: 'dialog-alert',
+  templateUrl: 'dialog-alert.html',
+})
+export class DialogAlert {
+  constructor(
+    public dialogRef: MatDialogRef<DialogAlert>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataAlert) {}
+
+  onCloseAlert(): void {
+    this.dialogRef.close();
   }
 }

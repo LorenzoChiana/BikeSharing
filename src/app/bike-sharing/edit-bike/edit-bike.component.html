@@ -22,7 +22,6 @@
   .form-horizontal {
     text-align: left;
   }
-
   </style>
 </head>
 <body>
@@ -34,14 +33,12 @@
     <button (click)="goBack()">Back</button>
   </div>
 
-
   <!-- titolo -->
   <div class="titolo">
     <h1>Edit Bike: {{curBike.codice}}</h1>
     <button *ngIf="showMap" (click)="toggleMap()">Dati</button>
     <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
   </div>
-
 
 <!-- mappa localizzazione bici -->
 <div *ngIf="showMap" class="map-responsive" id="mapView">
@@ -96,14 +93,6 @@
     <button  (click)="insertBikek()">Insert</button>
     <button (click)="deleteBike()">Delete</button>
   </div>
-
-  <!--
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <input type="submit" class="btn btn-primary" value="{{valbutton}}" />
-    </div>
-  </div>
-  -->
 
 </form> <!-- end form -->
 </div> <!-- end content body -->
