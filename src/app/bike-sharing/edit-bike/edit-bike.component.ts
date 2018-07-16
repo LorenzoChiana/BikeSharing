@@ -21,7 +21,8 @@ export interface DialogData {
 @Component({
   selector: 'app-edit-bike',
   templateUrl: './edit-bike.component.html',
-  styleUrls: ['./edit-bike.component.css']
+  //styleUrls: ['./edit-bike.component.css']
+  styleUrls: ['../view/view.component.css']
 })
 export class EditBikeComponent implements OnInit {
   private nameUser: string;
@@ -40,6 +41,7 @@ export class EditBikeComponent implements OnInit {
   private latitudine: number = 44.144207;
   private longitudine: number = 12.231784;
   private zoom: number = 14;
+  private showMap: boolean = true;
 
   private errorMessage;
 
@@ -99,17 +101,17 @@ export class EditBikeComponent implements OnInit {
     }, error => this.errorMessage = error );
   }
 
-  close(): void {
-    this.goBack();
+  goBack(): void {
+    this.location.back();
+  }
+
+  toggleMap() : void {
+    this.showMap = !this.showMap;
   }
 
   dragBike(event, bike): void {
     this.curBike.latitudine = event.coords.lat;
     this.curBike.longitudine = event.coords.lng;
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   dialogBike(bike : Bike) {

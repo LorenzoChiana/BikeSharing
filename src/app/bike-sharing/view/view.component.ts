@@ -27,6 +27,7 @@ export class ViewComponent implements OnInit {
    private nameUser: string;
 
    private rackes : Rack[];
+   private curRack: Rack;
    private errorMessage;
 
    // Centro di Cesena
@@ -57,6 +58,8 @@ export class ViewComponent implements OnInit {
     this.rackService.getAllRack().subscribe(data => {
       this.rackes = data;
 
+      this.curRack = this.rackes[0];
+
       // aggiornamento num bici rack
       for (var i = 0; i < this.rackes.length; i++) {
         this.rackes[i].numBike = 0;
@@ -85,8 +88,24 @@ export class ViewComponent implements OnInit {
     this.location.back();
   }
 
+  rackList() : void {
+    this.router.navigate(['view']);
+  }
+
+  bikeList(): void {
+    this.router.navigate(['rent-bike', this.curRack._id]);
+  }
+
   rentList() : void {
-    this.router.navigate(['view-rent', this.nameUser, this.isAdmin]);
+    this.router.navigate(['view-rent']);
+  }
+
+  commentList() : void {
+    this.router.navigate(['view-comment', '']);
+  }
+
+  rilascia() : void {
+      alert("Seleziona un parcheggio di rilascio");
   }
 
   infoRack(rack: Rack): void {

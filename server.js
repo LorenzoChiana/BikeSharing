@@ -21,7 +21,9 @@ app.use(function (req, res, next) {
      res.setHeader('Access-Control-Allow-Credentials', true);       
      next();  
  });  
-  
+ 
+ 
+
 var Schema = mongo.Schema;  
   
 var UserBikeSchema = new Schema({      
@@ -181,8 +183,9 @@ var RackSchema = new Schema({
 },{ versionKey: false });    
 	 
 var modelRack = mongo.model('rackes', RackSchema, 'rackes'); 
-  
-app.get("/api/getAllRack", function(req,res) {  
+ 
+
+app.get("/api/getAllRack", function(req,res) { 
 	modelRack.find({},function(err,data){  
 		if(err){  
 			res.send(err);  
@@ -340,24 +343,25 @@ app.post("/api/modifyStateRent", function(req,res) {
 		}    
 	})    
 })
-  
+
 var CommentSchema = new Schema({ 
  data: { type: String, required: true },   
  nameUser: { type: String, required: true }, 
  codeBike: { type: String, required: true },
  testo: { type: String },
- icona: { type: String }
+ icona: { type: String },
 },{ versionKey: false });
   
 var modelComment = mongo.model('comments', CommentSchema, 'comments'); 
-  
+	
 app.post("/api/SaveComment/",function(req,res) {
 	var mod = new modelComment({data: req.body.data,
 							nameUser: req.body.nameUser, codeBike: req.body.codeBike, 
-							testo: req.body.testo, icona: req.body.icona});  
+							testo: req.body.testo, icona: req.body.icona}); 
+					
 	mod.save(function(err,data) {
 		if (err) {  
-			res.send(err);         
+		  res.send(err);         
 		}  
 		else{
 		  res.send({data:"Record has been Inserted..!!"});  
@@ -365,7 +369,7 @@ app.post("/api/SaveComment/",function(req,res) {
 	});  
 })
   
-app.get("/api/getAllComment", function(req,res) {  
+app.get("/api/getAllComment", function(req,res) {
 	modelComment.find({},function(err,data){  
 		if(err){  
 			res.send(err);  

@@ -18,23 +18,33 @@
     padding-top: 2%;
     padding-bottom: 2%;
   }
+
+  .form-horizontal {
+    text-align: left;
+  }
+
   </style>
 </head>
 <body>
 
 <div class="container">
 
-<!-- pulsanti navigazione -->
-<div class="container">
-  <button (click)="goBack()">Back</button>
-  <a [routerLink]="['/view', 'admin']" routerLinkActive="active">Map Rack</a>
-</div>
+  <!-- pulsanti navigazione -->
+  <div class="container">
+    <button (click)="goBack()">Back</button>
+  </div>
+
 
   <!-- titolo -->
-  <h1>Edit Bike: {{curBike.codice}}</h1>
+  <div class="titolo">
+    <h1>Edit Bike: {{curBike.codice}}</h1>
+    <button *ngIf="showMap" (click)="toggleMap()">Dati</button>
+    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
+  </div>
+
 
 <!-- mappa localizzazione bici -->
-<div class="map-responsive" id="mapView">
+<div *ngIf="showMap" class="map-responsive" id="mapView">
   <agm-map [latitude]="latitudine" [longitude]="longitudine"
   [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
     <agm-marker
@@ -80,21 +90,11 @@
   </div><!-- end content form -->
 
   <!-- div pulsanti -->
-  <div class="form-group">
-    <div class="row">
-      <div class="col-sm-offset-4 col-sm-1">
-        <button class="btn btn-default btn-sm" (click)="close()">Close</button>
-      </div>
-      <div class="col-sm-1">
-        <button class="btn btn-primary btn-sm" (click)="updateBike()">Update</button>
-      </div>
-      <div class="col-sm-1">
-        <button class="btn btn-primary btn-sm" (click)="insertBike()">Insert</button>
-      </div>
-      <div class="col-sm-1">
-        <button class="btn btn-danger btn-sm" (click)="deleteBike()">Delete</button>
-      </div>
-    </div>
+  <div class="container">
+    <button  (click)="goBack()">Close</button>
+    <button  (click)="updateBike()">Update</button>
+    <button  (click)="insertBikek()">Insert</button>
+    <button (click)="deleteBike()">Delete</button>
   </div>
 
   <!--

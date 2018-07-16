@@ -23,19 +23,28 @@ agm-map {
 
 <div class="container">
   <!-- pulsanti navigazione -->
-  <div class="container">
-    <button (click)="home()">Parcheggi</button>
-    <button *ngIf="showMap" (click)="toggleMap()">Elenco</button>
-    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
-    <button (click)="rentList()">Prenotazioni</button>
+  <div class="tool-bar">
     <button (click)="goBack()">Indietro</button>
+    <button (click)="rackList()">Parcheggi</button>
+    <button (click)="preleva()">Preleva</button>
+    <button (click)="rilascia()">Rilascia</button>
+    <button (click)="rentList()">Prenotazioni</button>
+    <button (click)="commentList()">Commenti</button>
   </div>
 
-  <h1>Bici: {{curRack.codice}}-{{curRack.indirizzo}}</h1>
+  <!-- titolo -->
+  <div class="titolo">
+    <button *ngIf="showMap" (click)="toggleMap()">Elenco</button>
+    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
+    <h1 style="color:white;">Seleziona Bici da: {{curRack.codice}}-{{curRack.indirizzo}}</h1>
+  </div>
 
 <!-- mappa bici -->
 
   <div *ngIf="showMap" class="map-responsive" id="mapView">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">  Parcheggi bici
+    <img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png">  Bici disponibili
+    <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png">  Bici in uso
   <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom"
            [fullscreenControl]='true' [mapTypeControl]='true'>
 
@@ -71,6 +80,14 @@ agm-map {
 
   </agm-map>
 </div>
+
+<!-- tempPopUp -->
+<!--
+<popup>
+    This is Angular 4 PopUp
+</popup>
+<button type="button" class="btn btn-primary" (click)="ClickButton()">Primary</button>
+-->
 
 <!-- elenco bici -->
 <div class="table-container" style="overflow: auto;">
@@ -116,9 +133,11 @@ agm-map {
             (click)="selectBike(kk,0)" data-target="#myModal">Preleva</button>
           </td>
 
-          <td *ngIf="!isAdmin && kk.stato != 'libero'"><a style="color:red">Non disponibile</a></td>
-          <td *ngIf="isAdmin"><a [routerLink]="['/edit-bike', kk._id]" routerLinkActive="active"
-            style="color:blueviolet">Edit</a></td>
+          <td *ngIf="!isAdmin && (kk.stato != 'libero' && kk.stato != nameUser)"><a style="color:red">Non disponibile</a></td>
+          <td *ngIf="isAdmin">
+            <button type="button" class="btn btn-primary btn-sm" (click)="editBike(kk)">Edit</button>
+          </td>
+
         </tr>
     </tbody>
   </table>

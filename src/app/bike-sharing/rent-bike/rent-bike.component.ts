@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MouseEvent } from '@agm/core';
 
+//import {PopupModule} from 'ng2-opd-popup'; //
+
 import { RackService } from '../services/rack.service';
 import { BikeService } from '../services/bike.service';
 import { RentService } from '../services/rent.service';
@@ -92,8 +94,9 @@ export class RentBikeComponent implements OnInit {
 
   private distRack: number;
   private distMin: number = 100; // Distanza minima x riposizionamento bici
-
   private costoOra: number = 0.50; // costo orario
+
+  private release: boolean = false;  // Rilascio effettuato
 
   private errorMessage;
 
@@ -130,12 +133,13 @@ export class RentBikeComponent implements OnInit {
       this.route.params.subscribe((params) => {
 
         var idRack :number = params.idRack;
+
         this.rackService.getRack(idRack).subscribe(data => {
           this.curRack = data;
           this.latitudine = this.curRack.latitudine;
           this.longitudine = this.curRack.longitudine;
 
-          this.ricaricaBici();
+          this.reloadBike();
         });
 
         this.rackService.getAllRack().subscribe(data => {
@@ -154,21 +158,80 @@ export class RentBikeComponent implements OnInit {
       this.showMap = !this.showMap;
     }
 
-    home() : void {
-      this.router.navigate(['view']);
-    }
-
     goBack(): void {
         this.location.back();
     }
 
-    commentiBike(bike: Bike) : void {
+    rackList() : void {
+      this.router.navigate(['view']);
+    }
+
+    preleva() : void {
+      alert("Seleziona bici da prelevare");
+    }
+
+    rentList() : void {
+      this.router.navigate(['view-rent']);
+    }
+
+    commentList() : void {
+      this.router.navigate(['view-comment', '']);
+    }
+
+    rilascia() : void {
+      if (this.bikeUser.length > 0) {
+        this.curBike = this.bikeUser[0];
+        this.releaseDialog(this.curBike);
+      } else {
+        alert("Nessuna bici da rilasciare");
+      }
+    }
+
+    /* alert per: Nessuna bici da rilasciare
+
+    ClickButton(){
+
+   this.popup.options = {
+
+   header: "Popup Header",
+
+   color: "#5cb85c",
+
+   widthProsentage: 40,
+
+   animationDuration: 1,
+
+   showButtons: true,
+
+   confirmBtnContent: "OK",
+
+   cancleBtnContent: "Close",
+
+   confirmBtnClass: "btn btn-default",
+
+   cancleBtnClass: "btn btn-default",
+
+   animation: "fadeInDown",
+
+};
+
+ this.popup.show();
+
+}
+    */
+
+    editBike(bike: Bike) : void {
+      this.router.navigate(['edit-bike', bike._id]);
+    }
+
+    commentBike(bike: Bike) : void {
       this.router.navigate(['view-comment', bike.codice]);
     }
 
-    ricaricaBici() : void {
+    reloadBike() : void {
       if  (this.isAdmin == true) {
         this.bikeService.getAllBike().subscribe((data) => { this.bikeRack = data; });
+
       } else {
         this.bikeService.getUserBike(this.nameUser).subscribe((data) => {
           this.bikeUser = data;
@@ -224,12 +287,11 @@ export class RentBikeComponent implements OnInit {
 
     selectRack(rack : Rack): void {
         this.curRack = rack; // cambio rack corrente
-        this.ricaricaBici();
+        this.reloadBike();
     }
 
     rentDialog(bike : Bike) : void {
       this.curBike = bike;
-
       var now: Date = new Date();
       var todayString: string = now.toDateString();
 
@@ -280,10 +342,10 @@ export class RentBikeComponent implements OnInit {
 
       commentDialog() : void {
         this.curComment = new Comment(0, this.curRent.data, this.curRent.nameUser, this.curRent.codeBike,
-                                      "", "");
+                                      "", "icona");
 
         var commentContent: CommentContent = new CommentContent("insert", this.curComment);
-        this.openDialogComment(commentContent);
+        this.openDialogComment(commentContent, this.commentService);
       }
 
       shiftRackBike() : void {
@@ -291,6 +353,7 @@ export class RentBikeComponent implements OnInit {
         var lng1 = this.curRack.longitudine;
 
         var x = lng1 + this.deltaX;
+
         for (var i = 0; i < this.bikeRack.length; i++) {
           var dist = this.distanza(lat1, lng1, this.bikeRack[i].latitudine, this.bikeRack[i].longitudine);
           if  (dist < this.distMin){
@@ -369,7 +432,9 @@ export class RentBikeComponent implements OnInit {
             this.rentBike(rentContent, result);
           } else {
             this.releaseBike(rentContent, result);
-            this.commentDialog();
+            if (this.release) {
+                this.commentDialog();
+            }
           }
         }
       });
@@ -389,14 +454,20 @@ export class RentBikeComponent implements OnInit {
         this.rentService.saveRent(this.curRent)
           .subscribe(data => {/*alert("saveRent = " + data)*/}, error => this.errorMessage = error);
 
-        this.ricaricaBici();
+        this.reloadBike();
     }
 
     releaseBike(rentContent : RentContent, result : DialogData): void {
 
+      this.release = false;
+
       if (this.distRack > this.distMin) { // distanza minima per riposizionamento
-        alert ("Bici troppo distante dal rack "+ this.curRack.codice)
+        alert ("Bici troppo distante dal rack "+ this.curRack.codice);
+      } else if (this.curRack.numPlace - this.curRack.numBike <= 0) { // distanza minima per riposizionamento
+          alert ("parcheggio bici esaurito ");
       } else {
+      this.release = true;
+
       this.curBike.latitudine = this.curRack.latitudine;
       this.curBike.longitudine = this.curRack.longitudine + this.deltaX;
 
@@ -412,11 +483,11 @@ export class RentBikeComponent implements OnInit {
       this.rentService.updateRent(this.curRent)
       .subscribe(data => { /*alert(data.data);*/ }, error => this.errorMessage = error);
 
-      //this.ricaricaBici();
+      //this.reloadBike();
       }
   }
 
-  openDialogComment(commentContent : CommentContent): void {
+  openDialogComment(commentContent : CommentContent, commentService: CommentService): void {
     const dialogRef = this.dialog.open(DialogComment, {
       width: '300px',
       height: '350px',
@@ -429,10 +500,12 @@ export class RentBikeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) { //  Conferma
         if (result.comment.testo != '') { // commento valido
-          this.commentService.saveComment(result.comment);
+          this.commentService.saveComment(result.comment).subscribe(data => {
+          });
         }
       }
-      this.ricaricaBici();
+
+      this.reloadBike();
     });
   }
 }

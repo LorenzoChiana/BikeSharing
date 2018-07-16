@@ -13,7 +13,7 @@
       <p>
         Data: {{data.comment.data}}. <br/>
         Utente: {{data.comment.nameUser}}. <br/>
-        Bike: {{data.comment.codeBike}}.
+        Bici: {{data.comment.codeBike}}.
       </p>
       <mat-form-field>
         <label>Commento:</label>
@@ -24,7 +24,5 @@
   <div mat-dialog-actions>
     <button mat-button (click)="onCloseComment()">Annulla</button>
     <button mat-button (click)="onConfirmComment()">Conferma</button>
-
-    <!-- <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Conferma</button> -->
   </div>
 </div>

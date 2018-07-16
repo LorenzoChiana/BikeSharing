@@ -13,7 +13,7 @@ export class CommentService {
 
   saveComment(comment){
     return this.http.post('http://localhost:8080/api/SaveComment/', comment)
-            .map((response: Response) => {response.json()})
+            .map((response: Response) => response.json())
   }
 
   getAllComment():Observable<Comment[]>{

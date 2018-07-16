@@ -13,7 +13,8 @@ import { Rack, Bike, Rent } from '../structDb'
 @Component({
   selector: 'app-edit-rack',
   templateUrl: './edit-rack.component.html',
-  styleUrls: ['./edit-rack.component.css']
+  //styleUrls: ['./edit-rack.component.css']
+  styleUrls: ['../view/view.component.css']
 })
 export class EditRackComponent implements OnInit {
   private nameUser: string;
@@ -33,6 +34,7 @@ export class EditRackComponent implements OnInit {
   private latitudine: number = 44.144207;
   private longitudine: number = 12.231784;
   private zoom: number = 14;
+  private showMap: boolean = true;
 
   private deltaLat: number = 0.0001;
 
@@ -72,8 +74,9 @@ export class EditRackComponent implements OnInit {
   updateRack(): void {
     this.curRack.codice = this.codice;
     this.curRack.indirizzo = this.indirizzo;
-    this.curRack.latitudine = this.latitudine;
-    this.curRack.longitudine = this.longitudine;
+
+    //this.curRack.latitudine = this.latitudine;
+    //this.curRack.longitudine = this.longitudine;
     this.curRack.numBike = this.numBike;
     this.curRack.numPlace = this.numPlace;
 
@@ -97,21 +100,25 @@ export class EditRackComponent implements OnInit {
     }, error => this.errorMessage = error );
   }
 
-  close(): void {
-    this.goBack();
+  goBack(): void {
+    this.location.back();
   }
 
+  toggleMap() : void {
+    this.showMap = !this.showMap;
+  }
+  
   infoRack(rack : Rack) {
     this.router.navigate(['rent-bike', rack._id]);
   }
 
   dragRack(event, rack): void {
-    this.latitudine = event.coords.lat;
-    this.longitudine = event.coords.lng;
-  }
+  // Posizionamento mappa
+  //  this.latitudine = event.coords.lat;
+  //  this.longitudine = event.coords.lng;
 
-  goBack(): void {
-    this.location.back();
+    rack.latitudine = event.coords.lat;
+    rack.longitudine = event.coords.lng;
   }
 
 }

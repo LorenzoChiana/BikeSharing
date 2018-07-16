@@ -32,9 +32,15 @@ export class ViewCommentComponent implements OnInit {
       this.codeBike = params.codeBike;
     });
 
-    this.commentService.getBikeComment(this.codeBike).subscribe(data =>  {
-      this.comments = data;
-    });
+    if (this.codeBike == '') {
+      this.commentService.getAllComment().subscribe(data =>  {
+        this.comments = data;
+      });
+    } else {
+      this.commentService.getBikeComment(this.codeBike).subscribe(data =>  {
+        this.comments = data;
+      });
+    }
   }
 
   goBack(): void {

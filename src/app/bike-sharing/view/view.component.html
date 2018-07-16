@@ -7,7 +7,7 @@
 <style>
 agm-map {
   width: 100%;
-  height: 60vh;
+  height: 50vh;
 }
 
 /* css mappa */
@@ -19,25 +19,53 @@ agm-map {
   padding-bottom: 2%;
 }
 
+/* Nav Meu Container */
+@media (max-width: 991px) {
+  .nav-menu-container {
+    display: none;
+  /*  text-align: left; */
+    }
+  }
+
+  mat-toolbar, mat-toolbar-row, mat-sidenav {
+    background: #2c3e50;
+  }
+
 </style>
 
 <body>
 
 <div class="container">
+
+<!-- toolbar material
+    <mat-toolbar>
+      <mat-toolbar-row>
+
+      </mat-toolbar-row>
+    </mat-toolbar>
+-->
+
   <!-- pulsanti navigazione -->
-  <div class="container">
-    <button (click)="home()">Parcheggi</button>
-    <button *ngIf="showMap" (click)="toggleMap()">Elenco</button>
-    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
-    <button (click)="rentList()">Prenotazioni</button>
+  <div class="tool-bar">
     <button (click)="goBack()">Indietro</button>
+    <button (click)="rackList()">Parcheggi</button>
+    <button (click)="bikeList()">Preleva</button>
+    <button (click)="bikeList()">Rilascia</button>
+    <button (click)="rentList()">Prenotazioni</button>
+    <button (click)="commentList()">Commenti</button>
   </div>
 
   <!-- titolo -->
-  <h1>Parcheggi bici</h1>
+  <div class="titolo">
+    <button *ngIf="showMap" (click)="toggleMap()">Elenco</button>
+    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
+    <h1 style="color:white;">Seleziona un parcheggio</h1>
+  </div>
 
   <!-- mappa rastrelliere -->
   <div *ngIf="showMap" class="map-responsive" id="mapView">
+    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
+    Parcheggi bici
     <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
       <agm-marker *ngFor="let rack of rackes; let ind = index"
       [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"

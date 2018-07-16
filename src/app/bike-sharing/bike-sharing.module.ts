@@ -8,6 +8,9 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//import {PopupModule} from 'ng2-opd-popup'; //
+//import {Subject} from 'rxjs/Subject'; //
+
 import { MaterialModule } from './material.module';
 
 import { RackService } from './services/rack.service';
@@ -26,7 +29,7 @@ import { EditRackComponent } from './edit-rack/edit-rack.component';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
 
 const routes: Routes = [
-  { path: 'view-rent/:nameUser/:isAdmin', component: ViewRentComponent },
+  { path: 'view-rent', component: ViewRentComponent },
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
   //{ path: 'ins', component: InsertBikeComponent },
@@ -57,7 +60,8 @@ const routes: Routes = [
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
     RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule,
+    //PopupModule.forRoot() //
   ],
   entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, EditBikeDialog, DialogComment],
   exports: [ RouterModule, MaterialModule],
