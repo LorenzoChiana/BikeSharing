@@ -20,9 +20,13 @@ export class ViewRentComponent implements OnInit {
   private totTempo: number;
   private totCosto: number;
 
+  private Math: any;
+
   constructor(private rentService :RentService,
     private location: Location,
-    private activeRoute: ActivatedRoute) { }
+    private activeRoute: ActivatedRoute) {
+      this.Math = Math;
+    }
 
   ngOnInit() {
     this.nameUser = sessionStorage.getItem('login');
@@ -49,6 +53,9 @@ export class ViewRentComponent implements OnInit {
       this.totTempo += this.rents[i].tempo;
       this.totCosto += this.rents[i].costo;
     }
+
+    this.totTempo = this.Math.round(this.totTempo * 100)/100;
+    this.totCosto = this.Math.round(this.totCosto * 100)/100;
   }
 
   goBack(): void {

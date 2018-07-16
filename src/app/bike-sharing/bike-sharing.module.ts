@@ -17,7 +17,7 @@ import { CommentService } from './services/comment.service';
 
 import { RentBikeComponent, DialogRentBike, DialogComment, DialogAlert } from './rent-bike/rent-bike.component';
 import { ViewComponent, ViewRackDialog } from './view/view.component';
-import { InsertBikeComponent } from './insert-bike/insert-bike.component';
+
 import { EditBikeComponent, EditBikeDialog } from './edit-bike/edit-bike.component';
 
 import 'hammerjs';
@@ -29,7 +29,6 @@ const routes: Routes = [
   { path: 'view-rent', component: ViewRentComponent },
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
-  //{ path: 'ins', component: InsertBikeComponent },
   { path: 'edit-bike/:idBike', component: EditBikeComponent },
   { path: 'edit-rack/:idRack', component: EditRackComponent },
   { path: 'rent-bike/:idRack', component: RentBikeComponent },
@@ -47,11 +46,10 @@ const routes: Routes = [
     DialogComment,
     DialogAlert,
 
-	  InsertBikeComponent,
+    EditRackComponent,
     EditBikeComponent,
     EditBikeDialog,
     ViewRentComponent,
-    EditRackComponent,
     ViewCommentComponent,
   ],
   imports: [
