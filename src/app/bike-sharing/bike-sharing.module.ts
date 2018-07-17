@@ -18,8 +18,6 @@ import { CommentService } from './services/comment.service';
 import { RentBikeComponent, BikeDialog, DialogRentBike, DialogComment, DialogAlert } from './rent-bike/rent-bike.component';
 import { ViewComponent, ViewRackDialog } from './view/view.component';
 
-import { EditBikeComponent, EditBikeDialog } from './edit-bike/edit-bike.component';
-
 import 'hammerjs';
 import { ViewRentComponent } from './view-rent/view-rent.component';
 import { EditRackComponent } from './edit-rack/edit-rack.component';
@@ -29,7 +27,6 @@ const routes: Routes = [
   { path: 'view-rent', component: ViewRentComponent },
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
-  { path: 'edit-bike/:idBike', component: EditBikeComponent },
   { path: 'edit-rack/:idRack', component: EditRackComponent },
   { path: 'rent-bike/:idRack', component: RentBikeComponent },
   { path: 'view-comment/:codeBike', component: ViewCommentComponent },
@@ -48,8 +45,6 @@ const routes: Routes = [
     BikeDialog,
 
     EditRackComponent,
-    EditBikeComponent,
-    EditBikeDialog, // da eliminare
     ViewRentComponent,
     ViewCommentComponent,
   ],
@@ -62,7 +57,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
   ],
-  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, EditBikeDialog, DialogComment, DialogAlert],
+  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, DialogComment, DialogAlert],
   exports: [ RouterModule, MaterialModule],
   providers: [ RackService, BikeService, RentService, CommentService ],
   bootstrap: []

@@ -659,7 +659,7 @@ onClose(): void {
 /*---- dialog COMMENTI ----*/
 @Component({
   selector: 'dialog-comment',
-  templateUrl: 'dialog-comment.html',
+  templateUrl: 'dialog-comment.html'
 })
 export class DialogComment {
   constructor(
