@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { HeaderComponent } from './header/header.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -22,10 +23,24 @@ import {
 } from '@angular/material';
 
 const appRoutesMain: Routes = [
-    //{ path: '', redirectTo: '/', pathMatch: 'full' },
+    /*{ path: '', redirectTo: '/', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
+    { path: 'about', component: AboutComponent },
+    { path: 'contact', component: ContactComponent },*/
+    {
+      path: '',
+      component: AppComponent,
+      children: [
+        {
+          path: '',
+          component: HomeComponent
+        }
+      ]
+    }
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -34,6 +49,7 @@ const appRoutesMain: Routes = [
     HomeComponent,
     AboutComponent,
     ContactComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
