@@ -7,25 +7,37 @@
 </style>
 
 <div class="container">
-  <h1 mat-dialog-title>Parcheggio: {{data.rack.codice}}</h1>
+  <h1 *ngIf="!data.edit" mat-dialog-title>Parcheggio: {{data.rack.codice}}</h1>
+  <h1 *ngIf="data.edit" mat-dialog-title>Edit Parcheggio</h1>
   <div mat-dialog-content>
     <div class="formInput">
+
+      <mat-form-field *ngIf="data.edit">
+        <label>Codice:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.codice">
+      </mat-form-field>
+
       <mat-form-field>
         <label>Indirizzo:</label>
-        <input matInput [(ngModel)]="data.rack.indirizzo" readonly>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.indirizzo">
       </mat-form-field>
       <mat-form-field>
         <label>N. bici:</label>
-        <input matInput [(ngModel)]="data.rack.numBike" readonly>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numBike">
       </mat-form-field>
       <mat-form-field>
         <label>N. posti:</label>
-        <input matInput [(ngModel)]="data.rack.numPlace" readonly>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numPlace">
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onClose()">Close</button>
-    <button mat-button (click)="onSelect()">Seleziona</button> 
+    <button mat-button (click)="onClose()">Chiudi</button>
+    <button mat-button (click)="onSelect()">Seleziona</button>
+    <div>
+      <button *ngIf="data.edit" mat-button (click)="onUpdate()">Aggiorna</button>
+      <button *ngIf="data.edit" mat-button (click)="onInsert()">Inserisci</button>
+      <button *ngIf="data.edit" mat-button (click)="onDelete()">Elimina</button>
+    </div>
   </div>
 </div>

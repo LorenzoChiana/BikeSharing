@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators';
 
 export interface DialogData {
+  edit: boolean;
   rack: Rack;
 }
 
@@ -115,44 +116,55 @@ export class ViewComponent implements OnInit {
   }
 
   infoRack(rack: Rack): void {
-    this.dialogRack(rack);
+    this.dialogRack(rack, false);
   }
 
   selectRack(rack: Rack) : void {
+  //  this.dialogRack(rack);
     this.router.navigate(['rent-bike', rack._id]);
   }
 
   editRack(rack: Rack): void {
-    this.router.navigate(['edit-rack', rack._id]);
+    //this.router.navigate(['edit-rack', rack._id]);
+    this.dialogRack(rack, true); // chiamata dal bottone lista
   }
 
   dragRack(event, rack): void {
     rack.latitudine = event.coords.lat;
     rack.longitudine = event.coords.lng;
 
-    this.rackService.updateRack(rack)
-        .subscribe(data => { }, error => this.errorMessage = error)
+  //  this.rackService.updateRack(rack)
+  //      .subscribe(data => { }, error => this.errorMessage = error)
   }
 
-  dialogRack(rack: Rack) : void {
-    this.openDialog(rack, this.rackService);
+  dialogRack(rack: Rack, edit: boolean) : void {
+    this.openDialog(rack, this.isAdmin, this.rackService);
   }
 
-  openDialog(rack : Rack, rackService: RackService): void {
+  openDialog(rack : Rack, edit: boolean, rackService: RackService): void {
+    var wD: string = '25%';
+    var hD: string = '65%';
+
+    if (edit) {
+      wD = '30%';
+      hD = '90%';
+    }
+
     const dialogRef = this.dialog.open(ViewRackDialog, {
-      width: '300px',
-      height: '450px',
+      width: wD,
+      height: hD,
       data: {
+        edit: edit,
         rack: rack
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        if (this.isAdmin == true) {
+        if (result.edit || this.isAdmin == false) {
           this.selectRack(result.rack);
-        } else {
-          this.selectRack(result.rack);
+        } else if (this.isAdmin && result.edit == false){
+            this.viewRack();
         }
       }
     });
@@ -165,9 +177,13 @@ export class ViewComponent implements OnInit {
   templateUrl: 'view-dialog.html',
 })
 export class ViewRackDialog {
+
+   private errorMessage;
+
   constructor(
     public dialogRef: MatDialogRef<ViewRackDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private rackService :RackService) {}
 
   onSelect(): void {
     this.dialogRef.close(this.data);
@@ -175,5 +191,37 @@ export class ViewRackDialog {
 
   onClose(): void {
     this.dialogRef.close();
+  }
+
+  onUpdate() : void{
+      this.onEditRack("update");
+  }
+
+  onInsert() : void{
+      this.onEditRack("insert");
+  }
+
+  onDelete() : void{
+    this.onEditRack("delete");
+  }
+  onEdit() : void{
+    this.onEditRack("delete");
+  }
+
+  onEditRack(command : string): void {
+    var rack: Rack = this.data.rack;
+
+      if (command == "update") {
+        this.rackService.updateRack(rack).subscribe(data =>  {
+          /*alert(data.data);*/ }, error => this.errorMessage = error );
+      } else if (command == "insert") {
+        this.rackService.saveRack(rack).subscribe(data =>  {
+            /*alert(data.data);*/ }, error => this.errorMessage = error );
+      } else if (command == "delete") {
+        this.rackService.deleteRack(rack._id).subscribe(data =>  {
+            /*alert(data.data);*/ }, error => this.errorMessage = error );
+      }
+      this.data.edit = false;
+      this.dialogRef.close(this.data);
   }
 }

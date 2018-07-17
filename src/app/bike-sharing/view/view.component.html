@@ -60,7 +60,7 @@ agm-map {
     <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
       <agm-marker *ngFor="let rack of rackes; let ind = index"
       [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
-
+      [markerDraggable]="isAdmin"
       (dragEnd)="dragRack($event, rack)"
       (markerClick)="infoRack(rack)"
       color="white"
