@@ -49,6 +49,7 @@ agm-map {
   <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom"
            [fullscreenControl]='true' [mapTypeControl]='true'>
 
+    <!-- Marcatori  bici rack -->
     <agm-marker *ngFor="let kk of bikeRack; let ind = index"
     [latitude]="kk.latitudine" [longitude]="kk.longitudine"
     [label]="kk.codice"
@@ -58,6 +59,7 @@ agm-map {
     color="black"
     [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
 
+    <!-- Marcatori  bici user -->
     <agm-marker *ngFor="let kk of bikeUser; let ind = index"
     [latitude]="kk.latitudine" [longitude]="kk.longitudine"
     [label]="kk.codice"
@@ -67,6 +69,7 @@ agm-map {
     color="black"
     [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
 
+    <!-- Marcatori  rack-->
     <agm-marker *ngFor="let kk of racks; let ind = index"
     [latitude]="kk.latitudine" [longitude]="kk.longitudine"
     [label]="kk.codice"
@@ -105,6 +108,7 @@ agm-map {
         <td>{{kk.codice}}</td>
         <td>{{kk.stato}}</td>
         <td>{{kk.totKm}}</td>
+        <td *ngIf="isAdmin">{{kk.rack}}</td>
         <!-- commenti -->
         <td><a [routerLink]="['/view-comment', kk.codice]" routerLinkActive="active">Commenti</a></td>
         <td><button type="button" class="btn btn-danger" (click)="selectBike(kk,1)">Rilascia</button></td>

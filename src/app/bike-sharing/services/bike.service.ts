@@ -26,6 +26,16 @@ export class BikeService {
               .map((response: Response) =>response.json())
   }
 
+  getRackBikeAll(rackCode):Observable<Bike[]> {
+    return this.http.post('http://localhost:8080/api/getRackBikeAll/', {'rackCode': rackCode})
+              .map((response: Response) =>response.json())
+  }
+
+  getUseBike(rackCode){
+    return this.http.post('http://localhost:8080/api/getUseBike/', {'rackCode': rackCode})
+              .map((response: Response) =>response.json())
+  }
+
   getUserBike(nameUser){
     return this.http.post('http://localhost:8080/api/getUserBike/', {'stato': nameUser})
               .map((response: Response) =>response.json())

@@ -47,11 +47,17 @@ export class Rent {
   codeBike: string;
   timeInit: string;
   timeEnd: string;
+
+  fromRack: string;
+  toRack: string;
+  totKm: number;
+
   tempo: number;
   costo: number;
 
   constructor(_id: number, data: string, nameUser: string, codeBike: string,
               timeInit: string, timeEnd: string,
+              fromRack: string, toRack: string, totKm: number,
               tempo: number, costo: number) {
     this._id = _id;
     this.data = data;
@@ -59,6 +65,10 @@ export class Rent {
     this.codeBike = codeBike;
     this.timeInit = timeInit;
     this.timeEnd = timeEnd;
+
+    this.fromRack = fromRack;
+    this.toRack = toRack;
+    this.totKm = totKm;
 
     this.tempo = tempo;
     this.costo = costo;

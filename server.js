@@ -113,6 +113,29 @@ app.post("/api/getRackBike", function(req,res) {
 	})  
 })
 
+app.post("/api/getUseBike", function(req,res) {
+	modelBike.find({ $and: [ {stato: { $ne: "libero" }}, {rack: req.body.rackCode} ] },function(err,data){
+		if(err){  	
+			res.send(err);  
+		}  
+		else{
+			res.send(data);  
+		}  
+	})  
+})
+
+// tutte le bici di quel rack
+app.post("/api/getRackBikeAll", function(req,res) {
+	modelBike.find({rack: req.body.rackCode},function(err,data){
+		if(err){  
+			res.send(err);  
+		}  
+		else{
+			res.send(data);  
+		}  
+	})  
+})
+
 app.post("/api/getUserBike", function(req,res) {  
 	modelBike.find({stato: req.body.stato},function(err,data){  
 		if(err){  
@@ -124,10 +147,12 @@ app.post("/api/getUserBike", function(req,res) {
 	})  
 })
   
+
 app.post("/api/SaveBike/",function(req,res) {   
  var mod = new modelBike({codice: req.body.codice,
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
 							rack: req.body.rack, stato: req.body.stato, totKm: req.body.totKm});
+							
     mod.save(function(err,data){  
       if(err) {  
          res.send(err);                
@@ -207,6 +232,17 @@ app.post("/api/getRack", function(req,res) {
 	})    
 })
 
+app.post("/api/getRackByCode", function(req,res) {      
+	modelRack.find({codice: req.body.codeRack}, function(err,data){
+		if(err){    
+			res.send(err);    
+		}    
+		else{
+			res.send(data);                 
+		}    
+	})    
+})
+
 app.post("/api/SaveRack/",function(req,res) { 
 	var mod = new modelRack({codice: req.body.codice,
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine, 
@@ -215,8 +251,7 @@ app.post("/api/SaveRack/",function(req,res) {
 	  mod.save(function(err,data){  
 		  if(err) {  
 			 res.send(err);                
-		  } else {  
-			 console.log("send data = ", req.body.codice);		  
+		  } else {   
 			 res.send({data:"Record has been Inserted..!!"});  
 		  }  
 	});
@@ -253,6 +288,9 @@ var RentSchema = new Schema({
  codeBike: { type: String, required: true },
  timeInit: { type: String, required: true },       
  timeEnd: { type: String },
+ fromRack: { type: String },
+ toRack: { type: String },
+ totKm: { type: Number, required: true },
  tempo: { type: Number, required: true },
  costo: { type: Number, required: true },
 },{ versionKey: false });    
@@ -295,6 +333,7 @@ app.post("/api/SaveRent/",function(req,res) {
 	var mod = new modelRent({data: req.body.data,
 							nameUser: req.body.nameUser, codeBike: req.body.codeBike, 
 							timeInit: req.body.timeInit, timeEnd: req.body.timeEnd,
+							fromRack: req.body.fromRack, toRack: req.body.toRack, totKm: req.body.totKm,
 							tempo: req.body.tempo, costo: req.body.costo});  
 	mod.save(function(err,data) {
 		if (err) {  
@@ -310,6 +349,7 @@ app.post("/api/UpdateRent/",function(req,res) {
 	modelRent.findByIdAndUpdate(req.body._id, { data: req.body.data,
 								nameUser: req.body.nameUser, codeBike: req.body.codeBike, 
 								timeInit: req.body.timeInit, timeEnd: req.body.timeEnd,
+								fromRack: req.body.fromRack, toRack: req.body.toRack, totKm: req.body.totKm,
 								tempo: req.body.tempo, costo: req.body.costo},  
 	function(err,data) {
 		if (err) {  

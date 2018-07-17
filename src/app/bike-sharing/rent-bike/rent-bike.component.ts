@@ -19,6 +19,7 @@ import { angularMath } from 'angular-ts-math';
 export interface DialogData {
   rent: Rent;
   bike: Bike;
+  rack: Rack;
   distRack: number;
 }
 
@@ -26,14 +27,33 @@ export class RentContent {
   mode: string;
   rent: Rent;
   bike: Bike;
+  rack: Rack;
   distRack: number;
 
-  constructor(mode: string, rent: Rent, bike: Bike, distRack: number) {
+  constructor(mode: string, rent: Rent, bike: Bike, rack: Rack, distRack: number) {
                 this.mode = mode;
                 this.rent = rent;
                 this.bike = bike;
+                this.rack = rack;
                 this.distRack = distRack;
               }
+}
+
+export interface DialogDataBike {
+  bike: Bike;
+  racks: Racks[];
+}
+
+export class BikeContent {
+  mode: string;
+  bike: Bike;
+  racks: Racks[];
+
+  constructor(mode: string, bike: Bike, racks: Racks[]) {
+    this.mode = mode;
+    this.bike = bike;
+    this.racks = racks;
+  }
 }
 
 export interface DialogDataComment {
@@ -157,6 +177,7 @@ export class RentBikeComponent implements OnInit {
       });
     }
 
+    // -------- Funzioni tool bar
     toggleMap() : void {
       this.showMap = !this.showMap;
     }
@@ -191,7 +212,8 @@ export class RentBikeComponent implements OnInit {
     }
 
     editBike(bike: Bike) : void {
-      this.router.navigate(['edit-bike', bike._id]);
+      //this.router.navigate(['edit-bike', bike._id]);
+      this.bikeDialog(bike);
     }
 
     commentBike(bike: Bike) : void {
@@ -200,8 +222,13 @@ export class RentBikeComponent implements OnInit {
 
     reloadBike() : void {
       if  (this.isAdmin == true) {
-        this.bikeService.getAllBike().subscribe((data) => { this.bikeRack = data; });
+        this.bikeService.getRackBike(this.curRack.codice).subscribe((data) => {
+          this.bikeRack = data; });
 
+        this.bikeService.getUseBike(this.curRack.codice).subscribe((data) => {
+          this.bikeUser = data;
+          this.shiftRackBike();
+        });
       } else {
         this.bikeService.getUserBike(this.nameUser).subscribe((data) => {
           this.bikeUser = data;
@@ -214,15 +241,39 @@ export class RentBikeComponent implements OnInit {
       }
     }
 
+    // Funzioni mappa
+    selectRack(rack : Rack): void {
+        this.curRack = rack; // cambio rack corrente
+        this.reloadBike();
+    }
+
+    selectBike(bike : Bike, mode: number): void {
+      this.curBike = bike; // memorizzo bike corrente
+      if (this.isAdmin) {
+        if (mode == 0) { // selezione bici libera
+            //this.editBike(bike);
+            this.editBike(bike);
+          } else { // selezione bici in uso utente
+              this.nameUser = bike.stato;
+            //  this.editBike(bike);
+              this.releaseDialog(bike);  // Rilascio da admin
+         }
+      } else {
+        if (mode == 0) { // selezione bici libera
+          this.rentDialog(bike);
+        } else { // selezione bici in uso utente
+          this.releaseDialog(bike);
+        }
+      }
+    }
+
     dragBike(event, bike): void {
         var lat : number = event.coords.lat;
         var lng : number = event.coords.lng;
 
         var metri : number = this.distanza(lat, lng, bike.latitudine, bike.longitudine);
-
         bike.latitudine = lat;
         bike.longitudine = lng;
-
         metri = (bike.totKm * 1000) + metri ;
         var km : number = metri /  1000.0;
 
@@ -240,25 +291,6 @@ export class RentBikeComponent implements OnInit {
     	return roundedTemp / factor;
     }
 
-    selectBike(bike : Bike, mode: number): void {
-      this.curBike = bike; // memorizzo bike corrente
-      if (this.isAdmin) {
-        this.router.navigate(['edit-bike', bike._id]);
-      } else {
-        if (mode == 0) { // selezione bici libera
-          this.curBike = bike; // memorizzo bike corrente
-          this.rentDialog(bike);
-        } else { // selezione bici in uso utente
-          this.curBike = bike; // memorizzo bike corrente
-          this.releaseDialog(bike);
-        }
-      }
-    }
-
-    selectRack(rack : Rack): void {
-        this.curRack = rack; // cambio rack corrente
-        this.reloadBike();
-    }
 
     rentDialog(bike : Bike) : void {
       this.curBike = bike;
@@ -269,12 +301,18 @@ export class RentBikeComponent implements OnInit {
       var timeEnd: string = "";
       var tempo: number = 0;
       var costo: number = 0;
+      var fromRack: string = this.curBike.rack;
+      var toRack: string = "";
 
       this.curRent = new Rent(0, todayString, this.nameUser, this.curBike.codice,
-                              timeInit, timeEnd, tempo, costo);
+                              timeInit, timeEnd,
+                              fromRack, toRack, this.curBike.totKm,
+                              tempo, costo);
 
       var rentContent: RentContent = new RentContent("rent",
-                                                      this.curRent, this.curBike, this.distRack);
+                                                      this.curRent, this.curBike,
+                                                      this.curRack, this.distRack);
+
       this.openDialog(rentContent, this.bikeService, this.rentService, this.rackService);
     }
 
@@ -285,28 +323,36 @@ export class RentBikeComponent implements OnInit {
 
         this.rentService.getBikeRent(this.nameUser, this.curBike.codice, "").subscribe((data) => {
           this.rents = data;
-          this.curRent = this.rents[0];
+          if (data.length <= 0 ){
+              alert ("Prenotazione non trovata");
+        } else {
+            this.curRent = this.rents[0];
+            var now: Date = new Date();
+            this.curRent.timeEnd = now.getHours() + ":" + now.getMinutes();
 
-          var now: Date = new Date();
-          this.curRent.timeEnd = now.getHours() + ":" + now.getMinutes();
+            var oldDate : Date = new Date();
+            var t1 = this.curRent.timeInit.split(":");
+            oldDate.setHours(parseInt(t1[0]));
+            oldDate.setMinutes(parseInt(t1[1]));
+            oldDate.setSeconds(0);
 
-          var oldDate : Date = new Date();
-          var t1 = this.curRent.timeInit.split(":");
-          oldDate.setHours(parseInt(t1[0]));
-          oldDate.setMinutes(parseInt(t1[1]));
-          oldDate.setSeconds(0);
+            var diffTempo: number = (now.valueOf() - oldDate.valueOf());
+            var tempo: number = diffTempo / (1000.0 * this.secondiMinuto);
+            var costo: number = tempo * this.costoOra / 60.0;
 
-          var diffTempo: number = (now.valueOf() - oldDate.valueOf());
-          var tempo: number = diffTempo / (1000.0 * this.secondiMinuto);
-          var costo: number = tempo * this.costoOra / 60.0;
+            var totKm: number = this.curBike.totKm - this.curRent.totKm;
 
-          this.curRent.tempo = this.Math.round(tempo * 100)/100; // messo x dare valore
-          this.curRent.costo = this.Math.round(costo * 100)/100;
+            this.curRent.toRack = this.curRack.codice;
+            this.curRent.totKm = this.Math.round(totKm * 1000)/1000;
 
-          var rentContent: RentContent = new RentContent("release",
-                                                      this.curRent, this.curBike, this.distRack);
+            this.curRent.tempo = this.Math.round(tempo * 100)/100; // messo x dare valore
+            this.curRent.costo = this.Math.round(costo * 100)/100;
 
-          this.openDialog(rentContent, this.bikeService, this.rentService, this.rackService);
+            var rentContent: RentContent = new RentContent("release",
+                                                        this.curRent, this.curBike,
+                                                        this.curRack, this.distRack);
+            this.openDialog(rentContent, this.bikeService, this.rentService, this.rackService);
+          }
         });
       }
 
@@ -315,17 +361,12 @@ export class RentBikeComponent implements OnInit {
                                       "", "icona");
 
         var commentContent: CommentContent = new CommentContent("insert", this.curComment);
-        this.openDialogComment(commentContent, this.commentService);
-      }
-
-      alertDialog(msg: string) : void {
-        this.openDialogAlert(msg);
+        this.openDialogComment(commentContent);
       }
 
       shiftRackBike() : void {
         var lat1 = this.curRack.latitudine;
         var lng1 = this.curRack.longitudine;
-
         var x = lng1 + this.deltaX;
 
         for (var i = 0; i < this.bikeRack.length; i++) {
@@ -340,7 +381,7 @@ export class RentBikeComponent implements OnInit {
     /*
     Ricerca rich più vicino
     */
-    nearRack(bike: Bike) {
+    nearRack(bike: Bike): Rack {
       var lat1 = bike.latitudine;
       var long1 = bike.longitudine;
 
@@ -355,6 +396,7 @@ export class RentBikeComponent implements OnInit {
       }
       return rackNear;
     }
+
     /*
     Calcolo distaanza fra due coordinate Lat, Long
     */
@@ -379,43 +421,7 @@ export class RentBikeComponent implements OnInit {
       return (angle * mat.PI) / 180.0;
     }
 
-    openDialog(rentContent : RentContent, bikeService: BikeService,
-              rentService: RentService, rackService: RackService): void {
-
-      var wD: string = '300px';
-      var hD: string = '550px';
-
-      if (rentContent.mode == 'rent') {
-        hD = '320px';
-      }
-
-      const dialogRef = this.dialog.open(DialogRentBike, {
-        width: wD,
-        height: hD,
-        data: {
-          mode: rentContent.mode,
-          rent: rentContent.rent,
-          bike: rentContent.bike,
-          distRack: rentContent.distRack,
-        }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) { //  Conferma
-          if (result.mode == "rent") {
-            this.rentBike(rentContent, result);
-          } else {
-            this.releaseBike(rentContent, result);
-            if (this.release) {
-                this.commentDialog();
-            }
-          }
-        }
-      });
-    }
-
     rentBike(rentContent : RentContent, result : DialogData) : void {
-
       this.curBike.stato = this.nameUser;
       this.bikeService.modifyStateBike(this.curBike._id, this.curBike.stato, this.curBike.rack)
       .subscribe(data => { this.ngOnInit(); }, error => this.errorMessage = error);
@@ -432,14 +438,13 @@ export class RentBikeComponent implements OnInit {
     }
 
     releaseBike(rentContent : RentContent, result : DialogData): void {
-
       this.release = false;
-
-      if (this.distRack > this.distMin) { // distanza minima per riposizionamento
-
-        this.openDialogAlert("Bici troppo distante dal rack "+ this.curRack.codice);
+      if (this.distRack > this.distMin && !this.isAdmin) { // distanza minima per riposizionamento
+        var msg : string = "Bici troppo distante dal rack "+ this.curRack.codice;
+        msg = msg +  " - " + this.curRack.indirizzo;
+        this.openDialogAlert(msg);
       } else if (this.curRack.numPlace - this.curRack.numBike <= 0) { // distanza minima per riposizionamento
-          this.openDialogAlert("Parcheggio bici esaurito");
+          this.openDialogAlert("Parcheggio bici esaurito: " + this.curRack.codice);
       } else {
       this.release = true;
 
@@ -457,15 +462,73 @@ export class RentBikeComponent implements OnInit {
 
       this.rentService.updateRent(this.curRent)
       .subscribe(data => { }, error => this.errorMessage = error);
-
-      //this.reloadBike();
       }
   }
 
-  openDialogComment(commentContent : CommentContent, commentService: CommentService): void {
+  /*---- dialog RENT  ----*/
+  openDialog(rentContent : RentContent, bikeService: BikeService,
+            rentService: RentService, rackService: RackService): void {
+
+    var wD: string = '30%';
+    var hD: string = '90%';
+
+    if (rentContent.mode == 'rent') {
+      hD = '50%';
+    }
+
+    const dialogRef = this.dialog.open(DialogRentBike, {
+      width: wD,
+      height: hD,
+      data: {
+        mode: rentContent.mode,
+        rent: rentContent.rent,
+        bike: rentContent.bike,
+        rack: rentContent.rack,
+        distRack: rentContent.distRack,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { //  Conferma
+        if (result.mode == "rent") {
+          this.rentBike(rentContent, result);
+        } else {
+          this.releaseBike(rentContent, result);
+          if (this.release) {
+              this.commentDialog();
+          }
+        }
+      }
+    });
+  }
+
+  /*---- dialog BIKE ----*/
+  bikeDialog(bike : Bike) : void {
+    this.openDialogBike(bike, this.racks);
+  }
+
+  openDialogBike(bike : Bike, racks: Rack[]): void {
+    const dialogRef = this.dialog.open(BikeDialog, {
+      width: '40%',
+      height: '80%',
+      data: {
+        bike: bike,
+        racks: racks
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.reloadBike();
+      }
+    });
+  }
+
+  /*---- dialog commento  ----*/
+  openDialogComment(commentContent : CommentContent): void {
     const dialogRef = this.dialog.open(DialogComment, {
-      width: '300px',
-      height: '350px',
+      width: '30%',
+      height: '50%',
       data: {
         mode: commentContent.mode,
         comment: commentContent.comment
@@ -484,10 +547,15 @@ export class RentBikeComponent implements OnInit {
     });
   }
 
+  /*---- dialog alert ----*/
+  alertDialog(msg: string) : void {
+    this.openDialogAlert(msg);
+  }
+
   openDialogAlert(msg: string): void {
     const dialogRef = this.dialog.open(DialogAlert, {
-      width: '300px',
-      height: '200px',
+      width: '30%',
+      height: '30%',
       data: {
         msg: msg,
       }
@@ -498,7 +566,7 @@ export class RentBikeComponent implements OnInit {
   }
 }
 
-/*---- dialog rents ----*/
+/*---- dialog RENT ----*/
 @Component({
   selector: 'dialog-rent',
   templateUrl: 'dialog-rent.html',
@@ -517,7 +585,78 @@ export class DialogRentBike {
   }
 }
 
-/*---- dialog commenti ----*/
+/*---- dialog BIKE ----*/
+@Component({
+selector: 'dialog-bike',
+templateUrl: 'dialog-bike.html',
+})
+export class BikeDialog {
+
+constructor(
+  public dialogRef: MatDialogRef<BikeDialog>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogDataBike,
+  private bikeService :BikeService,
+  ) {}
+
+  onUpdate() : void{
+      this.onEdit("update");
+  }
+  onInsert() : void{
+      this.onEdit("insert");
+  }
+  onDelete() : void{
+    this.deleteBike();
+  }
+
+  deleteBike(): void{
+    var bike: Bike = this.data.bike;
+    this.bikeService.deleteBike(bike._id).subscribe(data => {
+    }, error => this.errorMessage = error );
+
+    this.dialogRef.close(this.data);
+  }
+
+onEdit(command : string): void {
+  var bike: Bike = this.data.bike;
+
+  var racks[]: Rack = this.data.racks;
+  var rack: Rack;  //  Non funziona con asseggamento ???
+  var ok: boolean = false;
+  var latitudine: number;
+  var longitudine: number;
+
+  // Ricerca rack se esiste
+  for (var i: number = 0; i < this.data.racks.length; i++) {
+    if (this.data.racks[i].codice == bike.rack) {
+      latitudine = this.data.racks[i].latitudine;
+      longitudine = this.data.racks[i].longitudine;
+      ok = true;
+      break;
+    }
+  }
+  if (ok) {
+    // Assegno posizione del rack
+    bike.latitudine = latitudine;
+    bike.longitudine = longitudine;
+    if (command == "update") { // UPDATE
+      this.bikeService.updateBike(bike).subscribe(data =>  {
+        /*alert(data.data);*/ }, error => this.errorMessage = error );
+    } else {    // Inserimento
+      this.bikeService.saveBike(bike).subscribe(data =>  {
+          /*alert(data.data);*/ }, error => this.errorMessage = error );
+    }
+    this.dialogRef.close(this.data);
+  } else {
+    alert("ERRORE Rack non trovato: " + bike.rack);
+  }
+}
+
+onClose(): void {
+  this.dialogRef.close();
+}
+}
+
+/*---- dialog COMMENTI ----*/
 @Component({
   selector: 'dialog-comment',
   templateUrl: 'dialog-comment.html',
@@ -536,7 +675,7 @@ export class DialogComment {
   }
 }
 
-/*---- dialog alert ----*/
+/*---- dialog ALERT ----*/
 @Component({
   selector: 'dialog-alert',
   templateUrl: 'dialog-alert.html',

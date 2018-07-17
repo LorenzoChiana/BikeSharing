@@ -21,6 +21,11 @@ export class RackService {
               .map((response: Response) =>response.json())
   }
 
+  getRackByCode(codeRack):Observable<Rack[]>{
+    return this.http.post('http://localhost:8080/api/getRackByCode/',{'codeRack': codeRack})
+              .map((response: Response) =>response.json())
+  }
+
   modifyBikeRack(id, numBike){
     return this.http.post('http://localhost:8080/api/modifyBikeRack/',{'_id': id, 'numBike': numBike})
               .map((response: Response) =>response.json())

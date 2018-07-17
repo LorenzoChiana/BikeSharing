@@ -28,6 +28,8 @@ export class EditBikeComponent implements OnInit {
   private nameUser: string;
   private isAdmin: boolean;
 
+  private bikeRack: Bike[];
+
   private curBike: Bike;
   private curRack: Rack;
 
@@ -42,10 +44,12 @@ export class EditBikeComponent implements OnInit {
   private longitudine: number = 12.231784;
   private zoom: number = 14;
   private showMap: boolean = true;
+  private deltaX: number = 0.0001;
 
   private errorMessage;
 
   constructor(private bikeService :BikeService,
+    private rackService: RackService,
     private route: ActivatedRoute,
     private location: Location,
     public dialog: MatDialog) {}
@@ -68,13 +72,10 @@ export class EditBikeComponent implements OnInit {
       this.rack = this.curBike.rack;
       this.totKm = this.curBike.totKm;
 
-      /*
-      // aggiornamento curRack
-      this.rackService.getRack(this.curBike.rack).subscribe((data) => {
-        this.curRack = data;
+        this.bikeService.getRackBike(this.rack).subscribe((data) => {
+          this.bikeRack = data; // rimuovere curBike
+        });
       });
-      */
-    });
   }
 
   updateBike(): void {
@@ -83,7 +84,18 @@ export class EditBikeComponent implements OnInit {
     this.curBike.stato = this.stato;
     this.curBike.totKm = this.totKm;
 
-    this.bikeService.updateBike(this.curBike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
+    this.rackService.getRackByCode(this.curBike.rack).subscribe((data) => {
+      if (data.length > 0) {
+        this.curRack = data[0];
+        this.curBike.latitudine = this.curRack.latitudine;
+        this.curBike.longitudine = this.curRack.longitudine;
+        this.bikeService.updateBike(this.curBike).subscribe(data =>  {
+          /*alert(data.data);*/ }, error => this.errorMessage = error );
+      //  this.close();
+      } else {
+        alert("ERRORE Rack non trovato: " + this.curBike.rack);
+      }
+    });
   }
 
   insertBike(): void {
@@ -92,7 +104,22 @@ export class EditBikeComponent implements OnInit {
     this.curBike.stato = this.stato;
     this.curBike.totKm = this.totKm;
 
-    this.bikeService.saveBike(this.curBike).subscribe(data =>  {  /*alert(data.data);*/ }, error => this.errorMessage = error );
+    this.rackService.getRackByCode(this.curBike.rack).subscribe((data) => {
+      if (data.length > 0) {
+        this.curRack = data[0];
+        this.curBike.latitudine = this.curRack.latitudine;
+        this.curBike.longitudine = this.curRack.longitudine;
+
+        this.bikeService.saveBike(this.curBike).subscribe(data =>  {
+          alert(data.data);
+        }, error => this.errorMessage = error );
+
+        this.close();
+      } else {
+        alert("ERRORE Rack non trovato: " + this.curBike.rack);
+      }
+    });
+
   }
 
   deleteBike(): void{
@@ -101,7 +128,12 @@ export class EditBikeComponent implements OnInit {
     }, error => this.errorMessage = error );
   }
 
+
   goBack(): void {
+    this.location.back();
+  }
+
+  close(): void {
     this.location.back();
   }
 
@@ -114,11 +146,24 @@ export class EditBikeComponent implements OnInit {
     this.curBike.longitudine = event.coords.lng;
   }
 
-  dialogBike(bike : Bike) {
-    this.openDialog(bike, this.bikeService);
+  selectBike(bike : Bike, mode : number): void {
+    this.curBike = bike;
+    this.codice = this.curBike.codice;
+    this.latitudine = this.curBike.latitudine;
+    this.longitudine = this.curBike.longitudine;
+    this.stato = this.curBike.stato;
+    this.rack = this.curBike.rack;
+    this.totKm = this.curBike.totKm;
+    if (mode == 1){
+        this.dialogBike (this.curBike);
+    }
   }
 
-  openDialog(bike : Bike, bikeService: BikeService): void {
+  dialogBike(bike : Bike) {
+    this.openDialogBike(bike, this.bikeService);
+  }
+
+  openDialogBike(bike : Bike, bikeService: BikeService): void {
     const dialogRef = this.dialog.open(EditBikeDialog, {
       width: '300px',
       height: '400px',
@@ -129,11 +174,9 @@ export class EditBikeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.bikeService.updateBike(result.bike).subscribe(data => { /*alert(data.data); */}, error => this.errorMessage = error);
-      }
+        this.updateBike(result.bike);
     });
   }
-
 }
 
 @Component({

@@ -19,6 +19,7 @@ export class ViewRentComponent implements OnInit {
   private rents : Rent[];
   private totTempo: number;
   private totCosto: number;
+  private totKm: number;
 
   private Math: any;
 
@@ -48,12 +49,15 @@ export class ViewRentComponent implements OnInit {
   calcolaTotali(): void {
     this.totTempo = 0;
     this.totCosto = 0;
+    this.totKm = 0;
 
     for (var i: number = 0; i < this.rents.length; i++) {
       this.totTempo += this.rents[i].tempo;
       this.totCosto += this.rents[i].costo;
+      this.totKm += this.rents[i].totKm;
     }
 
+    this.totKm = this.Math.round(this.totKm * 100)/100;
     this.totTempo = this.Math.round(this.totTempo * 100)/100;
     this.totCosto = this.Math.round(this.totCosto * 100)/100;
   }

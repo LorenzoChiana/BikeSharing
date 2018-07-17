@@ -15,7 +15,7 @@ import { BikeService } from './services/bike.service';
 import { RentService } from './services/rent.service';
 import { CommentService } from './services/comment.service';
 
-import { RentBikeComponent, DialogRentBike, DialogComment, DialogAlert } from './rent-bike/rent-bike.component';
+import { RentBikeComponent, BikeDialog, DialogRentBike, DialogComment, DialogAlert } from './rent-bike/rent-bike.component';
 import { ViewComponent, ViewRackDialog } from './view/view.component';
 
 import { EditBikeComponent, EditBikeDialog } from './edit-bike/edit-bike.component';
@@ -45,10 +45,11 @@ const routes: Routes = [
     DialogRentBike,
     DialogComment,
     DialogAlert,
+    BikeDialog,
 
     EditRackComponent,
     EditBikeComponent,
-    EditBikeDialog,
+    EditBikeDialog, // da eliminare
     ViewRentComponent,
     ViewCommentComponent,
   ],
@@ -61,7 +62,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MaterialModule,
   ],
-  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, EditBikeDialog, DialogComment, DialogAlert],
+  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, EditBikeDialog, DialogComment, DialogAlert],
   exports: [ RouterModule, MaterialModule],
   providers: [ RackService, BikeService, RentService, CommentService ],
   bootstrap: []

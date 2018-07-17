@@ -21,7 +21,6 @@
     <table class="table">
       <thead>
         <tr>
-          <td>Num</td>
           <td>Data</td>
           <td>Utente</td>
           <td>Bici</td>
@@ -30,14 +29,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let kk of comments;let ind = index">
-          <td>{{ind + 1}}</td>
           <td>{{kk.data}}</td>
           <td>{{kk.nameUser}}</td>
           <td>{{kk.codeBike}}</td>
           <td>{{kk.testo}}</td>
         </tr>
         <tr *ngIf="comments.length == 0">
-          <td colspan="5">Nessun commento presente</td>
+          <td colspan="4">Nessun commento presente</td>
         </tr>
       </tbody>
     </table>
