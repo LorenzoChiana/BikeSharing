@@ -41,15 +41,15 @@ export class RentContent {
 
 export interface DialogDataBike {
   bike: Bike;
-  racks: Racks[];
+  racks: Rack[];
 }
 
 export class BikeContent {
   mode: string;
   bike: Bike;
-  racks: Racks[];
+  racks: Rack[];
 
-  constructor(mode: string, bike: Bike, racks: Racks[]) {
+  constructor(mode: string, bike: Bike, racks: Rack[]) {
     this.mode = mode;
     this.bike = bike;
     this.racks = racks;
@@ -348,6 +348,8 @@ export class RentBikeComponent implements OnInit {
             this.curRent.tempo = this.Math.round(tempo * 100)/100; // messo x dare valore
             this.curRent.costo = this.Math.round(costo * 100)/100;
 
+            this.curBike.totTime += tempo;
+
             var rentContent: RentContent = new RentContent("release",
                                                         this.curRent, this.curBike,
                                                         this.curRack, this.distRack);
@@ -374,6 +376,7 @@ export class RentBikeComponent implements OnInit {
           if  (dist < this.distMin){
             x += this.deltaX;
             this.bikeRack[i].longitudine = x;
+            this.bikeRack[i].latitudine = lat1;
           }
         }
       }
@@ -510,7 +513,7 @@ export class RentBikeComponent implements OnInit {
   openDialogBike(bike : Bike, racks: Rack[]): void {
     const dialogRef = this.dialog.open(BikeDialog, {
       width: '40%',
-      height: '80%',
+      height: '95%',
       data: {
         bike: bike,
         racks: racks
@@ -592,6 +595,8 @@ templateUrl: 'dialog-bike.html',
 })
 export class BikeDialog {
 
+  private errorMessage;
+
 constructor(
   public dialogRef: MatDialogRef<BikeDialog>,
   @Inject(MAT_DIALOG_DATA) public data: DialogDataBike,
@@ -619,25 +624,23 @@ constructor(
 onEdit(command : string): void {
   var bike: Bike = this.data.bike;
 
-  var racks[]: Rack = this.data.racks;
-  var rack: Rack;  //  Non funziona con asseggamento ???
+  var racks: Rack[] = this.data.racks;
+  var rack: Rack;
   var ok: boolean = false;
-  var latitudine: number;
-  var longitudine: number;
 
   // Ricerca rack se esiste
-  for (var i: number = 0; i < this.data.racks.length; i++) {
-    if (this.data.racks[i].codice == bike.rack) {
-      latitudine = this.data.racks[i].latitudine;
-      longitudine = this.data.racks[i].longitudine;
+  for (var i: number = 0; i < racks.length; i++) {
+    if (racks[i].codice == bike.rack) {
+      rack = racks[i];
       ok = true;
       break;
     }
   }
+
   if (ok) {
     // Assegno posizione del rack
-    bike.latitudine = latitudine;
-    bike.longitudine = longitudine;
+    bike.latitudine = rack.latitudine;
+    bike.longitudine = rack.longitudine;
     if (command == "update") { // UPDATE
       this.bikeService.updateBike(bike).subscribe(data =>  {
         /*alert(data.data);*/ }, error => this.errorMessage = error );

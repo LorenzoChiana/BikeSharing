@@ -27,9 +27,10 @@ export class Bike {
   stato: string;
   rack: string;
   totKm: number;
+  totTime: number;
 
   constructor(id: number, codice: string, latitudine: number, longitudine: number,
-    stato: string, rack: string, totKm: number) {
+    stato: string, rack: string, totKm: number, totTime: number) {
     this._id = id;
     this.codice = codice;
     this.latitudine = latitudine;
@@ -37,6 +38,7 @@ export class Bike {
     this.stato = stato;
     this.rack = rack;
     this.totKm = totKm;
+    this.totTime = totTime;
   }
 }
 

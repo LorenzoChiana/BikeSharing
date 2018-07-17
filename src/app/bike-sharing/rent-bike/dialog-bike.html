@@ -15,8 +15,11 @@
         <input matInput [(ngModel)]="data.bike.codice">
       </mat-form-field>
       <mat-form-field>
-        <label>Rack:</label>
-        <input matInput [(ngModel)]="data.bike.rack">
+        <mat-select placeholder="Rack: " [(ngModel)]="data.bike.rack">
+          <mat-option *ngFor="let rack of data.racks" [value]="rack.codice">
+            {{rack.codice}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field>
         <label>Stato:</label>
@@ -25,6 +28,10 @@
       <mat-form-field>
         <label>Kilometri:</label>
         <input matInput [(ngModel)]="data.bike.totKm">
+      </mat-form-field>
+      <mat-form-field>
+        <label>Tempo:</label>
+        <input matInput [(ngModel)]="data.bike.totTime">
       </mat-form-field>
     </div>
   </div>

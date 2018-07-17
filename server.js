@@ -76,6 +76,7 @@ var BikeSchema = new Schema({
  stato: { type: String },
  rack: { type: String },
  totKm: { type: Number }, 
+ totTime: { type: Number },
 },{ versionKey: false });    
 	 
 var modelBike = mongo.model('bikes', BikeSchema, 'bikes'); 
@@ -151,7 +152,8 @@ app.post("/api/getUserBike", function(req,res) {
 app.post("/api/SaveBike/",function(req,res) {   
  var mod = new modelBike({codice: req.body.codice,
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
-							rack: req.body.rack, stato: req.body.stato, totKm: req.body.totKm});
+							rack: req.body.rack, stato: req.body.stato, 
+							totKm: req.body.totKm, totTime: req.body.totTime});
 							
     mod.save(function(err,data){  
       if(err) {  
@@ -165,7 +167,8 @@ app.post("/api/SaveBike/",function(req,res) {
 app.post("/api/UpdateBike/",function(req,res) {
 	modelBike.findByIdAndUpdate(req.body._id, { codice: req.body.codice, 
 							latitudine: req.body.latitudine, longitudine: req.body.longitudine,
-							stato: req.body.stato, rack: req.body.rack, totKm: req.body.totKm},  
+							rack: req.body.rack, stato: req.body.stato, 
+							totKm: req.body.totKm, totTime: req.body.totTime},
    function(err,data) {
 	   if (err) {  
 		res.send(err);         
@@ -173,7 +176,7 @@ app.post("/api/UpdateBike/",function(req,res) {
    else{        
 		  res.send({data:"Record has been Updated..!!"});  
 	 }  
- });
+ })
 })
 
 app.post("/api/deleteBike", function(req,res) {      
