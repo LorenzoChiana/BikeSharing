@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MouseEvent } from '@agm/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { RackService } from '../services/rack.service';
 import { BikeService } from '../services/bike.service';
@@ -41,6 +42,25 @@ export class ViewComponent implements OnInit {
    private currentLat : number;
    private currentLong : number;
 
+  /*color = 'black';
+  private open:BehaviorSubject<boolean> = new BehaviorSubject(false);*/
+
+  step = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
+
+
   constructor(private bikeService :BikeService,
     private rackService :RackService,
     private location: Location,
@@ -51,8 +71,13 @@ export class ViewComponent implements OnInit {
   ngOnInit() {
     this.nameUser = sessionStorage.getItem('login');
     this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
+    sessionStorage.setItem('location', 'view');
 
     this.viewRack();
+  }
+
+  private output(log) {
+    console.log(log);
   }
 
   viewRack() {

@@ -1,0 +1,33 @@
+
+/* Add a background color on hover */
+
+agm-map {
+  width: 100%;
+  height: 50vh;
+}
+
+/* Nav Meu Container */
+@media (max-width: 991px) {
+  .nav-menu-container {
+    display: none;
+  /*  text-align: left; */
+    }
+  }
+
+  mat-toolbar, mat-toolbar-row, mat-sidenav {
+    background: #2c3e50;
+  }
+
+.example-headers-align .mat-expansion-panel-header-title, 
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-container {
+    overflow: auto;
+}

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginRegModule } from './login-reg/login-reg.module';
+import { NgcFloatButtonModule } from 'ngc-float-button';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -15,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
+  MatSelectModule,
   MatButtonModule,
   MatIconModule,
   MatListModule,
@@ -54,7 +56,6 @@ const appRoutesMain: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
-
     { path: '**', redirectTo: '' }
 ];
 
@@ -67,6 +68,8 @@ const appRoutesMain: Routes = [
     HeaderComponent
   ],
   imports: [
+    NgcFloatButtonModule,
+    MatSelectModule,
     BrowserModule,
     CommonModule,
     FormsModule,

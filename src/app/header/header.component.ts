@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +9,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  	ngOnInit() {
-  	}
+  private location: Location;
 
-  	logout(router:Router) {
+  ngOnInit() {
+  }
+
+  logout(router:Router) {
 		sessionStorage.clear();
 		router.navigate(['/']);
 	}
 
 	loggedIn() {
-    	return sessionStorage.length != 0;
-  	}
+    return sessionStorage.length != 0;
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 
 }

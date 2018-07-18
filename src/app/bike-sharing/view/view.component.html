@@ -1,106 +1,88 @@
-<!doctype html>
-<html lang="en">
-<head>
-<title>View Component</title>
-<meta charset="utf-8">
-</head>
-<style>
-agm-map {
-  width: 100%;
-  height: 50vh;
-}
+<mat-accordion class="example-headers-align">
 
-/* css mappa */
-#mapView {
-  margin-top: 2%;
-  margin-bottom: 2%;
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Mappa
+      </mat-panel-title>
+      <mat-panel-description>
+        Seleziona attraverso la mappa
+        <mat-icon>map</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-  padding-top: 2%;
-  padding-bottom: 2%;
-}
+    <div *ngIf="showMap" class="map-responsive" id="mapView">
+      <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
+      Parcheggi bici
+      <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
+        <agm-marker *ngFor="let rack of rackes; let ind = index"
+        [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
+        [markerDraggable]="isAdmin"
+        (dragEnd)="dragRack($event, rack)"
+        (markerClick)="infoRack(rack)"
+        color="white"
+        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+      </agm-marker>
+      </agm-map>
+    </div>
 
-/* Nav Meu Container */
-@media (max-width: 991px) {
-  .nav-menu-container {
-    display: none;
-  /*  text-align: left; */
-    }
-  }
+    <mat-action-row>
+      <!--<button (click)="goBack()">Indietro</button>-->
+      <button mat-button (click)="rackList()">Parcheggi</button>
+      <button mat-button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
+      <button mat-button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
+      <button mat-button (click)="rentList()">Prenotazioni</button>
+      <button mat-button (click)="commentList()">Commenti</button>
+    </mat-action-row>
+  </mat-expansion-panel>
 
-  mat-toolbar, mat-toolbar-row, mat-sidenav {
-    background: #2c3e50;
-  }
-</style>
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Elenco
+      </mat-panel-title>
+      <mat-panel-description>
+        Seleziona attraverso l'elenco
+        <mat-icon>list</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="table-container">
+    
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Codice</td>
+            <td>Indirizzo</td>
+            <td>N. Bici</td>
+            <td>N. Posti</td>
 
-<body>
+            <td *ngIf="isAdmin">Edit</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rack of rackes;let ind = index" (click)="selectRack(rack)">
 
-<div class="container">
+            <td>{{ind + 1}}</td>
+            <td>{{rack.codice}}</td>
+            <td>{{rack.indirizzo}}</td>
+            <td>{{rack.numBike}}</td>
+            <td>{{rack.numPlace}}</td>
 
-  <!-- pulsanti navigazione -->
-  <div class="tool-bar">
-    <button (click)="goBack()">Indietro</button>
-    <button (click)="rackList()">Parcheggi</button>
-    <button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
-    <button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
-    <button (click)="rentList()">Prenotazioni</button>
-    <button (click)="commentList()">Commenti</button>
-  </div>
+            <td *ngIf="isAdmin">
+              <button type="button" class="btn btn-primary btn-sm" (click)="editRack(rack)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
+    <mat-action-row>
+      <button mat-button (click)="rackList()">Parcheggi</button>
+      <button mat-button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
+      <button mat-button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
+      <button mat-button (click)="rentList()">Prenotazioni</button>
+      <button mat-button (click)="commentList()">Commenti</button>
+    </mat-action-row>
+  </mat-expansion-panel>
 
-  <!-- titolo -->
-  <div class="titolo">
-    <button *ngIf="showMap" (click)="toggleMap()">Elenco</button>
-    <button *ngIf="!showMap" (click)="toggleMap()">Mappa</button>
-    <h1 style="color:white;">Seleziona un parcheggio</h1>
-  </div>
-
-  <!-- mappa parcheggi -->
-  <div *ngIf="showMap" class="map-responsive" id="mapView">
-    <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
-    Parcheggi bici
-    <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
-      <agm-marker *ngFor="let rack of rackes; let ind = index"
-      [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
-      [markerDraggable]="isAdmin"
-      (dragEnd)="dragRack($event, rack)"
-      (markerClick)="infoRack(rack)"
-      color="white"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
-    </agm-marker>
-    </agm-map>
-  </div>
-
-  <!-- elenco parcheggi -->
-  <div class="table-container" style="overflow: auto;">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <td>Id</td>
-          <td>Codice</td>
-          <td>Indirizzo</td>
-          <td>N. Bici</td>
-          <td>N. Posti</td>
-
-          <td *ngIf="isAdmin">Edit</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let rack of rackes;let ind = index" (click)="selectRack(rack)">
-
-          <td>{{ind + 1}}</td>
-          <td>{{rack.codice}}</td>
-          <td>{{rack.indirizzo}}</td>
-          <td>{{rack.numBike}}</td>
-          <td>{{rack.numPlace}}</td>
-
-          <td *ngIf="isAdmin">
-            <button type="button" class="btn btn-primary btn-sm" (click)="editRack(rack)">Edit</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div> <!-- end elenco -->
-
-</div> <!-- end div content -->
-
-</body>
-</html>
+</mat-accordion>

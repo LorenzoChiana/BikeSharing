@@ -11,9 +11,9 @@
           </a>
           <nav id="nav-menu-container">
             <ul class="nav-menu">
-              <!--<li class="nav-item">
-                <a class="nav-link" [routerLink]="['/home']">Home</a>
-              </li>-->
+              <li *ngIf="loggedIn()" class="nav-item">
+                <a class="nav-link" (click)="goBack()">Back</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/about']">About</a>
               </li>

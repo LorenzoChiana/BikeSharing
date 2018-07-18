@@ -23,6 +23,9 @@ import { ViewRentComponent } from './view-rent/view-rent.component';
 import { EditRackComponent } from './edit-rack/edit-rack.component';
 import { ViewCommentComponent } from './view-comment/view-comment.component';
 
+import { NgcFloatButtonModule } from 'ngc-float-button';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 const routes: Routes = [
   { path: 'view-rent', component: ViewRentComponent },
   { path: 'view', component: ViewComponent },
@@ -49,7 +52,7 @@ const routes: Routes = [
     ViewCommentComponent,
   ],
   imports: [
-    NgbModule.forRoot(), BrowserModule,HttpModule,FormsModule,
+    NgbModule.forRoot(), MatExpansionModule, NgcFloatButtonModule, BrowserModule,HttpModule,FormsModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
