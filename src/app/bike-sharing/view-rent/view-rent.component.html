@@ -8,11 +8,12 @@
 <body>
 <div class="container">
   <!-- pulsanti navigazione -->
-  <div class="container">
-    <button (click)="goBack()">Back</button>
+  <div class="container row">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon aria-label="Example icon-button with a heart icon">arrow_back_ios</mat-icon>
+    </button>
+    <h1>Lista prenotazioni</h1>
   </div>
-
-  <h1>Lista prenotazioni</h1>
 
   <div class="table-container" style="overflow: auto;">
     <table class="table">

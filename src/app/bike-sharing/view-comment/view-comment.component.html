@@ -10,12 +10,13 @@
 <div class="container">
 
   <!-- pulsanti navigazione -->
-  <div class="container">
-    <button (click)="goBack()">Back</button>
+  <div class="container row">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon aria-label="Example icon-button with a heart icon">arrow_back_ios</mat-icon>
+    </button>
+    <!-- titolo -->
+    <h1>Lista commenti {{codeBike}}</h1>
   </div>
-
-  <!-- titolo -->
-  <h1>Lista commenti {{codeBike}}</h1>
 
   <div class="table-container" style="overflow: auto;">
     <table class="table">
