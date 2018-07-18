@@ -27,12 +27,30 @@
     </div>
 
     <mat-action-row>
-      <!--<button (click)="goBack()">Indietro</button>-->
-      <button mat-button (click)="rackList()">Parcheggi</button>
-      <button mat-button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
-      <button mat-button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
-      <button mat-button (click)="rentList()">Prenotazioni</button>
-      <button mat-button (click)="commentList()">Commenti</button>
+      <div class="btn-container">
+        <button mat-button (click)="rackList()">Parcheggi</button>
+        <button mat-button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
+        <button mat-button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
+        <button mat-button (click)="rentList()">Prenotazioni</button>
+        <button mat-button (click)="commentList()">Commenti</button>
+      </div>
+      <div class="btn-mobile-container">
+        <button mat-icon-button (click)="rackList()">
+          <mat-icon>local_parking</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!isAdmin" (click)="preleva()">
+          <mat-icon>lock_open</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!isAdmin" (click)="rilascia()">
+          <mat-icon>lock</mat-icon>
+        </button>
+        <button mat-icon-button (click)="rentList()">
+          <mat-icon>list_alt</mat-icon>
+        </button>
+        <button mat-icon-button (click)="commentList()">
+          <mat-icon>comment</mat-icon>
+        </button>
+      </div>
     </mat-action-row>
   </mat-expansion-panel>
 
@@ -77,11 +95,30 @@
       </table>
      </div>
     <mat-action-row>
-      <button mat-button (click)="rackList()">Parcheggi</button>
-      <button mat-button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
-      <button mat-button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
-      <button mat-button (click)="rentList()">Prenotazioni</button>
-      <button mat-button (click)="commentList()">Commenti</button>
+      <div class="btn-container">
+        <button mat-button (click)="rackList()">Parcheggi</button>
+        <button mat-button *ngIf="!isAdmin" (click)="preleva()">Preleva</button>
+        <button mat-button *ngIf="!isAdmin" (click)="rilascia()">Rilascia</button>
+        <button mat-button (click)="rentList()">Prenotazioni</button>
+        <button mat-button (click)="commentList()">Commenti</button>
+      </div>
+      <div class="btn-mobile-container">
+        <button mat-icon-button (click)="rackList()">
+          <mat-icon>local_parking</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!isAdmin" (click)="preleva()">
+          <mat-icon>lock_open</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!isAdmin" (click)="rilascia()">
+          <mat-icon>lock</mat-icon>
+        </button>
+        <button mat-icon-button (click)="rentList()">
+          <mat-icon>list_alt</mat-icon>
+        </button>
+        <button mat-icon-button (click)="commentList()">
+          <mat-icon>comment</mat-icon>
+        </button>
+      </div>
     </mat-action-row>
   </mat-expansion-panel>
 

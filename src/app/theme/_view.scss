@@ -39,3 +39,15 @@ agm-map {
     padding-top: 2%;
     padding-bottom: 2%;
 }
+
+.btn-container {
+    @media(max-width:991px){
+        display:none;
+    } 
+}
+
+.btn-mobile-container {
+    @media(min-width:991px){
+        display:none;
+    } 
+}
