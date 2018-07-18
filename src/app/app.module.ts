@@ -30,14 +30,12 @@ const appRoutesMain: Routes = [
 
     {
       path: '',
-      component: AppComponent,
-      children: [
+      component: HomeComponent,
+      /*children: [
         {
           path: '',
           component: HomeComponent
         },
-        // aggiunti in basso
-        /*
         {
           path: 'home',
           component: HomeComponent
@@ -50,8 +48,7 @@ const appRoutesMain: Routes = [
           path: 'contact',
           component: ContactComponent
         }
-        */
-      ]
+      ]*/
     },
 
     { path: 'home', component: HomeComponent },
