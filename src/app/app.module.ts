@@ -27,6 +27,7 @@ const appRoutesMain: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },*/
+
     {
       path: '',
       component: AppComponent,
@@ -34,12 +35,29 @@ const appRoutesMain: Routes = [
         {
           path: '',
           component: HomeComponent
+        },
+        // aggiunti in basso
+        /*
+        {
+          path: 'home',
+          component: HomeComponent
+        },
+        {
+          path: 'about',
+          component: AboutComponent
+        },
+        {
+          path: 'contact',
+          component: ContactComponent
         }
+        */
       ]
-    }
+    },
+
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
+
     { path: '**', redirectTo: '' }
 ];
 
