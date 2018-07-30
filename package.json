@@ -27,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.1.2",
     "@types/googlemaps": "^3.30.11",
     "angular-bootstrap-md": "^6.1.4",
+    "angular-tooltips": "^1.2.2",
     "angular-ts-math": "^1.0.7",
     "angular2-google-maps": "^0.17.0",
     "body-parser": "^1.18.3",

@@ -1,5 +1,4 @@
-
-  <!--<div class="main-menu">-->
+<!--<div class="main-menu">-->
     <mat-toolbar>
       <mat-toolbar-row>
         <button mat-icon-button class="black-button" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
@@ -15,7 +14,7 @@
                 <a class="nav-link" [routerLink]="['/about']">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/services']">Services</a>
+                <a class="nav-link" [routerLink]="['/view']">Services</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/contact']">Contact</a>
@@ -36,12 +35,12 @@
       </mat-toolbar-row>
     </mat-toolbar>
 
-    <!--<mat-sidenav-container fxFlexFill>
+    <mat-sidenav-container fxFlexFill>
       <mat-sidenav #sidenav>
         <mat-nav-list>
           <a class="nav-link" [routerLink]="['/home']" (click)="sidenav.toggle()">Home</a>
           <a class="nav-link" [routerLink]="['/about']" (click)="sidenav.toggle()">About</a>
-          <a class="nav-link" [routerLink]="['/services']" (click)="sidenav.toggle()">Services</a>
+          <a class="nav-link" [routerLink]="['/view']" (click)="sidenav.toggle()">Services</a>
           <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">Contact</a>
           <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']" (click)="sidenav.toggle()">Login</a>
           <a class="nav-link" *ngIf="loggedIn()" (click)="logout()" href="#">Logout</a>
@@ -50,5 +49,5 @@
       <mat-sidenav-content fxFlexFill>
         <router-outlet></router-outlet>
       </mat-sidenav-content>
-    </mat-sidenav-container>-->
+    </mat-sidenav-container>
   <!--</div>-->

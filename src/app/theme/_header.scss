@@ -1,7 +1,3 @@
-/* =================================== */
-/*  Menu Styles
-/* =================================== */
-
 .header-top {
     background:url('../assets/images/menu-top.jpg');
     background-size:cover;
@@ -99,9 +95,6 @@
     }
 }
 
-
-/* Nav Menu Essentials */
-
 .nav-menu,
 .nav-menu * {
     margin: 0;
@@ -160,17 +153,11 @@
     content: "\f105";
 }
 
-
-/* Nav Meu Container */
-
 @media (max-width: 991px) {
     #nav-menu-container, #nav-menu-container-login {
         display: none;
     }
 }
-
-
-/* Nav Meu Styling */
 
 .nav-menu a {
     padding: 0px 8px 0px 20px;
@@ -221,9 +208,6 @@
     margin-top: 0;
 }
 
-
-/* Mobile Nav Toggle */
-
 #mobile-nav-toggle {
     position: fixed;
     right: 15px;
@@ -251,8 +235,6 @@
         display: none;
     }
 }
-
-/* Mobile Nav Styling */
 
 #mobile-nav {
     position: fixed;
@@ -330,9 +312,6 @@
     background: rgba(0, 0, 0, 0.7);
     display: none;
 }
-
-
-/* Mobile Nav body classes */
 
 body.mobile-nav-active {
     overflow: hidden;
