@@ -649,21 +649,15 @@ td, th {
   margin-left: 0;
   margin-right: 0; }
 
-/* =================================== */
-/*  Menu Styles
-/* =================================== */
-.header-top {
-  background: url("../../assets/images/menu-top.jpg");
-  background-size: cover;
-  height: 20px;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s; }
-  @media (max-width: 991px) {
-    .header-top {
-      display: none; } }
-
+/*.header-top {
+    background:url('../assets/images/menu-top.jpg');
+    background-size:cover;
+    height:20px;
+    @include transition();
+    @media(max-width:991px){
+        display:none;
+    }    
+}*/
 .top-head-btn {
   background: #f9d700;
   padding: 9px 26px; }
@@ -738,7 +732,6 @@ td, th {
 
   #header #logo img {
     max-height: 40px; } }
-/* Nav Menu Essentials */
 .nav-menu,
 .nav-menu * {
   margin: 0;
@@ -785,15 +778,17 @@ td, th {
 .sf-arrows ul .sf-with-ul:after {
   content: "\f105"; }
 
-/* Nav Meu Container */
 #nav-menu-container-login {
   position: absolute;
   margin-left: 90%; }
 
+#nav-menu-container-lang {
+  position: absolute;
+  margin-left: 80%; }
+
 @media (max-width: 991px) {
-  #nav-menu-container, #nav-menu-container-login {
+  #nav-menu-container, #nav-menu-container-login, #nav-menu-container-lang {
     display: none; } }
-/* Nav Meu Styling */
 .nav-menu a {
   padding: 0px 8px 0px 20px;
   text-decoration: none;
@@ -831,7 +826,6 @@ td, th {
   margin-right: 10px;
   margin-top: 0; }
 
-/* Mobile Nav Toggle */
 #mobile-nav-toggle {
   position: fixed;
   right: 15px;
@@ -855,7 +849,6 @@ td, th {
 
   #nav-menu-container {
     display: none; } }
-/* Mobile Nav Styling */
 #mobile-nav {
   position: fixed;
   top: 0;
@@ -922,7 +915,6 @@ td, th {
   background: rgba(0, 0, 0, 0.7);
   display: none; }
 
-/* Mobile Nav body classes */
 body.mobile-nav-active {
   overflow: hidden; }
 
@@ -953,5 +945,9 @@ mat-sidenav {
 
 .white-icon svg {
   fill: white; }
+
+.lang-ico {
+  width: 20px;
+  height: 20px; }
 
 /*# sourceMappingURL=header.component.css.map */

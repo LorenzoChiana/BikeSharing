@@ -1,4 +1,4 @@
-.header-top {
+/*.header-top {
     background:url('../assets/images/menu-top.jpg');
     background-size:cover;
     height:20px;
@@ -6,7 +6,7 @@
     @media(max-width:991px){
         display:none;
     }    
-}
+}*/
 
 .top-head-btn {
     background: $primary-color;
@@ -153,8 +153,18 @@
     content: "\f105";
 }
 
+#nav-menu-container-login {
+  position: absolute;
+  margin-left: 90%;
+}
+
+#nav-menu-container-lang {
+  position: absolute;
+  margin-left: 80%;
+}
+
 @media (max-width: 991px) {
-    #nav-menu-container, #nav-menu-container-login {
+    #nav-menu-container, #nav-menu-container-login, #nav-menu-container-lang {
         display: none;
     }
 }
@@ -350,4 +360,13 @@ mat-sidenav {
 }
 .white-icon svg {
     fill: white;
+}
+
+.nav-menu-container-lang {
+    
+}
+
+.lang-ico {
+    width: 20px;
+    height: 20px;
 }

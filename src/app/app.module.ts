@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ApplicationRef } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ApplicationRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -23,6 +23,17 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
+
+
+import { TranslateService } from './services/translate.service';
+import { TranslatePipe } from './translate.pipe';
+
+import { HttpClientModule } from '@angular/common/http';
+
+export function setupTranslateFactory(
+  service: TranslateService): Function {
+  return () => service.use('en');
+}
 
 const appRoutesMain: Routes = [
     /*{ path: '', redirectTo: '/', pathMatch: 'full' },
@@ -65,12 +76,14 @@ const appRoutesMain: Routes = [
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    HeaderComponent
+    HeaderComponent,
+    TranslatePipe
   ],
   imports: [
     NgcFloatButtonModule,
     MatSelectModule,
     BrowserModule,
+    HttpClientModule,
     CommonModule,
     FormsModule,
     LoginRegModule,
@@ -85,7 +98,17 @@ const appRoutesMain: Routes = [
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
   ],
-  providers: [],
+  providers: [
+    TranslateService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setupTranslateFactory,
+      deps: [
+        TranslateService
+      ],
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
