@@ -789,7 +789,7 @@ td, th {
 @media (max-width: 991px) {
   #nav-menu-container, #nav-menu-container-login, #nav-menu-container-lang {
     display: none; } }
-.nav-menu a {
+.nav-menu a, mat-select {
   padding: 0px 8px 0px 20px;
   text-decoration: none;
   display: inline-block;
@@ -949,5 +949,15 @@ mat-sidenav {
 .lang-ico {
   width: 20px;
   height: 20px; }
+
+.mat-option {
+  color: white;
+  background: black; }
+  .mat-option:hover {
+    color: black;
+    background: white; }
+
+mat-select {
+  width: 120px; }
 
 /*# sourceMappingURL=header.component.css.map */

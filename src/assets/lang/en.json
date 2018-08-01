@@ -1,9 +1,20 @@
 {
   "WELCOME": "Welcome to",
+  "HOME": "Home",
   "ABOUT": "About",
   "SERVICES": "Services",
   "CONTACT": "Contact",
   "BANNER_TITLE": "Need a ride? just call",
   "BANNER_SUBTITLE": "Whether you enjoy city breaks or extended holidays in the sun, you can always improve your travel experiences by staying in a small.",
-  "BANNER_BUTTON": "Book your bike"
+  "BANNER_BUTTON": "Book your bike",
+  "HOME_ABOUT_TITLE": "Globally Connected by Large Network",
+  "HOME_ABOUT_SUBTITLE": "We are here to listen from you deliver excellence",
+  "HOME_ABOUT_TEXT": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.",
+  "HOME_ABOUT_BUTTON": "Get Details",
+  "IT": "IT",
+  "EN": "EN",
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
+  "REGISTER": "Register",
+  "LANG": "Language"
 }

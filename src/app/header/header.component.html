@@ -22,39 +22,27 @@
             </ul>
           </nav>
           <nav id="nav-menu-container-lang">
-            <ul class="nav-menu">
-              <li class="nav-item">
-                <a class="nav-link" (click)="setLang('it')" href="#">It</a>
-                <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" (click)="setLang('en')" href="#">En</a>
-                <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
-              </li>
-            </ul>
+            <ng-container matColumnDef="position">
+               <mat-select placeholder="{{'LANG' | translate }}">
+                  <mat-option [value]="Italiano" (click)="setLang('it')"> {{ 'IT' | translate }}
+                    <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
+                  </mat-option>
+                  <mat-option [value]="English" (click)="setLang('en')"> {{ 'EN' | translate }}
+                    <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
+                  </mat-option>
+                </mat-select>
+            </ng-container>
           </nav>
           <nav id="nav-menu-container-login">
             <ul class="nav-menu">
               <li class="nav-item">
-                <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']">Login</a>
+                <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']">{{ 'LOGIN' | translate }}</a>
               </li>
               <li class="nav-item" *ngIf="loggedIn()">
-                <a class="nav-link" (click)="logout()" href="#">Logout</a>
+                <a class="nav-link" (click)="logout()" href="#">{{ 'LOGOUT' | translate }}</a>
               </li>
             </ul>
           </nav>
-          <!--<li class="menu-has-children"><a href="">Blog</a>
-            <ul>
-              <li><a href="blog-home.html">Blog Home</a></li>
-              <li><a href="blog-single.html">Blog Single</a></li>
-              <li class="menu-has-children"><a href="">Level 2</a>
-                <ul>
-                  <li><a href="#">Item One</a></li>
-                  <li><a href="#">Item Two</a></li>
-                </ul>
-              </li>                       
-            </ul>
-          </li>-->
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
@@ -62,12 +50,22 @@
     <mat-sidenav-container fxFlexFill>
       <mat-sidenav #sidenav>
         <mat-nav-list>
-          <a class="nav-link" [routerLink]="['/home']" (click)="sidenav.toggle()">Home</a>
-          <a class="nav-link" [routerLink]="['/about']" (click)="sidenav.toggle()">About</a>
-          <a class="nav-link" [routerLink]="['/view']" (click)="sidenav.toggle()">Services</a>
-          <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">Contact</a>
-          <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']" (click)="sidenav.toggle()">Login</a>
-          <a class="nav-link" *ngIf="loggedIn()" (click)="logout()" href="#">Logout</a>
+          <a class="nav-link" [routerLink]="['/home']" (click)="sidenav.toggle()">{{ 'HOME' | translate }}</a>
+          <a class="nav-link" [routerLink]="['/about']" (click)="sidenav.toggle()">{{ 'ABOUT' | translate }}</a>
+          <a class="nav-link" [routerLink]="['/view']" (click)="sidenav.toggle()">{{ 'SERVICES' | translate }}</a>
+          <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">{{ 'CONTACT' | translate }}</a>
+          <ng-container matColumnDef="position">
+               <mat-select placeholder="{{'LANG' | translate }}">
+                  <mat-option [value]="Italiano" (click)="setLang('it')"> {{ 'IT' | translate }}
+                    <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
+                  </mat-option>
+                  <mat-option [value]="English" (click)="setLang('en')"> {{ 'EN' | translate }}
+                    <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
+                  </mat-option>
+                </mat-select>
+            </ng-container>
+          <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']" (click)="sidenav.toggle()">{{ 'LOGIN' | translate }}</a>
+          <a class="nav-link" *ngIf="loggedIn()" (click)="logout()" href="#">{{ 'LOGOUT' | translate }}</a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content fxFlexFill>

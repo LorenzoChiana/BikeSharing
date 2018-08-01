@@ -169,7 +169,7 @@
     }
 }
 
-.nav-menu a {
+.nav-menu a, mat-select {
     padding: 0px 8px 0px 20px;
     text-decoration: none;
     display: inline-block;
@@ -369,4 +369,17 @@ mat-sidenav {
 .lang-ico {
     width: 20px;
     height: 20px;
+}
+
+.mat-option {
+    color: white;
+    background: black;
+    &:hover {
+        color: black;
+        background: white;
+    }
+}
+
+mat-select {
+  width: 120px;
 }

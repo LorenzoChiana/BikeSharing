@@ -1,9 +1,20 @@
 {
   "WELCOME": "Benvenuto in",
+  "HOME": "Home",
   "ABOUT": "Info",
   "SERVICES": "Servizi",
   "CONTACT": "Contatti",
   "BANNER_TITLE": "Hai bisogno di un passaggio? Basta chiamare",
   "BANNER_SUBTITLE": "Sia che tu ami le pause in città o le vacanze sotto al sole, puoi sempre migliorare le tue esperienze di viaggio grazie a BikeSharing",
-  "BANNER_BUTTON": "Prenota la tua bici"
+  "BANNER_BUTTON": "Prenota la tua bici",
+  "HOME_ABOUT_TITLE": "Connesso Globalmente Da Una Grande Rete",
+  "HOME_ABOUT_SUBTITLE": "Siamo qui per ascoltarti e offrirti l'eccellenza",
+  "HOME_ABOUT_TEXT": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.",
+  "HOME_ABOUT_BUTTON": "Dettagli",
+  "IT": "IT",
+  "EN": "EN",
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
+  "REGISTER": "Registrazione",
+  "LANG": "Lingua"
 }

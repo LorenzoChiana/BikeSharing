@@ -1,3 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+md-select, .mat-select-placeholder, .mat-select-trigger {
+  color:white !important;
+}

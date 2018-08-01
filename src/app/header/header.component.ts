@@ -32,8 +32,8 @@ export class HeaderComponent implements OnInit {
     return sessionStorage.length != 0;
   }
 
-  goBack(): void {
-    this.location.back();
+  getCurentPath() {
+    return this.location.path();
   }
 
 }
