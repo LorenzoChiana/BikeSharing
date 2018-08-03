@@ -27,6 +27,7 @@ import {
 
 import { TranslateService } from './services/translate.service';
 import { TranslatePipe } from './translate.pipe';
+//import { SharedModule } from './shared/shared.module';
 
 import { HttpClientModule } from '@angular/common/http';
 

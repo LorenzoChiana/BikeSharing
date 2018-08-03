@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule, Routes } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
@@ -26,6 +26,15 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
 import { NgcFloatButtonModule } from 'ngc-float-button';
 import {MatExpansionModule} from '@angular/material/expansion';
 
+import { TranslateService } from '../services/translate.service'; 
+import { TranslatePipe } from './translate.pipe';
+//import { SharedModule } from '../shared/shared.module';
+
+export function setupTranslateFactory(
+  service: TranslateService): Function {
+  return () => service.use('en');
+}
+
 const routes: Routes = [
   { path: 'view-rent', component: ViewRentComponent },
   { path: 'view', component: ViewComponent },
@@ -50,6 +59,8 @@ const routes: Routes = [
     EditRackComponent,
     ViewRentComponent,
     ViewCommentComponent,
+
+    TranslatePipe
   ],
   imports: [
     NgbModule.forRoot(), MatExpansionModule, NgcFloatButtonModule, BrowserModule,HttpModule,FormsModule,
@@ -58,11 +69,25 @@ const routes: Routes = [
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
     RouterModule.forChild(routes),
-    MaterialModule,
+    MaterialModule
   ],
   entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, DialogComment, DialogAlert],
   exports: [ RouterModule, MaterialModule],
-  providers: [ RackService, BikeService, RentService, CommentService ],
+  providers: [ 
+    RackService,
+    BikeService,
+    RentService,
+    CommentService,
+    TranslateService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setupTranslateFactory,
+      deps: [
+        TranslateService
+      ],
+      multi: true
+    }
+  ],
   bootstrap: []
 })
 export class BikeSharingModule { }

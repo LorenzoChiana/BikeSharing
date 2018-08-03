@@ -9,7 +9,7 @@ function initMap() {alert("ok");}
 		<div class="row d-flex align-items-center justify-content-center">
 			<div class="about-content col-lg-12">
 				<h1 class="text-white">
-					Contact Us
+					{{ 'CONTACT_US' | translate }}
 				</h1>
 			</div>
 		</div>
@@ -31,8 +31,8 @@ function initMap() {alert("ok");}
 						<span class="lnr lnr-home"></span>
 					</div>
 					<div class="contact-details">
-						<h5>Cesena, Italy</h5>
-						<p>Via Sacchi, 3</p>
+						<h5>{{ 'CONTACT_CITY' | translate }}</h5>
+						<p>{{ 'CONTACT_ROUTE' | translate }}</p>
 					</div>
 				</div>
 				<div class="single-contact-address d-flex flex-row">
@@ -40,8 +40,8 @@ function initMap() {alert("ok");}
 						<span class="lnr lnr-phone-handset"></span>
 					</div>
 					<div class="contact-details">
-						<h5>0547 12345</h5>
-						<p>Mon to Fri 9 am to 6 pm</p>
+						<h5>{{ 'CONTACT_PHONE_NUM' | translate }}</h5>
+						<p>{{ 'CONTACT_DAYS' | translate }}</p>
 					</div>
 				</div>
 				<div class="single-contact-address d-flex flex-row">
@@ -49,9 +49,9 @@ function initMap() {alert("ok");}
 						<span class="lnr lnr-envelope"></span>
 					</div>
 					<div class="contact-details">
-						<h5>lorenzo.chiana@studio.unibo.it</h5>
-						<h5>lorenzo.pacini@studio.unibo.it</h5>
-						<p>Send us your query anytime!</p>
+						<h5>{{ 'CONTACT_MAIL1' | translate }}</h5>
+						<h5>{{ 'CONTACT_MAIL2' | translate }}</h5>
+						<p>{{ 'CONTACT_MAIL_SUB' | translate }}</p>
 					</div>
 				</div>
 			</div>
@@ -63,69 +63,69 @@ function initMap() {alert("ok");}
 
 <!-- start footer Area -->
 <footer class="footer-area section-gap">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2 col-md-6 col-sm-6">
-				<div class="single-footer-widget">
-					<h6>Quick links</h6>
-					<ul>
-						<li><a href="#">Jobs</a></li>
-						<li><a href="#">Brand Assets</a></li>
-						<li><a href="#">Investor Relations</a></li>
-						<li><a href="#">Terms of Service</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 col-sm-6">
-				<div class="single-footer-widget">
-					<h6>Features</h6>
-					<ul>
-						<li><a href="#">Jobs</a></li>
-						<li><a href="#">Brand Assets</a></li>
-						<li><a href="#">Investor Relations</a></li>
-						<li><a href="#">Terms of Service</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 col-sm-6">
-				<div class="single-footer-widget">
-					<h6>Resources</h6>
-					<ul>
-						<li><a href="#">Guides</a></li>
-						<li><a href="#">Research</a></li>
-						<li><a href="#">Experts</a></li>
-						<li><a href="#">Agencies</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-6 col-sm-6 social-widget">
-				<div class="single-footer-widget">
-					<h6>Follow Us</h6>
-					<p>Let us be social</p>
-					<div class="footer-social d-flex align-items-center">
-						<a href="#"><i class="fa fa-facebook"></i></a>
-						<a href="#"><i class="fa fa-twitter"></i></a>
-						<a href="#"><i class="fa fa-dribbble"></i></a>
-						<a href="#"><i class="fa fa-behance"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4  col-md-6 col-sm-6">
-				<div class="single-footer-widget">
-					<h6>Newsletter</h6>
-					<p>Stay update with our latest</p>
-					<div class="" id="mc_embed_signup">
-						<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
-							<input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
-                            	<button class="click-btn btn btn-default"><span class="lnr lnr-arrow-right"></span></button>
-                            	<div style="position: absolute; left: -5000px;">
-									<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-								</div>
-							<div class="info"></div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2 col-md-6 col-sm-6">
+        <div class="single-footer-widget">
+          <h6>{{ 'QUICK_LINKS' | translate }}</h6>
+          <ul>
+            <li><a href="#">{{ 'JOBS' | translate }}</a></li>
+            <li><a href="#">{{ 'BRAND_ASSETS' | translate }}</a></li>
+            <li><a href="#">{{ 'INVESTOR_RELATIONS' | translate }}</a></li>
+            <li><a href="#">{{ 'TERMS_OF_SERVICE' | translate }}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-sm-6">
+        <div class="single-footer-widget">
+          <h6>{{ 'FEATURES' | translate }}</h6>
+          <ul>
+            <li><a href="#">{{ 'JOBS' | translate }}</a></li>
+            <li><a href="#">{{ 'BRAND_ASSETS' | translate }}</a></li>
+            <li><a href="#">{{ 'INVESTOR_RELATIONS' | translate }}</a></li>
+            <li><a href="#">{{ 'TERMS_OF_SERVICE' | translate }}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-sm-6">
+        <div class="single-footer-widget">
+          <h6>{{ 'RESOURCES' | translate }}</h6>
+          <ul>
+            <li><a href="#">{{ 'GUIDES' | translate }}</a></li>
+            <li><a href="#">{{ 'RESEARCH' | translate }}</a></li>
+            <li><a href="#">{{ 'EXPERTS' | translate }}</a></li>
+            <li><a href="#">{{ 'AGENCIES' | translate }}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+        <div class="single-footer-widget">
+          <h6>{{ 'FOLLOW_US' | translate }}</h6>
+          <p>{{ 'FOLLOW_US_SUB' | translate }}</p>
+          <div class="footer-social d-flex align-items-center">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-dribbble"></i></a>
+            <a href="#"><i class="fa fa-behance"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4  col-md-6 col-sm-6">
+        <div class="single-footer-widget">
+          <h6>{{ 'NEWSLETTER' | translate }}</h6>
+          <p>{{ 'NEWSLETTER_SUB' | translate }}</p>
+          <div class="" id="mc_embed_signup">
+            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="form-inline">
+              <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
+                              <button class="click-btn btn btn-default"><span class="lnr lnr-arrow-right"></span></button>
+                              <div style="position: absolute; left: -5000px;">
+                  <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                </div>
+              <div class="info"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
