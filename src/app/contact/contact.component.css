@@ -670,6 +670,9 @@ td, th {
   width: 100%;
   height: 445px;
   margin-bottom: 40px; }
+.contact-page-area agm-map {
+  width: 100%;
+  height: 445px; }
 .contact-page-area .form-area input {
   padding: 15px; }
 .contact-page-area .form-area input,
@@ -706,9 +709,6 @@ td, th {
     color: #f9d700;
     margin-right: 30px; }
 
-/* ====================primary=============== */
-/*  Homepage Styles
-/* =================================== */
 .section-gap {
   padding: 120px 0; }
 
@@ -783,7 +783,6 @@ td, th {
   .section-title h1 {
     margin-bottom: 10px; }
 
-/*-------- Start Banner Area ------------*/
 .banner-area {
   background: url(../../assets/images/header-bg.jpg) center;
   background-size: cover; }
@@ -915,8 +914,6 @@ td, th {
   transition: all 0.15s ease-in-out;
   width: 8px; }
 
-/*-------- End Banner Area ------------*/
-/*-------- Start home-about Area -------------*/
 @media (max-width: 991px) {
   .home-about-area .about-left {
     text-align: center;
@@ -940,8 +937,6 @@ td, th {
       border-color: #f9d700;
       color: #f9d700; }
 
-/*-------- End home-about Area -------------*/
-/*-------- Start services Area -------------*/
 .services-area .single-service {
   background-color: #f9f9ff;
   text-align: center;
@@ -975,8 +970,6 @@ td, th {
     .services-area .single-service {
       margin-bottom: 30px; } }
 
-/*-------- End services Area -------------*/
-/*-------- Start image-gallery Area -------------*/
 .image-gallery-area {
   background-color: #f9f9ff; }
   .image-gallery-area .single-gallery:nth-child(2) {
@@ -994,8 +987,6 @@ td, th {
   .image-gallery-area .single-gallery a:hover img {
     opacity: .6; }
 
-/*-------- End image-gallery Area -------------*/
-/*-------- Start review Area -------------*/
 .reviews-area .single-review {
   text-align: center;
   background-color: #f9f9ff;
@@ -1015,8 +1006,6 @@ td, th {
     .reviews-area .single-review:hover h4 {
       color: #f9d700; }
 
-/*-------- End review Area -------------*/
-/*-------- start home-calltoaction Area -------------*/
 .home-calltoaction-area {
   background: url(../../assets/images/call-action-bg.jpg) center;
   background-size: cover; }
@@ -1039,8 +1028,6 @@ td, th {
       background-color: #fff;
       color: #222; }
 
-/*-------- end home-calltoaction Area -------------*/
-/*-------- Start latest-blog Area -------------*/
 .single-latest-blog .thumb {
   overflow: hidden; }
   .single-latest-blog .thumb img {
@@ -1089,8 +1076,6 @@ td, th {
   .single-latest-blog {
     margin-bottom: 40px; } }
 
-/*-------- end latest-blog Area -------------*/
-/*-------- Start Common Page Style For  -------------*/
 .link-nav {
   margin-top: 10px;
   margin-bottom: 0px; }
@@ -1117,7 +1102,6 @@ td, th {
     margin: 0px 10px;
     font-weight: 600; }
 
-/*-------- End Common Page Style For  -------------*/
 /* =================================== */
 /*  Footer Styles
 /* =================================== */
