@@ -42,7 +42,7 @@
       <div class="wrap-login100">
         <div class="login100-form-title">
           <span class="login100-form-title-1">
-            Sign In
+            {{ 'SIGN_IN' | translate }}
           </span>
         </div>
 
@@ -53,23 +53,23 @@
             <span class="focus-input100"></span>
           </div>-->
           <div class="form-group wrap-input100 validate-input m-b-26" data-validate="Username is required">
-            <span class="label-input100">Username</span>
-            <input type="text" formControlName="nomeUtente" placeholder="Enter username"
+            <span class="label-input100">{{ 'USERNAME' | translate }}</span>
+            <input type="text" formControlName="nomeUtente" placeholder="{{ 'ENTER_USERNAME' | translate }}"
             class="input100" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" required />
             <span class="focus-input100"></span>
             <div *ngIf="submitted && f.nomeUtente.errors" class="invalid-feedback">
-                <div *ngIf="f.nomeUtente.errors.required">Username is required</div>
+                <div *ngIf="f.nomeUtente.errors.required">{{ 'USERNAME_ERR' | translate }}</div>
             </div>
           </div>
 
           <div class="form-group wrap-input100 validate-input m-b-18" data-validate = "Password is required">
             <!--<show-hide-password size="lg" icon="entypo">-->
-              <span class="label-input100">Password</span>
-              <input type="password" class="input100" name="pass" formControlName="password" placeholder="Enter password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required/>
+              <span class="label-input100">{{ 'PW' | translate }}</span>
+              <input type="password" class="input100" name="pass" formControlName="password" placeholder="{{ 'ENTER_PW' | translate }}" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required/>
               <span class="focus-input100"></span>
             <!--</show-hide-password>-->
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">Password richiesta</div>
+                <div *ngIf="f.password.errors.required">{{ 'PW_ERR' | translate }}</div>
             </div>
           </div>
 
@@ -80,7 +80,7 @@
           </div>-->
           <div class="container-login100-form-btn">
               <div class="col-sm-4">
-                <input type="submit" class="btn btn-primary login100-form-btn" value="Login"/>
+                <input type="submit" class="btn btn-primary login100-form-btn" value="{{ 'LOGIN' | translate }}"/>
               </div>
           </div>
 
@@ -94,7 +94,7 @@
 
             <div>
               <a class="txt1 nav-link" [routerLink]="['/registration']" value="Register">
-                Don't have an account? Register now!
+                {{ 'NEW_REGISTER' | translate }}
               </a>
             </div>
           </div>

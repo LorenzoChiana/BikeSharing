@@ -169,7 +169,7 @@
     }
 }
 
-.nav-menu a, mat-select {
+.nav-menu a, .mat-select-desktop {
     padding: 0px 8px 0px 20px;
     text-decoration: none;
     display: inline-block;
@@ -196,8 +196,14 @@
     background: #fff;
 }
 
-.nav-menu ul li {
+.nav-menu ul li, .mat-select-mobile {
     transition: 0.3s;
+}
+
+.mat-select-mobile {
+  padding: 8px 16px;
+  font-size: 16px;
+  width: 200px;
 }
 
 .nav-menu ul li a {
@@ -380,6 +386,6 @@ mat-sidenav {
     }
 }
 
-mat-select {
+.mat-select-desktop {
   width: 120px;
 }

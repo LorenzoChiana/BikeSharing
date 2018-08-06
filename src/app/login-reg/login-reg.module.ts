@@ -10,11 +10,19 @@ import { LoginComponent } from './login/login.component';
 
 import { LoginRegService } from './login-reg.service';
 
+import { TranslateService } from '../services/translate.service'; 
+import { TranslatePipe } from './translate.pipe';
+
 const appRoutesLogin: Routes = [
     //{ path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'registration', component: RegistrationComponent },
     { path: 'login', component: LoginComponent }
 ];
+
+export function setupTranslateFactory(
+  service: TranslateService): Function {
+  return () => service.use('en');
+}
 
 @NgModule({
   imports: [
@@ -28,7 +36,7 @@ const appRoutesLogin: Routes = [
   exports: [
     RegistrationComponent, LoginComponent
   ],
-  providers: [LoginRegService],
-  declarations: [RegistrationComponent, LoginComponent]
+  providers: [LoginRegService, TranslateService],
+  declarations: [RegistrationComponent, LoginComponent, TranslatePipe]
 })
 export class LoginRegModule { }

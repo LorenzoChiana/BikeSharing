@@ -13,7 +13,10 @@
               <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/about']">{{ 'ABOUT' | translate }}</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" *ngIf="!loggedIn()">
+                <a class="nav-link" [routerLink]="['/login']">{{ 'SERVICES' | translate }}</a>
+              </li>
+              <li class="nav-item" *ngIf="loggedIn()">
                 <a class="nav-link" [routerLink]="['/view']">{{ 'SERVICES' | translate }}</a>
               </li>
               <li class="nav-item">
@@ -23,7 +26,7 @@
           </nav>
           <nav id="nav-menu-container-lang">
             <ng-container matColumnDef="position">
-               <mat-select placeholder="{{'LANG' | translate }}">
+               <mat-select class="mat-select-desktop" placeholder="{{'LANG' | translate }}">
                   <mat-option [value]="Italiano" (click)="setLang('it')"> {{ 'IT' | translate }}
                     <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
                   </mat-option>
@@ -52,14 +55,15 @@
         <mat-nav-list>
           <a class="nav-link" [routerLink]="['/home']" (click)="sidenav.toggle()">{{ 'HOME' | translate }}</a>
           <a class="nav-link" [routerLink]="['/about']" (click)="sidenav.toggle()">{{ 'ABOUT' | translate }}</a>
-          <a class="nav-link" [routerLink]="['/view']" (click)="sidenav.toggle()">{{ 'SERVICES' | translate }}</a>
+          <a class="nav-link" *ngIf="!loggedIn()" [routerLink]="['/login']" (click)="sidenav.toggle()">{{ 'SERVICES' | translate }}</a>
+          <a class="nav-link" *ngIf="loggedIn()" [routerLink]="['/view']" (click)="sidenav.toggle()">{{ 'SERVICES' | translate }}</a>
           <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">{{ 'CONTACT' | translate }}</a>
           <ng-container matColumnDef="position">
-               <mat-select placeholder="{{'LANG' | translate }}">
-                  <mat-option [value]="Italiano" (click)="setLang('it')"> {{ 'IT' | translate }}
+               <mat-select class="mat-select-mobile" placeholder="{{'LANG' | translate }}">
+                  <mat-option [value]="Italiano" (click)="setLang('it'); sidenav.toggle()"> {{ 'IT' | translate }}
                     <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
                   </mat-option>
-                  <mat-option [value]="English" (click)="setLang('en')"> {{ 'EN' | translate }}
+                  <mat-option [value]="English" (click)="setLang('en'); sidenav.toggle()"> {{ 'EN' | translate }}
                     <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
                   </mat-option>
                 </mat-select>
