@@ -80,5 +80,11 @@
   "NEW_REGISTER": "Non hai un account? Registrati ora!",
   "LOGIN_REQUEST": "Hai già un account? Accedi!",
   "REGISTER": "Registrati",
-  "LOGIN": "Login"
+  "LOGIN": "Login",
+  "COMMENTS_LIST": "Lista commenti",
+  "DATE": "Data",
+  "USER": "Utente",
+  "BIKE": "Bici",
+  "TEXT": "Testo",
+  "NO_COMMENT": "Nessun commneto presente"
 }

@@ -1,10 +1,10 @@
-<!doctype html>
+<!--<!doctype html>
 <html lang="en">
 <head>
 <title>Lista commenti</title>
 <meta charset="utf-8">
 
-</head>
+</head>-->
 
 <body>
 <div class="container">
@@ -15,17 +15,17 @@
       <mat-icon aria-label="Example icon-button with a heart icon">arrow_back_ios</mat-icon>
     </button>
     <!-- titolo -->
-    <h1>Lista commenti {{codeBike}}</h1>
+    <h1>{{ 'COMMENTS_LIST' | translate }} {{codeBike}}</h1>
   </div>
 
   <div class="table-container" style="overflow: auto;">
     <table class="table">
       <thead>
         <tr>
-          <td>Data</td>
-          <td>Utente</td>
-          <td>Bici</td>
-          <td>Testo</td>
+          <td>{{ 'DATE' | translate }}</td>
+          <td>{{ 'USER' | translate }}</td>
+          <td>{{ 'BIKE' | translate }}</td>
+          <td>{{ 'TEXT' | translate }}</td>
         </tr>
       </thead>
       <tbody>
@@ -36,7 +36,7 @@
           <td>{{kk.testo}}</td>
         </tr>
         <tr *ngIf="comments.length == 0">
-          <td colspan="4">Nessun commento presente</td>
+          <td colspan="4">{{ 'NO_COMMENT' | translate }}</td>
         </tr>
       </tbody>
     </table>
