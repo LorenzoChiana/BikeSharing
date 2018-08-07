@@ -86,5 +86,15 @@
   "USER": "User",
   "BIKE": "Bike",
   "TEXT": "Text",
-  "NO_COMMENT": "No comments present"
+  "NO_COMMENT": "No comments present",
+  "RESERVATION_LIST": "Reservation list",
+  "NUM": "Num",
+  "START": "Start",
+  "END": "End",
+  "FROM": "From",
+  "TO": "To",
+  "TOT_KM": "TotKm",
+  "TIME": "Time",
+  "PRICE": "Price",
+  "TOTAL": "Total"
 }

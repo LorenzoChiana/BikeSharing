@@ -1,10 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-<title>View Rent Component</title>
-<meta charset="utf-8">
-</head>
-
 <body>
 <div class="container">
   <!-- pulsanti navigazione -->
@@ -12,24 +5,24 @@
     <button mat-icon-button (click)="goBack()">
       <mat-icon aria-label="Example icon-button with a heart icon">arrow_back_ios</mat-icon>
     </button>
-    <h1>Lista prenotazioni</h1>
+    <h1>{{ 'RESERVATION_LIST' | translate }}</h1>
   </div>
 
   <div class="table-container" style="overflow: auto;">
     <table class="table">
       <thead>
         <tr>
-          <td>Num</td>
-          <td>Data</td>
-          <td>Utente</td>
-          <td>Bici</td>
-          <td>Inizio</td>
-          <td>Fine</td>
-          <td>Da</td>
-          <td>A</td>
-          <td>TotKm</td>
-          <td>Tempo</td>
-          <td>Costo</td>
+          <td>{{ 'NUM' | translate }}</td>
+          <td>{{ 'DATE' | translate }}</td>
+          <td>{{ 'USER' | translate }}</td>
+          <td>{{ 'BIKE' | translate }}</td>
+          <td>{{ 'START' | translate }}</td>
+          <td>{{ 'END' | translate }}</td>
+          <td>{{ 'FROM' | translate }}</td>
+          <td>{{ 'TO' | translate }}</td>
+          <td>{{ 'TOT_KM' | translate }}</td>
+          <td>{{ 'TIME' | translate }}</td>
+          <td>{{ 'PRICE' | translate }}</td>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +47,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td>Totali: </td>
+          <td>{{ 'TOTAL' | translate }}: </td>
           <td>{{totKm}}</td>
           <td>{{totTempo}}</td>
           <td>{{totCosto}}</td>
