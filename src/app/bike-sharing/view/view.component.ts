@@ -45,7 +45,7 @@ export class ViewComponent implements OnInit {
   /*color = 'black';
   private open:BehaviorSubject<boolean> = new BehaviorSubject(false);*/
 
-  step = 0;
+  private step: number = 0;
 
   setStep(index: number) {
     this.step = index;

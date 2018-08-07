@@ -125,6 +125,20 @@ export class RentBikeComponent implements OnInit {
 
   private Math: any;
 
+  private step: number = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
   labelOptions = {
     color: '#FFFFFF',
     fontFamily: '',

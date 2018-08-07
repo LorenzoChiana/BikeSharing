@@ -1063,6 +1063,9 @@ td, th {
   width: 100%;
   height: 445px;
   margin-bottom: 40px; }
+.contact-page-area agm-map {
+  width: 100%;
+  height: 445px; }
 .contact-page-area .form-area input {
   padding: 15px; }
 .contact-page-area .form-area input,

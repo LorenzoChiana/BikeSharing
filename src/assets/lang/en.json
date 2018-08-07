@@ -96,5 +96,12 @@
   "TOT_KM": "TotKm",
   "TIME": "Time",
   "PRICE": "Price",
-  "TOTAL": "Total"
+  "TOTAL": "Total",
+  "KM": "Km",
+  "OPERATIONS": "Operations",
+  "STATE": "State",
+  "EDIT": "Edit",
+  "NOT_AVAILABLE": "Not available",
+  "BIKE_AVAILABLE": "Bike available",
+  "BIKE_IN_USE": "Bike in use"
 }
