@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { } from '@types/googlemaps';
-import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-contact',
@@ -8,13 +6,14 @@ import { ViewChild } from '@angular/core';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+  private latitudine: number = 44.139771;
+  private longitudine: number = 12.243437;
+  private zoom: number = 16;
 
   constructor() { }
 
   ngOnInit() {
-    private latitudine: number = 44.139771;
-    private longitudine: number = 12.243437;
-    private zoom: number = 16;
+    
   }
 
 }
