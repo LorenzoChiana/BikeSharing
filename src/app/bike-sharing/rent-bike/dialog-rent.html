@@ -6,7 +6,7 @@
   }
 
   .mat-dialog-container {
-    /* padding: 0px; */
+  
   }
 
   .mat-dialog-title {
@@ -16,34 +16,34 @@
 </style>
 
 <div class="container">
-  <h1 mat-dialog-title *ngIf="data.mode == 'rent'" >Preleva bici: {{data.rent.codeBike}}</h1>
-  <h1 mat-dialog-title *ngIf="data.mode == 'rent'" >Parcheggio: {{data.bike.rack}}</h1>
-  <h1 mat-dialog-title *ngIf="data.mode == 'release'">Rilascio bici: {{data.rent.codeBike}}</h1>
+  <h1 mat-dialog-title *ngIf="data.mode == 'rent'" >{{ 'BORROW' | translate }} {{ 'BIKE' | translate }}: {{data.rent.codeBike}}</h1>
+  <h1 mat-dialog-title *ngIf="data.mode == 'rent'" >{{ 'PARKING' | translate }}: {{data.bike.rack}}</h1>
+  <h1 mat-dialog-title *ngIf="data.mode == 'release'">{{ 'RELEASE' | translate }} {{ 'BIKE' | translate }}: {{data.rent.codeBike}}</h1>
   <div mat-dialog-content>
     <div class="formInput">
       <p *ngIf="data.mode == 'release'">
-        Parcheggio: {{data.rack.codice}} dista {{data.distRack}} m.
+        {{ 'THE_PARKING_DISTA' | translate }}
       </p>
       <mat-form-field>
-        <label>Ora Inizio:</label>
+        <label>{{ 'START_TIME' | translate }}:</label>
         <input matInput [(ngModel)]="data.rent.timeInit" readonly>
       </mat-form-field>
       <mat-form-field *ngIf="data.mode == 'release'">
-        <label>Ora Fine:</label>
+        <label>{{ 'END_TIME' | translate }}:</label>
         <input matInput [(ngModel)]="data.rent.timeEnd" readonly>
       </mat-form-field>
       <mat-form-field *ngIf="data.mode == 'release'">
-        <label>Tempo:</label>
+        <label>{{ 'TIME' | translate }}:</label>
         <input matInput [(ngModel)]="data.rent.tempo" readonly>
       </mat-form-field>
       <mat-form-field *ngIf="data.mode == 'release'">
-        <label>Costo:</label>
+        <label>{{ 'PRICE' | translate }}:</label>
         <input matInput [(ngModel)]="data.rent.costo" readonly>
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onClose()">Annulla</button>
-    <button mat-button (click)="onConfirm()">Conferma</button>
+    <button mat-button (click)="onClose()">{{ 'CANCEL' | translate }}</button>
+    <button mat-button (click)="onConfirm()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>

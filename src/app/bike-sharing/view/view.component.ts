@@ -13,6 +13,8 @@ import { Rack, Bike, Rent } from '../structDb'
 import { Observable } from 'rxjs/Observable';
 import { filter } from 'rxjs/operators';
 
+import {TranslateService} from '@ngx-translate/core';
+
 export interface DialogData {
   edit: boolean;
   rack: Rack;
@@ -66,6 +68,7 @@ export class ViewComponent implements OnInit {
     private location: Location,
     private router :Router,
     private route: ActivatedRoute,
+    private translate: TranslateService,
     public dialog: MatDialog) {   }
 
   ngOnInit() {
@@ -131,7 +134,8 @@ export class ViewComponent implements OnInit {
   }
 
   preleva() : void {
-      alert("Seleziona un parcheggio");
+      alert(this.translate.instant("SELECT_A_RACK"));
+      this.translate.instant("SELECT_A_RACK");
       //this.bikeList();
   }
 

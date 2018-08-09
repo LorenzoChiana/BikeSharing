@@ -90,7 +90,7 @@
             <td>{{ 'N_BIKE' | translate }}</td>
             <td>{{ 'N_SPOT' | translate }}</td>
 
-            <td *ngIf="isAdmin">Edit</td>
+            <td *ngIf="isAdmin">{{ 'EDIT' | translate }}</td>
           </tr>
         </thead>
         <tbody>
@@ -103,7 +103,7 @@
             <td>{{rack.numPlace}}</td>
 
             <td *ngIf="isAdmin">
-              <button type="button" class="btn btn-primary btn-sm" (click)="editRack(rack)">Edit</button>
+              <button type="button" class="btn btn-primary btn-sm" (click)="editRack(rack)">{{ 'EDIT' | translate }}</button>
             </td>
           </tr>
         </tbody>

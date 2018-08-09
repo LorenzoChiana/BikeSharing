@@ -7,22 +7,22 @@
 </style>
 
 <div class="container">
-  <h1 mat-dialog-title>Lascia un commento</h1>
+  <h1 mat-dialog-title>{{ 'LEAVE_COMMENT' | translate }}</h1>
   <div mat-dialog-content>
     <div class="formInput">
       <p>
-        Data: {{data.comment.data}}. <br/>
-        Utente: {{data.comment.nameUser}}. <br/>
-        Bici: {{data.comment.codeBike}}.
+        {{ 'DATE' | translate }}: {{data.comment.data}}. <br/>
+        {{ 'USER' | translate }}: {{data.comment.nameUser}}. <br/>
+        {{ 'BIKE' | translate }}: {{data.comment.codeBike}}.
       </p>
       <mat-form-field>
-        <label>Commento:</label>
+        <label>{{ 'COMMENT' | translate }}:</label>
         <input matInput [(ngModel)]="data.comment.testo">
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onCloseComment()">Annulla</button>
-    <button mat-button (click)="onConfirmComment()">Conferma</button>
+    <button mat-button (click)="onCloseComment()">{{ 'CANCEL' | translate }}</button>
+    <button mat-button (click)="onConfirmComment()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>

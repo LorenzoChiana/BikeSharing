@@ -16,6 +16,9 @@ import { filter } from 'rxjs/operators';
 
 import { angularMath } from 'angular-ts-math';
 
+//import { TranslateService } from '../../services/translate.service';
+import {TranslateService} from '@ngx-translate/core';
+
 export interface DialogData {
   rent: Rent;
   bike: Bike;
@@ -148,6 +151,7 @@ export class RentBikeComponent implements OnInit {
   }
 
     constructor(
+      private translate: TranslateService,
       private router: Router,
       private route: ActivatedRoute,
 
@@ -205,7 +209,9 @@ export class RentBikeComponent implements OnInit {
     }
 
     preleva() : void {
-      this.openDialogAlert("Seleziona bici da prelevare");
+      //this.openDialogAlert("Seleziona bici da prelevare");
+      this.openDialogAlert(this.translate.instant("WARNING_BORROW"));
+      //let foo:string = this.translate.get('Date');
     }
 
     rentList() : void {
@@ -221,7 +227,7 @@ export class RentBikeComponent implements OnInit {
         this.curBike = this.bikeUser[0];
         this.releaseDialog(this.curBike);
       } else {
-        this.alertDialog("Nessuna bici da rilasciare");
+        this.alertDialog(this.translate.instant("WARNING_NO_BIKE_RELEASE"));
       }
     }
 
@@ -338,7 +344,7 @@ export class RentBikeComponent implements OnInit {
         this.rentService.getBikeRent(this.nameUser, this.curBike.codice, "").subscribe((data) => {
           this.rents = data;
           if (data.length <= 0 ){
-              alert ("Prenotazione non trovata");
+            this.alertDialog(this.translate.instant("NO_BOOKING_FOUND"));
         } else {
             this.curRent = this.rents[0];
             var now: Date = new Date();
@@ -457,11 +463,11 @@ export class RentBikeComponent implements OnInit {
     releaseBike(rentContent : RentContent, result : DialogData): void {
       this.release = false;
       if (this.distRack > this.distMin && !this.isAdmin) { // distanza minima per riposizionamento
-        var msg : string = "Bici troppo distante dal rack "+ this.curRack.codice;
+        var msg : string = this.translate.instant("BIKE_TOO_FAR") + " " + this.curRack.codice;
         msg = msg +  " - " + this.curRack.indirizzo;
         this.openDialogAlert(msg);
       } else if (this.curRack.numPlace - this.curRack.numBike <= 0) { // distanza minima per riposizionamento
-          this.openDialogAlert("Parcheggio bici esaurito: " + this.curRack.codice);
+          this.openDialogAlert(this.translate.instant("FULL_BIKE_PARKING") + " " + this.curRack.codice);
       } else {
       this.release = true;
 
@@ -664,7 +670,7 @@ onEdit(command : string): void {
     }
     this.dialogRef.close(this.data);
   } else {
-    alert("ERRORE Rack non trovato: " + bike.rack);
+    alert("Rastrelliera non trovata: " + bike.rack);
   }
 }
 

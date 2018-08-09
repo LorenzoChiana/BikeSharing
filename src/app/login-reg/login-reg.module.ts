@@ -10,8 +10,12 @@ import { LoginComponent } from './login/login.component';
 
 import { LoginRegService } from './login-reg.service';
 
-import { TranslateService } from '../services/translate.service'; 
-import { TranslatePipe } from './translate.pipe';
+/*import { TranslateService } from '../services/translate.service'; 
+import { TranslatePipe } from './translate.pipe';*/
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const appRoutesLogin: Routes = [
     //{ path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,9 +23,8 @@ const appRoutesLogin: Routes = [
     { path: 'login', component: LoginComponent }
 ];
 
-export function setupTranslateFactory(
-  service: TranslateService): Function {
-  return () => service.use('en');
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
@@ -30,13 +33,21 @@ export function setupTranslateFactory(
     BikeSharingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutesLogin),
     ShowHidePasswordModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
     RegistrationComponent, LoginComponent
   ],
-  providers: [LoginRegService, TranslateService],
-  declarations: [RegistrationComponent, LoginComponent, TranslatePipe]
+  providers: [LoginRegService],
+  declarations: [RegistrationComponent, LoginComponent]
 })
 export class LoginRegModule { }

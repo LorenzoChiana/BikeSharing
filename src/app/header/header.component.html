@@ -27,10 +27,10 @@
           <nav id="nav-menu-container-lang">
             <ng-container matColumnDef="position">
                <mat-select class="mat-select-desktop" placeholder="{{'LANG' | translate }}">
-                  <mat-option [value]="Italiano" (click)="setLang('it')"> {{ 'IT' | translate }}
+                  <mat-option [value]="Italiano" (click)="switchLanguage('it')"> {{ 'IT' | translate }}
                     <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
                   </mat-option>
-                  <mat-option [value]="English" (click)="setLang('en')"> {{ 'EN' | translate }}
+                  <mat-option [value]="English" (click)="switchLanguage('en')"> {{ 'EN' | translate }}
                     <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
                   </mat-option>
                 </mat-select>
@@ -60,10 +60,10 @@
           <a class="nav-link" [routerLink]="['/contact']" (click)="sidenav.toggle()">{{ 'CONTACT' | translate }}</a>
           <ng-container matColumnDef="position">
                <mat-select class="mat-select-mobile" placeholder="{{'LANG' | translate }}">
-                  <mat-option [value]="Italiano" (click)="setLang('it'); sidenav.toggle()"> {{ 'IT' | translate }}
+                  <mat-option [value]="Italiano" (click)="switchLanguage('it'); sidenav.toggle()"> {{ 'IT' | translate }}
                     <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
                   </mat-option>
-                  <mat-option [value]="English" (click)="setLang('en'); sidenav.toggle()"> {{ 'EN' | translate }}
+                  <mat-option [value]="English" (click)="switchLanguage('en'); sidenav.toggle()"> {{ 'EN' | translate }}
                     <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
                   </mat-option>
                 </mat-select>

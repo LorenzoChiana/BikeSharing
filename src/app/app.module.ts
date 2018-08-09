@@ -25,15 +25,22 @@ import {
 } from '@angular/material';
 
 
-import { TranslateService } from './services/translate.service';
-import { TranslatePipe } from './translate.pipe';
+//import { TranslateService } from './services/translate.service';
+//import { TranslatePipe } from './translate.pipe';
 //import { SharedModule } from './shared/shared.module';
+import { HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { HttpClientModule } from '@angular/common/http';
 
-export function setupTranslateFactory(
+/*export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('en');
+}*/
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 const appRoutesMain: Routes = [
@@ -77,8 +84,8 @@ const appRoutesMain: Routes = [
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    HeaderComponent,
-    TranslatePipe
+    HeaderComponent/*,
+    TranslatePipe*/
   ],
   imports: [
     NgcFloatButtonModule,
@@ -98,9 +105,16 @@ const appRoutesMain: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
-    TranslateService,
+    /*TranslateService,
     {
       provide: APP_INITIALIZER,
       useFactory: setupTranslateFactory,
@@ -108,7 +122,7 @@ const appRoutesMain: Routes = [
         TranslateService
       ],
       multi: true
-    }
+    }*/
   ],
   bootstrap: [AppComponent]
 })

@@ -26,14 +26,22 @@ import { ViewCommentComponent } from './view-comment/view-comment.component';
 import { NgcFloatButtonModule } from 'ngc-float-button';
 import {MatExpansionModule} from '@angular/material/expansion';
 
-import { TranslateService } from '../services/translate.service'; 
-import { TranslatePipe } from './translate.pipe';
+//import {TranslateService} from '@ngx-translate/core';
+//import { TranslateService } from '../services/translate.service'; 
+//import { TranslatePipe } from './translate.pipe';
 //import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-export function setupTranslateFactory(
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+/*export function setupTranslateFactory(
   service: TranslateService): Function {
   return () => service.use('en');
-}
+}*/
 
 const routes: Routes = [
   { path: 'view-rent', component: ViewRentComponent },
@@ -58,18 +66,31 @@ const routes: Routes = [
 
     EditRackComponent,
     ViewRentComponent,
-    ViewCommentComponent,
+    ViewCommentComponent/*,
 
-    TranslatePipe
+    TranslatePipe*/
   ],
   imports: [
-    NgbModule.forRoot(), MatExpansionModule, NgcFloatButtonModule, BrowserModule,HttpModule,FormsModule,
+    NgbModule.forRoot(),
+    MatExpansionModule,
+    NgcFloatButtonModule,
+    BrowserModule,
+    HttpModule,
+    HttpClientModule,
+    FormsModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBJyrufMXREcY074LM8z4jhx0JGl52KaHk'
     }),
     RouterModule.forChild(routes),
-    MaterialModule
+    MaterialModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, DialogComment, DialogAlert],
   exports: [ RouterModule, MaterialModule],
@@ -77,16 +98,16 @@ const routes: Routes = [
     RackService,
     BikeService,
     RentService,
-    CommentService,
-    TranslateService,
-    {
+    CommentService,/*
+    TranslateService,*/
+    /*{
       provide: APP_INITIALIZER,
       useFactory: setupTranslateFactory,
       deps: [
         TranslateService
       ],
       multi: true
-    }
+    }*/
   ],
   bootstrap: []
 })

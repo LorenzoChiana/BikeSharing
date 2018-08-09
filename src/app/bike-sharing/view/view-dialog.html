@@ -7,37 +7,37 @@
 </style>
 
 <div class="container">
-  <h1 *ngIf="!data.edit" mat-dialog-title>Parcheggio: {{data.rack.codice}}</h1>
-  <h1 *ngIf="data.edit" mat-dialog-title>Edit Parcheggio</h1>
+  <h1 *ngIf="!data.edit" mat-dialog-title>{{ 'PARKING' | translate }}: {{data.rack.codice}}</h1>
+  <h1 *ngIf="data.edit" mat-dialog-title>{{ 'EDIT' | translate }} {{ 'PARKING' | translate }}</h1>
   <div mat-dialog-content>
     <div class="formInput">
 
       <mat-form-field *ngIf="data.edit">
-        <label>Codice:</label>
+        <label>{{ 'CODE' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.codice">
       </mat-form-field>
 
       <mat-form-field>
-        <label>Indirizzo:</label>
+        <label>{{ 'ADDRESS' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.indirizzo">
       </mat-form-field>
       <mat-form-field>
-        <label>N. bici:</label>
+        <label>{{ 'N_BIKE' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numBike">
       </mat-form-field>
       <mat-form-field>
-        <label>N. posti:</label>
+        <label>{{ 'N_SPOT' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numPlace">
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onClose()">Chiudi</button>
-    <button mat-button (click)="onSelect()">Seleziona</button>
+    <button mat-button (click)="onClose()">{{ 'CLOSE' | translate }}</button>
+    <button mat-button (click)="onSelect()">{{ 'SELECT' | translate }}</button>
     <div>
-      <button *ngIf="data.edit" mat-button (click)="onUpdate()">Aggiorna</button>
-      <button *ngIf="data.edit" mat-button (click)="onInsert()">Inserisci</button>
-      <button *ngIf="data.edit" mat-button (click)="onDelete()">Elimina</button>
+      <button *ngIf="data.edit" mat-button (click)="onUpdate()">{{ 'UPDATE' | translate }}</button>
+      <button *ngIf="data.edit" mat-button (click)="onInsert()">{{ 'INSERT' | translate }}</button>
+      <button *ngIf="data.edit" mat-button (click)="onDelete()">{{ 'DELETE' | translate }}</button>
     </div>
   </div>
 </div>

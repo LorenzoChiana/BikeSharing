@@ -7,11 +7,11 @@
 </style>
 
 <div class="container">
-  <h1 mat-dialog-title>Edit bici: {{data.codice}}</h1>
+  <h1 mat-dialog-title>{{ 'EDIT' | translate }} {{ 'BIKE' | translate }}: {{data.codice}}</h1>
   <div mat-dialog-content>
     <div class="formInput">
       <mat-form-field>
-        <label>Codice:</label>
+        <label>{{ 'CODE' | translate }}:</label>
         <input matInput [(ngModel)]="data.bike.codice">
       </mat-form-field>
       <mat-form-field>
@@ -22,23 +22,23 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <label>Stato:</label>
+        <label>{{ 'STATE' | translate }}:</label>
         <input matInput [(ngModel)]="data.bike.stato">
       </mat-form-field>
       <mat-form-field>
-        <label>Kilometri:</label>
+        <label>{{ 'KM' | translate }}:</label>
         <input matInput [(ngModel)]="data.bike.totKm">
       </mat-form-field>
       <mat-form-field>
-        <label>Tempo:</label>
+        <label>{{ 'TIME' | translate }}:</label>
         <input matInput [(ngModel)]="data.bike.totTime">
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onClose()">Close</button>
-    <button mat-button (click)="onUpdate()">Update</button>
-    <button mat-button (click)="onInsert()">Insert</button>
-    <button mat-button (click)="onDelete()">Delete</button>
+    <button mat-button (click)="onClose()">{{ 'CLOSE' | translate }}</button>
+    <button mat-button (click)="onUpdate()">{{ 'UPDATE' | translate }}</button>
+    <button mat-button (click)="onInsert()">{{ 'INSERT' | translate }}</button>
+    <button mat-button (click)="onDelete()">{{ 'DELETE' | translate }}</button>
   </div>
 </div>

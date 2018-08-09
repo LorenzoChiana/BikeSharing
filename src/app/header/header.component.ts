@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { TranslateService } from '../services/translate.service';
+//import { TranslateService } from '../services/translate.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -16,10 +17,15 @@ export class HeaderComponent implements OnInit {
   }
 
   constructor(private translate: TranslateService) {
-    console.log(translate.data);
+    //console.log(translate.data);
   }
 
-  setLang(lang: string) {
+  /*setLang(lang: string) {
+    this.translate.use(lang);
+  }*/
+
+  switchLanguage(lang: string) {
+    //this.switchLanguage(lang);
     this.translate.use(lang);
   }
 
