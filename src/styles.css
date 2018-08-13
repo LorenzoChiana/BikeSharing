@@ -4,3 +4,43 @@
 md-select, .mat-select-placeholder, .mat-select-trigger {
   color:white !important;
 }
+.alertDialog {
+  width: 30%;
+  height: 30%; }
+@media (max-width: 991px) {
+	.alertDialog {
+    	width: 100vw;
+    	height: 30%; 
+	} 
+}
+
+.commentDialog{
+	width: 30%;
+  	height: 50%;
+}
+@media (max-width: 991px) {
+	.commentDialog {
+    	width: 100vw;
+    	height: 50%; 
+	} 
+}
+
+.bikeDialog{
+	width: 40%;
+  	height: 95%;
+}
+@media (max-width: 991px) {
+	.bikeDialog {
+    	width: 100vw;
+    	height: 95%; 
+	} 
+}
+
+.rentDialog{
+	width: 30%;
+}
+@media (max-width: 991px) {
+	.rentDialog {
+    	width: 100vw;
+	} 
+}

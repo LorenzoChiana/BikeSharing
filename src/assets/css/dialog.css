@@ -1,0 +1,24 @@
+@media (max-width: 991px) {
+  .alertDialog {
+    width: 100vw;
+    height: 30%; } }
+.formInput {
+  display: flex;
+  flex-direction: column; }
+
+.mat-dialog-title {
+  width: 100%;
+  font-size: 20px; }
+
+/*.mat-dialog-container {
+		padding: 0 !important;
+		background: none;
+     }*/
+.mat-dialog-actions {
+  float: right; }
+
+/*.modal {
+    display: block;
+}*/
+
+/*# sourceMappingURL=dialog.css.map */

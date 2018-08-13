@@ -500,8 +500,9 @@ export class RentBikeComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(DialogRentBike, {
-      width: wD,
+      /*width: wD,*/
       height: hD,
+      panelClass: 'rentDialog',
       data: {
         mode: rentContent.mode,
         rent: rentContent.rent,
@@ -532,8 +533,9 @@ export class RentBikeComponent implements OnInit {
 
   openDialogBike(bike : Bike, racks: Rack[]): void {
     const dialogRef = this.dialog.open(BikeDialog, {
-      width: '40%',
-      height: '95%',
+      /*width: '40%',
+      height: '95%',*/
+      panelClass: 'bikeDialog',
       data: {
         bike: bike,
         racks: racks
@@ -550,8 +552,9 @@ export class RentBikeComponent implements OnInit {
   /*---- dialog commento  ----*/
   openDialogComment(commentContent : CommentContent): void {
     const dialogRef = this.dialog.open(DialogComment, {
-      width: '30%',
-      height: '50%',
+      /*width: '30%',
+      height: '50%',*/
+      panelClass: 'commentDialog',
       data: {
         mode: commentContent.mode,
         comment: commentContent.comment
@@ -577,8 +580,9 @@ export class RentBikeComponent implements OnInit {
 
   openDialogAlert(msg: string): void {
     const dialogRef = this.dialog.open(DialogAlert, {
-      width: '30%',
-      height: '30%',
+      /*width: '30%',
+      height: '30%',*/
+      panelClass: 'alertDialog',
       data: {
         msg: msg,
       }

@@ -1,10 +1,4 @@
-<style>
-/* css alla men peggio */
-  .formInput {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
+<link rel="stylesheet" type="text/css" href="../../../assets/css/dialog.css">
 
 <div class="container">
   <h1 mat-dialog-title>{{ 'EDIT' | translate }} {{ 'BIKE' | translate }}: {{data.codice}}</h1>
@@ -36,9 +30,9 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="onClose()">{{ 'CLOSE' | translate }}</button>
-    <button mat-button (click)="onUpdate()">{{ 'UPDATE' | translate }}</button>
-    <button mat-button (click)="onInsert()">{{ 'INSERT' | translate }}</button>
-    <button mat-button (click)="onDelete()">{{ 'DELETE' | translate }}</button>
+    <button mat-flat-button (click)="onClose()">{{ 'CLOSE' | translate }}</button>
+    <button mat-flat-button (click)="onUpdate()">{{ 'UPDATE' | translate }}</button>
+    <button mat-flat-button (click)="onInsert()">{{ 'INSERT' | translate }}</button>
+    <button mat-flat-button (click)="onDelete()">{{ 'DELETE' | translate }}</button>
   </div>
 </div>
