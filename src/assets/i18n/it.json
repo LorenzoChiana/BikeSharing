@@ -111,7 +111,7 @@
   "DELETE": "Elimina",
   "CANCEL": "Annulla",
   "CONFIRM": "Conferma",
-  "THE_PARKING_DISTA": "Parcheggio: {{data.rack.codice}} dista {{data.distRack}} m.",
+  "THE_PARKING_DISTA": "Parcheggio: {{codice}} dista {{distRack}} m.",
   "START_TIME": "Ora inizio",
   "END_TIME": "Ora fine",
   "LEAVE_COMMENT": "Lascia un commento",

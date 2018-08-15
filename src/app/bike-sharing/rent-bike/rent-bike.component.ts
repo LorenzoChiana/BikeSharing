@@ -496,7 +496,7 @@ export class RentBikeComponent implements OnInit {
     var hD: string = '90%';
 
     if (rentContent.mode == 'rent') {
-      hD = '50%';
+      hD = '45%';
     }
 
     const dialogRef = this.dialog.open(DialogRentBike, {

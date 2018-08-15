@@ -201,6 +201,9 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 43px 88px 93px 190px;
+  @media (max-width: 480px) {
+    padding: 43px 60px 93px 60px;
+  }
 }
 
 

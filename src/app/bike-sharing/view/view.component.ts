@@ -171,17 +171,20 @@ export class ViewComponent implements OnInit {
   }
 
   openDialog(rack : Rack, edit: boolean, rackService: RackService): void {
-    var wD: string = '25%';
-    var hD: string = '65%';
+    /*var wD: string = '25%';
+    var hD: string = '65%';*/
+    var dialogClass: string = 'viewDialog';
 
     if (edit) {
-      wD = '30%';
-      hD = '90%';
+      /*wD = '30%';
+      hD = '90%';*/
+      dialogClass = 'editDialog';
     }
 
     const dialogRef = this.dialog.open(ViewRackDialog, {
-      width: wD,
-      height: hD,
+      /*width: wD,
+      height: hD,*/
+      panelClass: dialogClass,
       data: {
         edit: edit,
         rack: rack

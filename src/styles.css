@@ -44,3 +44,25 @@ md-select, .mat-select-placeholder, .mat-select-trigger {
     	width: 100vw;
 	} 
 }
+
+.viewDialog{
+	width: 25%;
+  	height: 60%;
+}
+@media (max-width: 991px) {
+	.viewDialog {
+    	width: 100vw;
+    	height: 60%; 
+	} 
+}
+
+.editDialog{
+	width: 30%;
+  	height: 80%;
+}
+@media (max-width: 991px) {
+	.editDialog {
+    	width: 100vw;
+    	height: 80%; 
+	} 
+}

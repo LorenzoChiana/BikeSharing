@@ -111,7 +111,7 @@
   "DELETE": "Delete",
   "CANCEL": "Cancel",
   "CONFIRM": "Confirm",
-  "THE_PARKING_DISTA": "The parking: {{data.rack.codice}} is {{data.distRack}} m away.",
+  "THE_PARKING_DISTA": "The parking: {{codice}} is {{distRack}} m away.",
   "START_TIME": "Start time",
   "END_TIME": "End time",
   "LEAVE_COMMENT": "Leave a comment",
