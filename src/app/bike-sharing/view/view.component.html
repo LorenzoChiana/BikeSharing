@@ -29,15 +29,23 @@
     <div *ngIf="showMap" class="map-responsive" id="mapView">
       <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
       {{ 'BIKE_PARKING' | translate }}
-      <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
+      <!--[label]="rack.codice" -->
+      <agm-map #gm [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
         <agm-marker *ngFor="let rack of rackes; let ind = index"
-        [label]="rack.codice" [latitude]="rack.latitudine" [longitude]="rack.longitudine"
-        [markerDraggable]="isAdmin"
-        (dragEnd)="dragRack($event, rack)"
-        (markerClick)="infoRack(rack)"
-        color="white"
-        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
-      </agm-marker>
+          [latitude]="rack.latitudine"
+          [longitude]="rack.longitudine"
+          [markerDraggable]="isAdmin"
+          (dragEnd)="dragRack($event, rack)"
+          (markerClick)="infoRack(rack)"
+          (mouseOver)="onMouseOver(infoWindow,gm)"
+          color="white"
+          [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+          <agm-info-window [disableAutoPan]="false" #infoWindow>
+            {{ 'PARKING' | translate }}: {{rack.codice}}
+            <br>
+            {{ 'N_BIKE' | translate }}: {{rack.numBike}}
+          </agm-info-window>
+        </agm-marker>
       </agm-map>
     </div>
 

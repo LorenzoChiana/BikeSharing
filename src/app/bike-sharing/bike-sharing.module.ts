@@ -34,6 +34,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -84,6 +87,7 @@ const routes: Routes = [
     }),
     RouterModule.forChild(routes),
     MaterialModule,
+    AgmSnazzyInfoWindowModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

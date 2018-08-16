@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.3",
+    "@agm/snazzy-info-window": "^1.0.0-beta.3",
     "@angular/animations": "^6.0.7",
     "@angular/cdk": "github:angular/cdk-builds",
     "@angular/common": "^6.0.3",
@@ -53,6 +54,7 @@
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",
     "save": "^2.3.2",
+    "snazzy-info-window": "^1.1.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

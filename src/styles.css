@@ -47,12 +47,12 @@ md-select, .mat-select-placeholder, .mat-select-trigger {
 
 .viewDialog{
 	width: 25%;
-  	height: 65%;
+  	height: 43%;
 }
 @media (max-width: 991px) {
 	.viewDialog {
     	width: 100vw;
-    	height: 65%; 
+    	height: 43%; 
 	} 
 }
 

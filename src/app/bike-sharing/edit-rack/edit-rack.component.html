@@ -45,14 +45,13 @@
   <agm-map [latitude]="latitudine" [longitude]="longitudine"
   [zoom]="zoom" [fullscreenControl]='true' [mapTypeControl]='true'>
     <agm-marker
-    [label]="curRack.codice" [latitude]="curRack.latitudine" [longitude]="curRack.longitudine"
-    [markerDraggable]="true"
-    (dragEnd)="dragRack($event, curRack)"
-    (markerClick)="infoRack(curRack)"
-    color="white"
-    [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
-
-  </agm-marker>
+      [label]="curRack.codice" [latitude]="curRack.latitudine" [longitude]="curRack.longitudine"
+      [markerDraggable]="true"
+      (dragEnd)="dragRack($event, curRack)"
+      (markerClick)="infoRack(curRack)"
+      color="white"
+      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+    </agm-marker>
   </agm-map>
 </div>
 

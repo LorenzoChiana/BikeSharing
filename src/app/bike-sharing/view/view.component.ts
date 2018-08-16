@@ -170,6 +170,14 @@ export class ViewComponent implements OnInit {
     this.openDialog(rack, this.isAdmin, this.rackService);
   }
 
+  onMouseOver(infoWindow, gm) {
+    if (gm.lastOpen != null) {
+      gm.lastOpen.close();
+    }
+    gm.lastOpen = infoWindow;
+    infoWindow.open();
+  }
+
   openDialog(rack : Rack, edit: boolean, rackService: RackService): void {
     /*var wD: string = '25%';
     var hD: string = '65%';*/

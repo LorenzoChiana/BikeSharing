@@ -493,10 +493,10 @@ export class RentBikeComponent implements OnInit {
             rentService: RentService, rackService: RackService): void {
 
     var wD: string = '30%';
-    var hD: string = '90%';
+    var hD: string = '57%';
 
     if (rentContent.mode == 'rent') {
-      hD = '45%';
+      hD = '38%';
     }
 
     const dialogRef = this.dialog.open(DialogRentBike, {

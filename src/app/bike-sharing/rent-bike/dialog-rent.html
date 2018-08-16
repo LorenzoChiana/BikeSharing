@@ -13,8 +13,14 @@
         {{data.distRack}}
         {{ 'THE_PARKING3' | translate }}
       </p>
-      <mat-form-field>
-        <label>{{ 'START_TIME' | translate }}:</label>
+      <p>{{ 'START_TIME' | translate }}: {{data.rent.timeInit}}</p>
+      <div *ngIf="data.mode == 'release'">
+        <p>{{ 'END_TIME' | translate }}: {{data.rent.timeEnd}}</p>
+        <p>{{ 'TIME' | translate }}: {{data.rent.tempo}}</p>
+        <p>{{ 'PRICE' | translate }}: {{data.rent.costo}}</p>
+      </div>
+      <!--<mat-form-field>
+        <label>{{ 'START_TIME' | translate }}: {{data.rent.timeInit}}</label>
         <input matInput [(ngModel)]="data.rent.timeInit" readonly>
       </mat-form-field>
       <mat-form-field *ngIf="data.mode == 'release'">
@@ -28,11 +34,11 @@
       <mat-form-field *ngIf="data.mode == 'release'">
         <label>{{ 'PRICE' | translate }}:</label>
         <input matInput [(ngModel)]="data.rent.costo" readonly>
-      </mat-form-field>
+      </mat-form-field>-->
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-flat-button (click)="onClose()">{{ 'CANCEL' | translate }}</button>
-    <button mat-flat-button mat-primary (click)="onConfirm()">{{ 'CONFIRM' | translate }}</button>
+    <button mat-button (click)="onClose()">{{ 'CANCEL' | translate }}</button>
+    <button mat-button mat-primary (click)="onConfirm()">{{ 'CONFIRM' | translate }}</button>
   </div>
 </div>
