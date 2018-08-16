@@ -7,7 +7,11 @@
   <div mat-dialog-content>
     <div class="formInput">
       <p *ngIf="data.mode == 'release'">
-        {{ 'THE_PARKING_DISTA' | translate:'{ codice:"ciao", distRack: data.distRack }' }}
+        {{ 'THE_PARKING1' | translate }}
+        {{data.rack.codice}}
+        {{ 'THE_PARKING2' | translate }}
+        {{data.distRack}}
+        {{ 'THE_PARKING3' | translate }}
       </p>
       <mat-form-field>
         <label>{{ 'START_TIME' | translate }}:</label>
