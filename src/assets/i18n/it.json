@@ -126,5 +126,6 @@
   "BIKE_TOO_FAR": "Bici troppo distante dal rack",
   "FULL_BIKE_PARKING": "Parcheggio bici pieno",
   "NO_RACK_FOUND": "Rastrelliera non trovata",
-  "SELECT_A_RACK": "Seleziona una rastrelliera"
+  "SELECT_A_RACK": "Seleziona una rastrelliera",
+  "FREE_SPOTS": "Posti liberi"
 }

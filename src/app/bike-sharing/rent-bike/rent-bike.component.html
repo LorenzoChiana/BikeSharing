@@ -72,7 +72,7 @@
     <mat-action-row>
       <div class="btn-container">
         <button mat-button (click)="rackList()">{{ 'PARKING' | translate }}</button>
-        <button mat-button *ngIf="!isAdmin" (click)="preleva()">{{ 'BORROW' | translate }}</button>
+        <!--<button mat-button *ngIf="!isAdmin" (click)="preleva()">{{ 'BORROW' | translate }}</button>-->
         <button mat-button *ngIf="!isAdmin" (click)="rilascia()">{{ 'RELEASE' | translate }}</button>
         <button mat-button (click)="rentList()">{{ 'RESERVATIONS' | translate }}</button>
         <button mat-button (click)="commentList()">{{ 'COMMENTS' | translate }}</button>
@@ -81,9 +81,9 @@
         <button mat-icon-button matTooltip="Parcheggi" (click)="rackList()">
           <mat-icon>local_parking</mat-icon>
         </button>
-        <button mat-icon-button *ngIf="!isAdmin" (click)="preleva()">
+        <!--<button mat-icon-button *ngIf="!isAdmin" (click)="preleva()">-
           <mat-icon>lock_open</mat-icon>
-        </button>
+        </button>-->
         <button mat-icon-button *ngIf="!isAdmin" (click)="rilascia()">
           <mat-icon>lock</mat-icon>
         </button>
@@ -164,7 +164,7 @@
     <mat-action-row>
       <div class="btn-container">
         <button mat-button (click)="rackList()">{{ 'PARKING' | translate }}</button>
-        <button mat-button *ngIf="!isAdmin" (click)="preleva()">{{ 'BORROW' | translate }}</button>
+        <!--<button mat-button *ngIf="!isAdmin" (click)="preleva()">{{ 'BORROW' | translate }}</button>-->
         <button mat-button *ngIf="!isAdmin" (click)="rilascia()">{{ 'RELEASE' | translate }}</button>
         <button mat-button (click)="rentList()">{{ 'RESERVATIONS' | translate }}</button>
         <button mat-button (click)="commentList()">{{ 'COMMENTS' | translate }}</button>
@@ -173,9 +173,9 @@
         <button mat-icon-button (click)="rackList()">
           <mat-icon>local_parking</mat-icon>
         </button>
-        <button mat-icon-button *ngIf="!isAdmin" (click)="preleva()">
+        <!--<button mat-icon-button *ngIf="!isAdmin" (click)="preleva()">
           <mat-icon>lock_open</mat-icon>
-        </button>
+        </button>-->
         <button mat-icon-button *ngIf="!isAdmin" (click)="rilascia()">
           <mat-icon>lock</mat-icon>
         </button>

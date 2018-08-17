@@ -126,5 +126,6 @@
   "BIKE_TOO_FAR": "Bike too far from the rack",
   "FULL_BIKE_PARKING": "Full bike parking",
   "NO_RACK_FOUND": "Rack not found",
-  "SELECT_A_RACK": "Select a rack"
+  "SELECT_A_RACK": "Select a rack",
+  "FREE_SPOTS": "Free spots"
 }

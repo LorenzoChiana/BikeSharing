@@ -105,9 +105,15 @@ export class ViewComponent implements OnInit {
           }
         });
       }
-
+console.log(this.rackes);
     });
+    //console.log(this.freeSpots);
   }
+
+  /*freeSpots(): number {
+    console.log(this.curRack);
+    return 5;
+  }*/
 
   toggleMap() : void {
     this.showMap = !this.showMap;
