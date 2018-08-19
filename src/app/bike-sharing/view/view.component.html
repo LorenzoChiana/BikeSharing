@@ -15,7 +15,7 @@
 
 <mat-accordion class="example-headers-align">
 
-  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" (closed)="setStep(1)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ 'MAP' | translate }}
@@ -79,7 +79,7 @@
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" (closed)="setStep(0)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ 'LIST' | translate }}
@@ -94,13 +94,12 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <td>{{ 'ID' | translate }}</td>
-            <td>{{ 'CODE' | translate }}</td>
-            <td>{{ 'ADDRESS' | translate }}</td>
-            <td>{{ 'N_BIKE' | translate }}</td>
-            <td>{{ 'N_SPOT' | translate }}</td>
-
-            <td *ngIf="isAdmin">{{ 'EDIT' | translate }}</td>
+            <th>{{ 'ID' | translate }}</th>
+            <th>{{ 'CODE' | translate }}</th>
+            <th>{{ 'ADDRESS' | translate }}</th>
+            <th>{{ 'N_BIKE' | translate }}</th>
+            <th>{{ 'N_SPOT' | translate }}</th>
+            <th *ngIf="isAdmin">{{ 'EDIT' | translate }}</th>
           </tr>
         </thead>
         <tbody>

@@ -52,17 +52,7 @@ export class ViewComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
   }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
-
-
+  
   constructor(private bikeService :BikeService,
     private rackService :RackService,
     private location: Location,

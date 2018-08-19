@@ -15,7 +15,7 @@
 
 <mat-accordion class="example-headers-align">
 
-  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" (closed)="setStep(1)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ 'MAP' | translate }}
@@ -97,7 +97,7 @@
     </mat-action-row>
   </mat-expansion-panel>
 
-  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+  <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" (closed)="setStep(0)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ 'LIST' | translate }}
@@ -112,14 +112,14 @@
       <table class="table table-hover">
     <thead>
       <tr>
-        <td>{{ 'ID' | translate }}</td>
-        <td>{{ 'CODE' | translate }}</td>
-        <td>{{ 'STATE' | translate }}</td>
-        <td>Km</td>
-        <td *ngIf="isAdmin">Rack</td>
-        <td>{{ 'COMMENTS' | translate }}</td>
-        <td *ngIf="!isAdmin">{{ 'OPERATIONS' | translate }}</td>
-        <td *ngIf="isAdmin">{{ 'EDIT' | translate }}</td>
+        <th>{{ 'ID' | translate }}</th>
+        <th>{{ 'CODE' | translate }}</th>
+        <th>{{ 'STATE' | translate }}</th>
+        <th>Km</th>
+        <th *ngIf="isAdmin">Rack</th>
+        <th>{{ 'COMMENTS' | translate }}</th>
+        <th *ngIf="!isAdmin">{{ 'OPERATIONS' | translate }}</th>
+        <th *ngIf="isAdmin">{{ 'EDIT' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -148,8 +148,9 @@
           <td><a [routerLink]="['/view-comment', kk.codice]" routerLinkActive="active">{{ 'COMMENTS' | translate }}</a></td>
 
           <td *ngIf="!isAdmin && kk.stato == 'libero'">
-            <button type="button" class="btn btn-success" data-toggle="modal"
-            (click)="selectBike(kk,0)" data-target="#myModal">{{ 'BORROW' | translate }}</button>
+            <a role="button" tabindex="0" data-toggle="modal" (click)="selectBike(kk,0)" routerLinkActive="active" data-target="#myModal">{{ 'BORROW' | translate }}</a>
+            <!--<button mat-flat-button data-toggle="modal"
+            (click)="selectBike(kk,0)" data-target="#myModal">{{ 'BORROW' | translate }}</button>-->
           </td>
 
           <td *ngIf="!isAdmin && (kk.stato != 'libero' && kk.stato != nameUser)"><a style="color:red">{{ 'NOT_AVAILABLE' | translate }}</a></td>
