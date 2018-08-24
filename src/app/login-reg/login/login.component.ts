@@ -16,6 +16,8 @@ import { User } from '../User'
 export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
   private submitted: boolean;
+  private un_err: boolean;
+  private pw_err: boolean;
 
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -26,6 +28,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.submitted = false;
+    this.un_err = false;
+    this.pw_err = false;
 
     this.loginForm = this.formBuilder.group({
         nomeUtente: ['', Validators.required],
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
-      return;
+      return 0;
     }
 
     var name : string = this.f.nomeUtente.value;
@@ -47,9 +51,11 @@ export class LoginComponent implements OnInit {
 
     this.loginRegService.findUser(name).subscribe(data => {
       if (data.nomeUtente != name) {
-        alert("nome utente sconosciuto!!");
+        this.un_err = true;
+        return 1;
       } else if (data.passwordUtente != password) {
-        alert("password errata !!");
+        this.pw_err = true;
+        return 2;
       } else {
         sessionStorage.setItem('login', name);
         sessionStorage.setItem('isAdmin', 'false');
@@ -68,5 +74,13 @@ export class LoginComponent implements OnInit {
 
   clickRegister() {
     this.route.navigate(['registration']);
+  }
+
+  isWrongUserName() {
+    return this.un_err;
+  }
+
+  isWrongPassword() {
+    return this.pw_err;
   }
 }

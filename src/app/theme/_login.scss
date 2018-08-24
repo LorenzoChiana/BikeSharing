@@ -131,12 +131,16 @@ iframe {
 }
 
 
-.wrap-login100 {
+.wrap-login100, .wrap-login100-err{
   width: 670px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+}
+
+.wrap-login100-err{
+  color: #c80000;
 }
 
 /*==================================================================
@@ -234,6 +238,35 @@ iframe {
     left: unset;
     width: 100%;
     padding: 0 5px;
+  }
+ /* @if width <= 480px {
+    text-align: left;
+    position: unset;
+    top: unset;
+    left: unset;
+    width: 100%;
+    padding: 0 5px;
+
+  }*/
+  /*&:after {
+    @if content != '' {
+      visibility: hidden;
+      opacity: 0;
+    } @else {
+      visibility: visible;
+      opacity: 1;
+    }
+  }*/
+}
+
+.input-required {
+  @media (max-width: 480px) {
+    visibility: hidden;
+    opacity: 0;
+  }
+  @media (min-width: 481px) {
+    visibility: visible;
+    opacity: 1;
   }
 }
 

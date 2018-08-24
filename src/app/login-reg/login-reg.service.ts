@@ -12,14 +12,18 @@ export class LoginRegService {
 
   constructor(private http: Http) { }
 
+  private extractData(res: Response) {        
+    return res.text() ? res.json() : {}; ;
+  }
+
   saveUser(user) {
     return this.http.post('http://localhost:8080/api/SaveUser/', user)
             .map((response: Response) =>response.json())
   }
 
  findUser(nomeUtente) {
-    return this.http.post('http://localhost:8080/api/FindUser/',{'nomeUtente': nomeUtente})
-            .map((response: Response) => response.json())
+    return this.http.post('http://localhost:8080/api/FindUser/',{'nomeUtente': nomeUtente}).map(this.extractData)
+            /*.map((response: Response) => response.json())*/
   }
 
   getAllUser(){

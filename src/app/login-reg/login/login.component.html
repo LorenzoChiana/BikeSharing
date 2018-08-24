@@ -52,13 +52,17 @@
             <input class="input100" type="text" name="username" placeholder="Enter username">
             <span class="focus-input100"></span>
           </div>-->
+          <div *ngIf="submitted && (isWrongUserName || isWrongPassword)" class="wrap-login100-err">
+            <div >{{ 'GENERAL_ERR' | translate }}</div>
+          </div>
+
           <div class="form-group wrap-input100 validate-input m-b-26" data-validate="Username is required">
             <span class="label-input100">{{ 'USERNAME' | translate }}</span>
             <input type="text" formControlName="nomeUtente" placeholder="{{ 'ENTER_USERNAME' | translate }}"
             class="input100" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" required />
-            <span class="focus-input100"></span>
-            <div *ngIf="submitted && f.nomeUtente.errors" class="invalid-feedback">
-                <div *ngIf="f.nomeUtente.errors.required">{{ 'USERNAME_ERR' | translate }}</div>
+            <!--<span *ngIf="submitted" class="focus-input100 invalid-feedback">{{ 'USERNAME_ERR' | translate }}</span>-->
+            <div *ngIf="submitted && f.nomeUtente.errors" class="focus-input100 invalid-feedback">
+              <div class="input-required">{{ 'USERNAME_REQUIRED' | translate }}</div>
             </div>
           </div>
 
@@ -66,11 +70,10 @@
             <!--<show-hide-password size="lg" icon="entypo">-->
               <span class="label-input100">{{ 'PW' | translate }}</span>
               <input type="password" class="input100" name="pass" formControlName="password" placeholder="{{ 'ENTER_PW' | translate }}" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required/>
-              <span class="focus-input100"></span>
             <!--</show-hide-password>-->
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">{{ 'PW_ERR' | translate }}</div>
-            </div>
+              <div *ngIf="submitted && f.password.errors" class="focus-input100 invalid-feedback">
+                <div class="input-required">{{ 'PW_REQUIRED' | translate }}</div>
+              </div>
           </div>
 
           <!--<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">

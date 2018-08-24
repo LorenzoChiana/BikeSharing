@@ -72,10 +72,10 @@
   "SIGN_IN": "Sign In",
   "REGISTRATION": "Registration",
   "USERNAME": "Username",
-  "USERNAME_ERR": "Username is required",
+  "USERNAME_REQUIRED": "Username is required!",
   "ENTER_USERNAME": "Enter username",
   "PW": "Password",
-  "PW_ERR": "Password is required",
+  "PW_REQUIRED": "Password is required!",
   "ENTER_PW": "Enter password",
   "NEW_REGISTER": "Don't have an account? Register now!",
   "LOGIN_REQUEST": "Do you have an account? Sign in!",
@@ -127,5 +127,6 @@
   "FULL_BIKE_PARKING": "Full bike parking",
   "NO_RACK_FOUND": "Rack not found",
   "SELECT_A_RACK": "Select a rack",
-  "FREE_SPOTS": "Free spots"
+  "FREE_SPOTS": "Free spots",
+  "GENERAL_ERR": "The user name or password is incorrect."
 }

@@ -717,12 +717,15 @@ iframe {
   padding: 15px;
   background: #ebeeef; }
 
-.wrap-login100 {
+.wrap-login100, .wrap-login100-err {
   width: 670px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
   position: relative; }
+
+.wrap-login100-err {
+  color: #c80000; }
 
 /*==================================================================
 [ Title form ]*/
@@ -798,7 +801,25 @@ iframe {
   position: absolute;
   top: 14px;
   left: -105px;
-  width: 80px; }
+  width: 80px;
+ /* @if width <= 480px {
+    text-align: left;
+    position: unset;
+    top: unset;
+    left: unset;
+    width: 100%;
+    padding: 0 5px;
+
+  }*/
+  /*&:after {
+    @if content != '' {
+      visibility: hidden;
+      opacity: 0;
+    } @else {
+      visibility: visible;
+      opacity: 1;
+    }
+  }*/ }
   @media (max-width: 480px) {
     .label-input100 {
       text-align: left;
@@ -807,6 +828,15 @@ iframe {
       left: unset;
       width: 100%;
       padding: 0 5px; } }
+
+@media (max-width: 480px) {
+  .input-required {
+    visibility: hidden;
+    opacity: 0; } }
+@media (min-width: 481px) {
+  .input-required {
+    visibility: visible;
+    opacity: 1; } }
 
 /*---------------------------------------------*/
 .input100 {
