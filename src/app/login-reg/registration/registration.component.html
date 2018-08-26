@@ -46,19 +46,23 @@
             <span class="label-input100">{{ 'USERNAME' | translate }}</span>
             <input type="text" formControlName="nomeUtente" placeholder="{{ 'ENTER_USERNAME' | translate }}"
             class="input100" [ngClass]="{ 'is-invalid': submitted && f.nomeUtente.errors }" required />
-            <span class="focus-input100"></span>
-            <div *ngIf="submitted && f.nomeUtente.errors" class="invalid-feedback">
-                <div *ngIf="f.nomeUtente.errors.required">{{ 'USERNAME_ERR' | translate }}</div>
+            <!-- Errore di casella vuota -->
+            <div *ngIf="submitted && f.nomeUtente.errors" class="focus-input100 invalid-feedback">
+              <div class="input-required">{{ 'USERNAME_REQUIRED' | translate }}</div>
+            </div>
+            <!-- Errore di utente già presente -->
+            <div *ngIf="submitted && isUserNamePresent && !f.nomeUtente.errors" class="focus-input100 invalid-feedback">
+              <div class="input-required">{{ 'INVALID_USERNAME' | translate }}</div>
             </div>
           </div>
 
           <div class="form-group wrap-input100 validate-input m-b-18" data-validate = "Password is required">
               <span class="label-input100">{{ 'PW' | translate }}</span>
               <input type="password" class="input100" name="pass" formControlName="password" placeholder="{{ 'ENTER_PW' | translate }}" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" required/>
-              <span class="focus-input100"></span>
-            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">{{ 'PW_ERR' | translate }}</div>
-            </div>
+              <!-- Errore di casella vuota -->
+              <div *ngIf="submitted && f.password.errors" class="focus-input100 invalid-feedback">
+                <div class="input-required">{{ 'PW_REQUIRED' | translate }}</div>
+              </div>
           </div>
 
           <div class="container-login100-form-btn">

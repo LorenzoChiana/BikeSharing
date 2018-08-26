@@ -15,13 +15,17 @@ export class RegistrationComponent implements OnInit {
   private registerForm: FormGroup;
 
   private show: boolean = false;
+  private submitted: boolean = false;
   private type: string = "password";
+  private isUserNamePresent: boolean = false;
 
   private errorMessage;
 
   constructor(private formBuilder: FormBuilder, private loginRegService : LoginRegService, private route :Router) { }
 
   ngOnInit() {
+    this.submitted = false;
+    this.isUserNamePresent = false;
     this.registerForm = this.formBuilder.group({
         nomeUtente: ['', Validators.required],
         password: ['', Validators.required]
@@ -31,6 +35,7 @@ export class RegistrationComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   onSubmit() {
+    this.submitted = true;
     if (this.registerForm.invalid) {
       return;
     }
@@ -40,10 +45,18 @@ export class RegistrationComponent implements OnInit {
 
     var newUser: User = new User(name, password, "user");
 
-    this.loginRegService.saveUser(newUser)
-    .subscribe(data => { alert(data.data) }, error => this.errorMessage = error);
+    this.loginRegService.findUser(name).subscribe(data => {
+      if (data.nomeUtente != name) {
+          this.loginRegService.saveUser(newUser)
+            .subscribe(data => { alert(data.data) }, error => this.errorMessage = error);
 
-    this.route.navigate(['view']);
+          this.route.navigate(['view']);
+      } else {
+        // utente già presente
+        this.isUserNamePresent = true;
+      }
+    });
+    
   }
 
 }
