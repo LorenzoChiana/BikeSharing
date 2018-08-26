@@ -128,5 +128,9 @@
   "NO_RACK_FOUND": "Rastrelliera non trovata",
   "SELECT_A_RACK": "Seleziona una rastrelliera",
   "FREE_SPOTS": "Posti liberi",
-  "GENERAL_ERR": "Nome utente o password sbagliato."
+  "GENERAL_ERR": "Nome utente o password sbagliato.",
+  "MENU": "Menù",
+  "ACCOUNT": "Profilo",
+  "ITALIAN": "Italiano",
+  "ENGLISH": "English"
 }

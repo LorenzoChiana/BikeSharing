@@ -900,7 +900,8 @@ mat-sidenav {
 
 .mat-option {
   color: white;
-  background: black; }
+  background: black;
+  text-transform: uppercase; }
   .mat-option:hover {
     color: black;
     background: white; }

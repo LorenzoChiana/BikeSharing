@@ -128,5 +128,9 @@
   "NO_RACK_FOUND": "Rack not found",
   "SELECT_A_RACK": "Select a rack",
   "FREE_SPOTS": "Free spots",
-  "GENERAL_ERR": "The user name or password is incorrect."
+  "GENERAL_ERR": "The user name or password is incorrect.",
+  "MENU": "Menù",
+  "ACCOUNT": "Account",
+  "ITALIAN": "Italiano",
+  "ENGLISH": "English"
 }
