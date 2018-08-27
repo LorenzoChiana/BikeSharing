@@ -133,5 +133,8 @@
   "ACCOUNT": "Account",
   "ITALIAN": "Italiano",
   "ENGLISH": "English",
-  "INVALID_USERNAME": "Username alredy present!"
+  "INVALID_USERNAME": "Username alredy present!",
+  "CONFIRM_PW": "Confirm Password",
+  "CONFIRM_PW_REQUIRED": "Confirm Password is required!",
+  "DIFFERENT_PW": "The passwords are different!"
 }

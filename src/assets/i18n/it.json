@@ -133,5 +133,8 @@
   "ACCOUNT": "Profilo",
   "ITALIAN": "Italiano",
   "ENGLISH": "English",
-  "INVALID_USERNAME": "Nome utente già presente!"
+  "INVALID_USERNAME": "Nome utente già presente!",
+  "CONFIRM_PW": "Conferma Password",
+  "CONFIRM_PW_REQUIRED": "È richiesto confermare la password!",
+  "DIFFERENT_PW": "Le password sono diverse!"
 }

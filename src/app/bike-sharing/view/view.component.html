@@ -26,7 +26,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <div *ngIf="showMap" class="map-responsive" id="mapView">
+    <div #gmap *ngIf="showMap" class="map-responsive" id="mapView">
       <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">
       {{ 'BIKE_PARKING' | translate }}
       <!--[label]="rack.codice" -->
@@ -56,6 +56,7 @@
         <!--<button mat-button (click)="rackList()">{{ 'PARKING' | translate }}</button>
         <button mat-button *ngIf="!isAdmin" (click)="preleva()">{{ 'BORROW' | translate }}</button>
         <button mat-button *ngIf="!isAdmin" (click)="rilascia()">{{ 'RELEASE' | translate }}</button>-->
+        <button mat-button (click)="findUser()">{{ 'GEOLOCALIZATION' | translate }}</button>
         <button mat-button (click)="rentList()">{{ 'RESERVATIONS' | translate }}</button>
         <button mat-button (click)="commentList()">{{ 'COMMENTS' | translate }}</button>
       </div>

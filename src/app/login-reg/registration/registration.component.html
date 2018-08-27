@@ -65,6 +65,20 @@
               </div>
           </div>
 
+          <!-- confirm password -->
+          <div class="form-group wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+              <span class="label-input100">{{ 'CONFIRM_PW' | translate }}</span>
+              <input type="password" class="input100" name="pass" formControlName="c_password" placeholder="{{ 'CONFIRM_PW' | translate }}" [ngClass]="{ 'is-invalid': submitted && f.c_password.errors }" required/>
+              <!-- Errore di casella vuota -->
+              <div *ngIf="submitted && f.c_password.errors" class="focus-input100 invalid-feedback">
+                <div class="input-required">{{ 'CONFIRM_PW_REQUIRED' | translate }}</div>
+              </div>
+              <!-- Errore di password diverse -->
+              <div *ngIf="submitted && !isEqualPassword && !f.c_password.errors" class="focus-input100 invalid-feedback">
+                <div class="input-required">{{ 'DIFFERENT_PW' | translate }}</div>
+              </div>
+          </div>
+
           <div class="container-login100-form-btn">
               <div class="col-sm-4">
                 <input type="submit" class="btn btn-primary login100-form-btn" value="{{ 'REGISTER' | translate }}"/>
