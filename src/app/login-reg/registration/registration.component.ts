@@ -39,9 +39,9 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if (this.registerForm.invalid) {
+    /*if (this.registerForm.invalid) {
       return;
-    }
+    }*/
 
     var name : string = this.f.nomeUtente.value;
     var password : string = this.f.password.value;
@@ -49,24 +49,29 @@ export class RegistrationComponent implements OnInit {
 
     var newUser: User = new User(name, password, "user");
 
-    this.loginRegService.findUser(name).subscribe(data => {
-      // controllo se non esiste l'utente
-      if (data.nomeUtente != name) {
-        if (password == c_password) {
-          this.isEqualPassword = true;
-          this.loginRegService.saveUser(newUser)
-            .subscribe(data => { /*alert(data.data)*/ }, error => this.errorMessage = error);
-          sessionStorage.setItem('login', name);
-          sessionStorage.setItem('isAdmin', 'false');
-          this.route.navigate(['view']);
+    console.log("password: " + password + " c_password: " + c_password);
+    if (password == c_password) {
+      this.isEqualPassword = true;
+
+      if (!this.registerForm.invalid) {
+        this.loginRegService.findUser(name).subscribe(data => {
+        // controllo se non esiste l'utente
+        if (data.nomeUtente != name) {
+            this.loginRegService.saveUser(newUser)
+              .subscribe(data => { /*alert(data.data)*/ }, error => this.errorMessage = error);
+            sessionStorage.setItem('login', name);
+            sessionStorage.setItem('isAdmin', 'false');
+            this.route.navigate(['view']);
         } else {
-          this.isEqualPassword = false;
+          // utente già presente
+          this.isUserNamePresent = true;
         }
-      } else {
-        // utente già presente
-        this.isUserNamePresent = true;
+        });
       }
-    });
+      
+    } else {
+      this.isEqualPassword = false;
+    }
     
   }
 
