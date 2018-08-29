@@ -128,5 +128,13 @@
   "NO_RACK_FOUND": "Rack not found",
   "SELECT_A_RACK": "Select a rack",
   "FREE_SPOTS": "Free spots",
-  "GENERAL_ERR": "The user name or password is incorrect."
+  "GENERAL_ERR": "The user name or password is incorrect.",
+  "MENU": "Menù",
+  "ACCOUNT": "Account",
+  "ITALIAN": "Italiano",
+  "ENGLISH": "English",
+  "INVALID_USERNAME": "Username alredy present!",
+  "CONFIRM_PW": "Confirm Password",
+  "CONFIRM_PW_REQUIRED": "Confirm Password is required!",
+  "DIFFERENT_PW": "The passwords are different!"
 }

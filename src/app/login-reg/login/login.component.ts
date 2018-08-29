@@ -75,12 +75,4 @@ export class LoginComponent implements OnInit {
   clickRegister() {
     this.route.navigate(['registration']);
   }
-
-  isWrongUserName() {
-    return this.un_err;
-  }
-
-  isWrongPassword() {
-    return this.pw_err;
-  }
 }

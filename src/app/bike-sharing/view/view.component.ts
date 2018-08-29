@@ -53,13 +53,15 @@ export class ViewComponent implements OnInit {
     this.step = index;
   }
   
-  constructor(private bikeService :BikeService,
+  constructor(
+    private bikeService :BikeService,
     private rackService :RackService,
     private location: Location,
     private router :Router,
     private route: ActivatedRoute,
     private translate: TranslateService,
-    public dialog: MatDialog) {   }
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.nameUser = sessionStorage.getItem('login');
@@ -72,6 +74,35 @@ export class ViewComponent implements OnInit {
   private output(log) {
     console.log(log);
   }
+
+  /*findUser() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.showPosition(position);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  showPosition(position) {
+    this.currentLat = position.coords.latitude;
+    this.currentLong = position.coords.longitude;
+
+    let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    this.map.panTo(location);
+
+    if (!this.marker) {
+      this.marker = new google.maps.Marker({
+        position: location,
+        map: this.map,
+        title: 'Got you!'
+      });
+    }
+    else {
+      this.marker.setPosition(location);
+    }
+  }*/
 
   viewRack() {
     this.rackService.getAllRack().subscribe(data => {

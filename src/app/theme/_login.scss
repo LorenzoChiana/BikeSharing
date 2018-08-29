@@ -261,12 +261,12 @@ iframe {
 
 .input-required {
   @media (max-width: 480px) {
-    visibility: hidden;
-    opacity: 0;
+    padding-top: 20px;
+    padding-left: 5px;
   }
   @media (min-width: 481px) {
-    visibility: visible;
-    opacity: 1;
+    padding-top: 0px;
+    padding-left: 0px;
   }
 }
 
@@ -435,8 +435,8 @@ iframe {
     line-height: 1.4;
     text-align: left;
 
-    visibility: hidden;
-    opacity: 0;
+    /*visibility: hidden;
+    opacity: 0;*/
 
     -webkit-transition: opacity 0.4s;
     -o-transition: opacity 0.4s;
@@ -444,10 +444,10 @@ iframe {
     transition: opacity 0.4s;
 
 
-    @media (max-width: 992px) {
+    /*@media (max-width: 992px) {*/
       visibility: visible;
       opacity: 1;
-    }
+    /*}*/
   }
   &::after {
     content: "\f06a";

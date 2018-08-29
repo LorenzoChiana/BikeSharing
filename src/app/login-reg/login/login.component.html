@@ -52,7 +52,7 @@
             <input class="input100" type="text" name="username" placeholder="Enter username">
             <span class="focus-input100"></span>
           </div>-->
-          <div *ngIf="submitted && (isWrongUserName || isWrongPassword)" class="wrap-login100-err">
+          <div *ngIf="submitted && (un_err || pw_err)" class="wrap-login100-err">
             <div >{{ 'GENERAL_ERR' | translate }}</div>
           </div>
 

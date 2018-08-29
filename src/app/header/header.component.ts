@@ -12,26 +12,42 @@ import { TranslateService } from '@ngx-translate/core';
 export class HeaderComponent implements OnInit {
 
   private location: Location;
+  private userName: string;
+  private currentLang: string = "English";
 
   ngOnInit() {
   }
 
-  constructor(private translate: TranslateService) {
-    //console.log(translate.data);
+  constructor(
+    private translate: TranslateService,
+    private router: Router
+  ) {
+    this.translate.use('en');
   }
 
   /*setLang(lang: string) {
     this.translate.use(lang);
   }*/
 
-  switchLanguage(lang: string) {
-    //this.switchLanguage(lang);
-    this.translate.use(lang);
+  setCurrentLang(lang: string) {
+    switch (lang) {
+      case "it":
+        this.currentLang = this.translate.instant("ITALIAN");
+        break;
+      case "en":
+        this.currentLang = this.translate.instant("ENGLISH");
+        break;
+    }
   }
 
-  logout(router:Router) {
+  switchLanguage(lang: string) {
+    this.translate.use(lang);
+    this.setCurrentLang(lang);
+  }
+
+  logout() {
 		sessionStorage.clear();
-		router.navigate(['/']);
+		this.router.navigate(['login']);
 	}
 
 	loggedIn() {
@@ -42,4 +58,27 @@ export class HeaderComponent implements OnInit {
     return this.location.path();
   }
 
+  toLogin() : void {
+    this.router.navigate(['login']);
+  }
+
+  toAbout(): void {
+    this.router.navigate(['about']);
+  }
+
+  toServices(): void {
+    this.router.navigate(['view']);
+  }
+
+  toContact(): void {
+    this.router.navigate(['contact']);
+  }
+
+  toHome(): void {
+    this.router.navigate(['home']);
+  }
+
+  setUserName(): void {
+    this.userName = sessionStorage.login;
+  }
 }
