@@ -136,5 +136,6 @@
   "INVALID_USERNAME": "Username alredy present!",
   "CONFIRM_PW": "Confirm Password",
   "CONFIRM_PW_REQUIRED": "Confirm Password is required!",
-  "DIFFERENT_PW": "The passwords are different!"
+  "DIFFERENT_PW": "The passwords are different!",
+  "JUST_REGISTERED": "Registration complete! Now you can Login."
 }
