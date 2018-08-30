@@ -1,7 +1,7 @@
 <!--<div class="main-menu">-->
     <mat-toolbar>
       <mat-toolbar-row>
-        <button mat-icon-button class="black-button" (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+        <button mat-icon-button class="black-button" (click)="sidenav.toggle() && setUserName()" fxShow="true" fxHide.gt-sm>
           <mat-icon class="white-icon">menu</mat-icon>
         </button>
         <div class="row align-items-center justify-content-between d-flex" fxShow="true" fxHide.lt-md="true">
@@ -63,6 +63,11 @@
     <mat-sidenav-container fxFlexFill>
       <mat-sidenav #sidenav>
         <mat-nav-list>
+          <div *ngIf="loggedIn()">
+            <a class="nav-link">{{ userName }}</a>
+            <!--<mat-icon>face</mat-icon>-->
+          </div>
+          <hr *ngIf="loggedIn()">
           <a class="nav-link" (click)="sidenav.toggle() && toHome()">{{ 'HOME' | translate }}</a>
           <a class="nav-link" (click)="sidenav.toggle() && toAbout()">{{ 'ABOUT' | translate }}</a>
           <a class="nav-link" *ngIf="!loggedIn()" (click)="sidenav.toggle() && toLogin()">{{ 'SERVICES' | translate }}</a>
@@ -79,7 +84,10 @@
                 </mat-select>
             </ng-container>
           <a class="nav-link" *ngIf="!loggedIn()" (click)="sidenav.toggle() && toLogin()">{{ 'LOGIN' | translate }}</a>
-          <a class="nav-link" *ngIf="loggedIn()" (click)="logout()" href="#">{{ 'LOGOUT' | translate }}</a>
+          <div>
+            <a class="nav-link" *ngIf="loggedIn()" (click)="sidenav.toggle() && logout()">{{ 'LOGOUT' | translate }}</a>
+            <!--<mat-icon>exit_to_app</mat-icon>-->
+          </div>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content fxFlexFill>

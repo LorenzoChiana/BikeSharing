@@ -717,12 +717,15 @@ iframe {
   padding: 15px;
   background: #ebeeef; }
 
-.wrap-login100, .wrap-login100-err {
+.wrap-login100, .wrap-login100-err, .wrap-login100-just-registered {
   width: 670px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
   position: relative; }
+
+.wrap-login100-just-registered {
+  color: #64DD17; }
 
 .wrap-login100-err {
   color: #c80000; }

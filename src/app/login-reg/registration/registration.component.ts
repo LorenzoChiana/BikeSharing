@@ -59,9 +59,10 @@ export class RegistrationComponent implements OnInit {
         if (data.nomeUtente != name) {
             this.loginRegService.saveUser(newUser)
               .subscribe(data => { /*alert(data.data)*/ }, error => this.errorMessage = error);
-            sessionStorage.setItem('login', name);
-            sessionStorage.setItem('isAdmin', 'false');
-            this.route.navigate(['view']);
+            /*sessionStorage.setItem('login', name);
+            sessionStorage.setItem('isAdmin', 'false');*/
+            sessionStorage.setItem('isRegistered', 'true');
+            this.route.navigate(['login']);
         } else {
           // utente già presente
           this.isUserNamePresent = true;

@@ -909,4 +909,13 @@ mat-sidenav {
 .mat-select-desktop {
   width: 120px; }
 
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
 /*# sourceMappingURL=header.component.css.map */

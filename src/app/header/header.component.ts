@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 	}
 
 	loggedIn() {
-    return sessionStorage.length != 0;
+    return sessionStorage.getItem("login") != null;
   }
 
   getCurentPath() {

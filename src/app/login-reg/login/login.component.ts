@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   private submitted: boolean;
   private un_err: boolean;
   private pw_err: boolean;
+  private isJustRegistered: boolean;
 
   lat: number = 51.678418;
   lng: number = 7.809007;
@@ -30,11 +31,17 @@ export class LoginComponent implements OnInit {
     this.submitted = false;
     this.un_err = false;
     this.pw_err = false;
+    this.isJustRegistered = false;
 
     this.loginForm = this.formBuilder.group({
         nomeUtente: ['', Validators.required],
         password: ['', Validators.required]
     });
+
+    if (sessionStorage.getItem('isRegistered') == "true") {
+      this.isJustRegistered = true;
+      sessionStorage.removeItem('isRegistered');
+    }
   }
 
   get f() { return this.loginForm.controls; }
