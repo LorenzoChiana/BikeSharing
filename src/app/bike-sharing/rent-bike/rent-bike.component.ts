@@ -142,6 +142,12 @@ export class RentBikeComponent implements OnInit {
     text: 'Bici',
   }
 
+  options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  }
+
     constructor(
       private translate: TranslateService,
       private router: Router,
@@ -178,13 +184,25 @@ export class RentBikeComponent implements OnInit {
         this.rackService.getAllRack().subscribe(data => {
           this.racks = data;
         });
-
-        /* modello promise
-        this.rackService.getRack(idRack).then(res => {
-          this.rack = res.json();
-        });
-        */
       });
+
+      this.getLocation();
+    }
+
+    showPosition(position) : void {
+      /*
+      alert("Latitude: " + position.coords.latitude);
+      alert("Longitude: " + position.coords.longitude);
+      */
+    }
+
+    getLocation() : void {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+          //x.innerHTML = "Geolocation is not supported by this browser.";
+          alert("Geolocation is not supported by this browser.");
+      }
     }
 
     // -------- Funzioni tool bar
