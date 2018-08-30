@@ -66,6 +66,16 @@
       [latitude]="currentLat" [longitude]="currentLong" [label]="labelOptions"
       [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
 
+      <agm-marker *ngIf="positionUser"
+      [latitude]="userLat" [longitude]="userLong" [label]="labelUserOptions"
+      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
+
+      <!--
+      this.positionUser = true;
+      this.userLat = position.coords.latitude;
+      this.userLong = position.coords.longitude;
+      -->
+
       </agm-map>
     </div>
 
@@ -108,7 +118,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="table-container">
-    
+
       <table class="table table-hover">
     <thead>
       <tr>

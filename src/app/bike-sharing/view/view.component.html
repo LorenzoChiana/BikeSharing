@@ -48,6 +48,12 @@
             {{ 'FREE_SPOTS' | translate }}: {{rack.numPlace - rack.numBike}}
           </agm-info-window>
         </agm-marker>
+
+        <agm-marker
+        *ngIf="positionUser"
+        [latitude]="userLat" [longitude]="userLong" color="white" [label]="labelUserOptions"
+        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+
       </agm-map>
     </div>
 
@@ -56,7 +62,8 @@
         <!--<button mat-button (click)="rackList()">{{ 'PARKING' | translate }}</button>
         <button mat-button *ngIf="!isAdmin" (click)="preleva()">{{ 'BORROW' | translate }}</button>
         <button mat-button *ngIf="!isAdmin" (click)="rilascia()">{{ 'RELEASE' | translate }}</button>-->
-        <button mat-button (click)="findUser()">{{ 'GEOLOCALIZATION' | translate }}</button>
+
+        <button mat-button (click)="getUserLocation()">{{ 'GEOLOCALIZATION' | translate }}</button>
         <button mat-button (click)="rentList()">{{ 'RESERVATIONS' | translate }}</button>
         <button mat-button (click)="commentList()">{{ 'COMMENTS' | translate }}</button>
       </div>
@@ -91,7 +98,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div class="table-container">
-    
+
       <table class="table table-hover">
         <thead>
           <tr>
@@ -207,7 +214,7 @@
               <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email '" required="" type="email">
                               <button class="click-btn btn btn-default"><span class="lnr lnr-arrow-right"></span></button>
                               <div style="position: absolute; left: -5000px;">
-                  <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                  <input name="email-footer" tabindex="-1" value="" type="text">
                 </div>
               <div class="info"></div>
             </form>

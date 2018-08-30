@@ -142,11 +142,23 @@ export class RentBikeComponent implements OnInit {
     text: 'Bici',
   }
 
+  labelUserOptions = {
+    color: '#FFFFFF',
+    fontFamily: '',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    text: 'Sei qui',
+  }
+
   options = {
     enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0
   }
+
+  private positionUser : boolean;
+  private userLat: number;
+  private userLong: number;
 
     constructor(
       private translate: TranslateService,
@@ -186,6 +198,8 @@ export class RentBikeComponent implements OnInit {
         });
       });
 
+      this.positionUser = false;
+
       this.getLocation();
     }
 
@@ -194,6 +208,9 @@ export class RentBikeComponent implements OnInit {
       alert("Latitude: " + position.coords.latitude);
       alert("Longitude: " + position.coords.longitude);
       */
+      this.positionUser = true;
+      this.userLat = position.coords.latitude;
+      this.userLong = position.coords.longitude;
     }
 
     getLocation() : void {

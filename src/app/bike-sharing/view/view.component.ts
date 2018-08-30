@@ -15,6 +15,8 @@ import { filter } from 'rxjs/operators';
 
 import {TranslateService} from '@ngx-translate/core';
 
+import { } from '@types/googlemaps';
+
 export interface DialogData {
   edit: boolean;
   rack: Rack;
@@ -49,10 +51,22 @@ export class ViewComponent implements OnInit {
 
   private step: number = 0;
 
+  labelUserOptions = {
+    color: '#FFFFFF',
+    fontFamily: '',
+    fontSize: '14px',
+    fontWeight: 'bold',
+    text: 'Sei qui',
+  }
+
+  private positionUser: boolean;
+  private userLat: number;
+  private userLong: number;
+
   setStep(index: number) {
     this.step = index;
   }
-  
+
   constructor(
     private bikeService :BikeService,
     private rackService :RackService,
@@ -68,6 +82,8 @@ export class ViewComponent implements OnInit {
     this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
     sessionStorage.setItem('location', 'view');
 
+    this.positionUser = false;
+
     this.viewRack();
   }
 
@@ -75,34 +91,25 @@ export class ViewComponent implements OnInit {
     console.log(log);
   }
 
-  /*findUser() {
+  getUserLocation() : void {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.showPosition(position);
-      });
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.showPosition(position);
+        });
     } else {
-      alert("Geolocation is not supported by this browser.");
+        alert("Geolocation is not supported by this browser.");
     }
   }
 
-  showPosition(position) {
-    this.currentLat = position.coords.latitude;
-    this.currentLong = position.coords.longitude;
+  showPosition(position) : void {
+    this.positionUser = true;
+    this.userLat = position.coords.latitude;
+    this.userLong = position.coords.longitude;
 
-    let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    this.map.panTo(location);
-
-    if (!this.marker) {
-      this.marker = new google.maps.Marker({
-        position: location,
-        map: this.map,
-        title: 'Got you!'
-      });
-    }
-    else {
-      this.marker.setPosition(location);
-    }
-  }*/
+    // impostazioni fisse
+    this.userLat = 44.147536;
+    this.userLong = 12.235908;
+  }
 
   viewRack() {
     this.rackService.getAllRack().subscribe(data => {
@@ -126,15 +133,9 @@ export class ViewComponent implements OnInit {
           }
         });
       }
-console.log(this.rackes);
+      console.log(this.rackes);
     });
-    //console.log(this.freeSpots);
   }
-
-  /*freeSpots(): number {
-    console.log(this.curRack);
-    return 5;
-  }*/
 
   toggleMap() : void {
     this.showMap = !this.showMap;
@@ -181,16 +182,12 @@ console.log(this.rackes);
   }
 
   editRack(rack: Rack): void {
-    //this.router.navigate(['edit-rack', rack._id]);
     this.dialogRack(rack, true); // chiamata dal bottone lista
   }
 
   dragRack(event, rack): void {
     rack.latitudine = event.coords.lat;
     rack.longitudine = event.coords.lng;
-
-  //  this.rackService.updateRack(rack)
-  //      .subscribe(data => { }, error => this.errorMessage = error)
   }
 
   dialogRack(rack: Rack, edit: boolean) : void {
