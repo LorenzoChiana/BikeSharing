@@ -87,7 +87,29 @@
             <p>{{ 'IMAGE_GALLERY_SUBTITLE' | translate }}</p>
           </div>
           <div class="row">
-            <div class="col-lg-4 single-gallery">
+            <div style="display:block;" [style.width]="width">
+              <slideshow #slideshow
+                       [imageUrls]="imageUrls"
+                       [height]="height"
+                       [minHeight]="minHeight"
+                       [arrowSize]="arrowSize"
+                       [showArrows]="showArrows"
+                       [disableSwiping]="disableSwiping"
+                       [autoPlay]="autoPlay"
+                       [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
+                       [debug]="debug"
+                       [backgroundSize]="backgroundSize"
+                       [backgroundPosition]="backgroundPosition"
+                       [backgroundRepeat]="backgroundRepeat"
+                       [showDots]="showDots"
+                       [dotColor]="dotColor"
+                       [showCaptions]="showCaptions"
+                       [captionColor]="captionColor"
+                       [captionBackground]="captionBackground"
+                       [lazyLoad]="lazyLoad">
+                </slideshow>
+              </div>
+            <!--<div class="col-lg-4 single-gallery">
               <a class="img-gal"><img class="img-fluid" src="../../assets/images/g1.jpg" alt=""></a>
               <a class="img-gal"><img class="img-fluid" src="../../assets/images/g4.jpg" alt=""></a>
             </div>
@@ -98,7 +120,8 @@
             <div class="col-lg-4 single-gallery">
               <a class="img-gal"><img class="img-fluid" src="../../assets/images/g3.jpg" alt=""></a>
               <a class="img-gal"><img class="img-fluid" src="../../assets/images/g6.jpg" alt=""></a>
-            </div>
+            </div>-->
+            
           </div>
         </div>
       </section>
