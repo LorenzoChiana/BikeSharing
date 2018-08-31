@@ -27,7 +27,7 @@ import { NgcFloatButtonModule } from 'ngc-float-button';
 import {MatExpansionModule} from '@angular/material/expansion';
 
 //import {TranslateService} from '@ngx-translate/core';
-//import { TranslateService } from '../services/translate.service'; 
+//import { TranslateService } from '../services/translate.service';
 //import { TranslatePipe } from './translate.pipe';
 //import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -51,7 +51,8 @@ const routes: Routes = [
   { path: 'view', component: ViewComponent },
   { path: 'view/:admin', component: ViewComponent },
   { path: 'edit-rack/:idRack', component: EditRackComponent },
-  { path: 'rent-bike/:idRack', component: RentBikeComponent },
+//  { path: 'rent-bike/:idRack', component: RentBikeComponent },
+  { path: 'rent-bike/:idRack/:userLat/:userLong', component: RentBikeComponent },
   { path: 'view-comment/:codeBike', component: ViewCommentComponent },
 ];
 
@@ -98,7 +99,7 @@ const routes: Routes = [
   ],
   entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, DialogComment, DialogAlert],
   exports: [ RouterModule, MaterialModule],
-  providers: [ 
+  providers: [
     RackService,
     BikeService,
     RentService,

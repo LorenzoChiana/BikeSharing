@@ -59,7 +59,6 @@ export class ViewComponent implements OnInit {
     text: 'Sei qui',
   }
 
-  private positionUser: boolean;
   private userLat: number;
   private userLong: number;
 
@@ -82,7 +81,8 @@ export class ViewComponent implements OnInit {
     this.isAdmin = (sessionStorage.getItem('isAdmin') == 'true');
     sessionStorage.setItem('location', 'view');
 
-    this.positionUser = false;
+    this.userLat = -1;
+    this.userLong = -1;
 
     this.viewRack();
   }
@@ -102,7 +102,6 @@ export class ViewComponent implements OnInit {
   }
 
   showPosition(position) : void {
-    this.positionUser = true;
     this.userLat = position.coords.latitude;
     this.userLong = position.coords.longitude;
 
@@ -178,7 +177,10 @@ export class ViewComponent implements OnInit {
 
   selectRack(rack: Rack) : void {
   //  this.dialogRack(rack);
-    this.router.navigate(['rent-bike', rack._id]);
+
+    //this.router.navigate(['rent-bike', rack._id]);
+
+    this.router.navigate(['rent-bike', rack._id, this.userLat, this.userLong]);
   }
 
   editRack(rack: Rack): void {

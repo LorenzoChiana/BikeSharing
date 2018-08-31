@@ -50,7 +50,7 @@
         </agm-marker>
 
         <agm-marker
-        *ngIf="positionUser"
+        *ngIf="userLat > 0 && userLong > 0"
         [latitude]="userLat" [longitude]="userLong" color="white" [label]="labelUserOptions"
         [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
 

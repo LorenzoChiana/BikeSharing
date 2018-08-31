@@ -66,7 +66,7 @@
       [latitude]="currentLat" [longitude]="currentLong" [label]="labelOptions"
       [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
 
-      <agm-marker *ngIf="positionUser"
+      <agm-marker *ngIf="userLat > 0 && userLong > 0"
       [latitude]="userLat" [longitude]="userLong" [label]="labelUserOptions"
       [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
 

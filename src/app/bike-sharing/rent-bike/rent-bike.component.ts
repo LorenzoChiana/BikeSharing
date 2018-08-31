@@ -112,10 +112,6 @@ export class RentBikeComponent implements OnInit {
 
   private deltaX: number = 0.0001;
 
-  // queste 2 opzioni forse non servono
-  private currentLat : number;
-  private currentLong : number;
-
   private codeRack: string;
 
   private distRack: number;
@@ -156,7 +152,7 @@ export class RentBikeComponent implements OnInit {
     maximumAge: 0
   }
 
-  private positionUser : boolean;
+  //private positionUser : boolean;
   private userLat: number;
   private userLong: number;
 
@@ -185,6 +181,9 @@ export class RentBikeComponent implements OnInit {
 
         var idRack :number = params.idRack;
 
+        this.userLat = params.userLat;
+        this.userLong = params.userLong;
+
         this.rackService.getRack(idRack).subscribe(data => {
           this.curRack = data;
           this.latitudine = this.curRack.latitudine;
@@ -197,29 +196,6 @@ export class RentBikeComponent implements OnInit {
           this.racks = data;
         });
       });
-
-      this.positionUser = false;
-
-      this.getLocation();
-    }
-
-    showPosition(position) : void {
-      /*
-      alert("Latitude: " + position.coords.latitude);
-      alert("Longitude: " + position.coords.longitude);
-      */
-      this.positionUser = true;
-      this.userLat = position.coords.latitude;
-      this.userLong = position.coords.longitude;
-    }
-
-    getLocation() : void {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(this.showPosition);
-      } else {
-          //x.innerHTML = "Geolocation is not supported by this browser.";
-          alert("Geolocation is not supported by this browser.");
-      }
     }
 
     // -------- Funzioni tool bar
@@ -236,9 +212,7 @@ export class RentBikeComponent implements OnInit {
     }
 
     preleva() : void {
-      //this.openDialogAlert("Seleziona bici da prelevare");
       this.openDialogAlert(this.translate.instant("WARNING_BORROW"));
-      //let foo:string = this.translate.get('Date');
     }
 
     rentList() : void {
@@ -307,7 +281,16 @@ export class RentBikeComponent implements OnInit {
          }
       } else {
         if (mode == 0) { // selezione bici libera
-          this.rentDialog(bike);
+          if (this.userLat > 0 && this.userLong > 0) {
+            var metri : number = this.distanza(this.userLat, this.userLong, bike.latitudine, bike.longitudine);
+            if (metri > 100) {
+              alert("Bici non prenotabile!");
+            } else {
+              this.rentDialog(bike);
+            }
+          } else {
+            this.rentDialog(bike);
+          }
         } else { // selezione bici in uso utente
           this.releaseDialog(bike);
         }
@@ -337,7 +320,6 @@ export class RentBikeComponent implements OnInit {
     	var roundedTemp = this.Math.round(temp);
     	return roundedTemp / factor;
     }
-
 
     rentDialog(bike : Bike) : void {
       this.curBike = bike;
