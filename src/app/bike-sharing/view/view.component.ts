@@ -95,7 +95,7 @@ export class ViewComponent implements OnInit {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             this.showPosition(position);
-        });
+        }, this.showError);
     } else {
         alert("Geolocation is not supported by this browser.");
     }
@@ -109,6 +109,23 @@ export class ViewComponent implements OnInit {
     this.userLat = 44.147536;
     this.userLong = 12.235908;
   }
+
+  showError(error) : void {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("Autorizzazione negata dall’utente.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Informazione non disponibile.");
+        break;
+      case error.TIMEOUT:
+        alert("Errore di timeout.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("Errore sconosciuto.");
+        break;
+      }
+    }
 
   viewRack() {
     this.rackService.getAllRack().subscribe(data => {
@@ -176,9 +193,8 @@ export class ViewComponent implements OnInit {
   }
 
   selectRack(rack: Rack) : void {
-  //  this.dialogRack(rack);
-
-    //this.router.navigate(['rent-bike', rack._id]);
+    //  this.dialogRack(rack);
+    //  this.router.navigate(['rent-bike', rack._id]);
 
     this.router.navigate(['rent-bike', rack._id, this.userLat, this.userLong]);
   }

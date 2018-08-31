@@ -152,7 +152,6 @@ export class RentBikeComponent implements OnInit {
     maximumAge: 0
   }
 
-  //private positionUser : boolean;
   private userLat: number;
   private userLong: number;
 
@@ -282,7 +281,9 @@ export class RentBikeComponent implements OnInit {
       } else {
         if (mode == 0) { // selezione bici libera
           if (this.userLat > 0 && this.userLong > 0) {
-            var metri : number = this.distanza(this.userLat, this.userLong, bike.latitudine, bike.longitudine);
+            var metri : number = this.distanza(this.userLat, this.userLong,
+              bike.latitudine, bike.longitudine);
+
             if (metri > 100) {
               alert("Bici non prenotabile!");
             } else {
