@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, ApplicationRef } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginRegModule } from './login-reg/login-reg.module';
 import { NgcFloatButtonModule } from 'ngc-float-button';
+import { SliderModule } from 'angular-image-slider';
+import {SlideshowModule} from 'ng-simple-slideshow';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -23,7 +26,6 @@ import {
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
-
 
 //import { TranslateService } from './services/translate.service';
 //import { TranslatePipe } from './translate.pipe';
@@ -91,6 +93,9 @@ const appRoutesMain: Routes = [
     NgcFloatButtonModule,
     MatSelectModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    SliderModule,
+    SlideshowModule,
     HttpClientModule,
     CommonModule,
     FormsModule,

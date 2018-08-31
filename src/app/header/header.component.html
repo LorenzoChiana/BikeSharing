@@ -48,7 +48,7 @@
             <ng-container matColumnDef="position" *ngIf="loggedIn()" (click)="setUserName()">
                <mat-select class="mat-select-desktop" placeholder="{{'ACCOUNT' | translate }}" (click)="setUserName()">
                   <mat-option [value]="Profilo"> {{ userName }}
-                    <mat-icon>face</mat-icon>
+                    <mat-icon>account_circle</mat-icon>
                   </mat-option>
                   <mat-option [value]="Logout" (click)="logout()"> {{ 'LOGOUT' | translate }}
                     <mat-icon>exit_to_app</mat-icon>
@@ -63,17 +63,34 @@
     <mat-sidenav-container fxFlexFill>
       <mat-sidenav #sidenav>
         <mat-nav-list>
-          <div *ngIf="loggedIn()">
-            <a class="nav-link">{{ userName }}</a>
-            <!--<mat-icon>face</mat-icon>-->
-          </div>
+          <a class="nav-link" *ngIf="loggedIn()">
+            <mat-icon>account_circle</mat-icon>
+            {{ userName }}
+          </a>
           <hr *ngIf="loggedIn()">
-          <a class="nav-link" (click)="sidenav.toggle() && toHome()">{{ 'HOME' | translate }}</a>
-          <a class="nav-link" (click)="sidenav.toggle() && toAbout()">{{ 'ABOUT' | translate }}</a>
-          <a class="nav-link" *ngIf="!loggedIn()" (click)="sidenav.toggle() && toLogin()">{{ 'SERVICES' | translate }}</a>
-          <a class="nav-link" *ngIf="loggedIn()" (click)="sidenav.toggle() && toServices()">{{ 'SERVICES' | translate }}</a>
-          <a class="nav-link" (click)="sidenav.toggle() && toContact()">{{ 'CONTACT' | translate }}</a>
+          <a class="nav-link" (click)="sidenav.toggle() && toHome()">
+            <mat-icon>home</mat-icon>
+            {{ 'HOME' | translate }}
+          </a>
+          <a class="nav-link" (click)="sidenav.toggle() && toAbout()">
+            <mat-icon>info</mat-icon>
+            {{ 'ABOUT' | translate }}
+          </a>
+          <a class="nav-link" *ngIf="!loggedIn()" (click)="sidenav.toggle() && toLogin()">
+            <mat-icon>directions_bike</mat-icon>
+            {{ 'SERVICES' | translate }}
+          </a>
+          <a class="nav-link" *ngIf="loggedIn()" (click)="sidenav.toggle() && toServices()">
+            <mat-icon>directions_bike</mat-icon>
+            {{ 'SERVICES' | translate }}
+          </a>
+          <a class="nav-link" (click)="sidenav.toggle() && toContact()">
+            <mat-icon>contact_support</mat-icon>
+            {{ 'CONTACT' | translate }}
+          </a>
           <ng-container matColumnDef="position">
+            <div class="nav-link">
+              <mat-icon>language</mat-icon>
                <mat-select class="mat-select-mobile" placeholder="{{'LANG' | translate }}">
                   <mat-option [value]="Italiano" (click)="switchLanguage('it'); sidenav.toggle()"> {{ 'IT' | translate }}
                     <img class="lang-ico" src="../assets/images/italy-flag-icon.png" alt="Italiano"/>
@@ -82,12 +99,16 @@
                     <img class="lang-ico" src="../assets/images/uk-flag-icon.png" alt="English"/>
                   </mat-option>
                 </mat-select>
+              </div>
             </ng-container>
-          <a class="nav-link" *ngIf="!loggedIn()" (click)="sidenav.toggle() && toLogin()">{{ 'LOGIN' | translate }}</a>
-          <div>
-            <a class="nav-link" *ngIf="loggedIn()" (click)="sidenav.toggle() && logout()">{{ 'LOGOUT' | translate }}</a>
-            <!--<mat-icon>exit_to_app</mat-icon>-->
-          </div>
+          <a class="nav-link" *ngIf="!loggedIn()" (click)="sidenav.toggle() && toLogin()">
+            <mat-icon>input</mat-icon>
+            {{ 'LOGIN' | translate }}
+          </a>
+          <a class="nav-link" *ngIf="loggedIn()" (click)="sidenav.toggle() && logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            {{ 'LOGOUT' | translate }}
+          </a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content fxFlexFill>
