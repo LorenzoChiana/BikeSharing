@@ -276,11 +276,9 @@ export class RentBikeComponent implements OnInit {
       this.curBike = bike; // memorizzo bike corrente
       if (this.isAdmin) {
         if (mode == 0) { // selezione bici libera
-            //this.editBike(bike);
             this.editBike(bike);
           } else { // selezione bici in uso utente
               this.nameUser = bike.stato;
-            //  this.editBike(bike);
               this.releaseDialog(bike);  // Rilascio da admin
          }
       } else {
@@ -295,19 +293,12 @@ export class RentBikeComponent implements OnInit {
               this.curBike.latitudine = this.userLat;
               this.curBike.longitudine = this.userLong;
 
-              // this.rentDialog(bike);
-              //this.rentDialog(this.curBike);
-
               this.rentDialog();
             }
           } else {
-            //this.rentDialog(bike);
-            //this.rentDialog(this.curBike);
-
             this.rentDialog();
           }
         } else { // selezione bici in uso utente
-          //this.releaseDialog(bike);
           this.releaseDialog(this.curBike);
         }
       }
@@ -342,10 +333,7 @@ export class RentBikeComponent implements OnInit {
     	return roundedTemp / factor;
     }
 
-    //rentDialog(bike : Bike) : void {
       rentDialog() : void {
-      //this.curBike = bike;
-
       var now: Date = new Date();
       var todayString: string = now.toDateString();
 
@@ -482,6 +470,7 @@ export class RentBikeComponent implements OnInit {
       .subscribe(data => { /*this.ngOnInit();*/ this.reloadBike(); }, error => this.errorMessage = error);
         if (this.curRack.numBike > 0) {
           this.curRack.numBike--;
+          this.showUser(true);
         }
         this.rackService.updateRack(this.curRack)
         .subscribe(data => {}, error => this.errorMessage = error);
@@ -489,6 +478,16 @@ export class RentBikeComponent implements OnInit {
         this.rentService.saveRent(this.curRent)
           .subscribe(data => {}, error => this.errorMessage = error);
         //this.reloadBike();
+    }
+
+    showUser(mode: boolean): void {
+      if (mode) {
+        this.userLat = -(this.userLat);
+        this.userLong = -(this.userLong);
+      } else {
+        this.userLat = this.curRack.latitudine;
+        this.userLong = this.curRack.longitudine - this.deltaX;
+      }
     }
 
     releaseBike(rentContent : RentContent, result : DialogData): void {
@@ -501,6 +500,8 @@ export class RentBikeComponent implements OnInit {
           this.openDialogAlert(this.translate.instant("FULL_BIKE_PARKING") + " " + this.curRack.codice);
       } else {
       this.release = true;
+
+      this.showUser(false);
 
       this.curBike.latitudine = this.curRack.latitudine;
       this.curBike.longitudine = this.curRack.longitudine + this.deltaX;
