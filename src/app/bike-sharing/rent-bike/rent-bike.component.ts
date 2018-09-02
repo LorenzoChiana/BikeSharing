@@ -124,7 +124,6 @@ export class RentBikeComponent implements OnInit {
   private errorMessage;
 
   private Math: any;
-
   private step: number = 0;
 
   setStep(index: number) {
@@ -156,6 +155,7 @@ export class RentBikeComponent implements OnInit {
   private userLocation: boolean;
   private userLat: number;
   private userLong: number;
+  private latLong: boolean;
 
     constructor(
       private translate: TranslateService,
@@ -180,6 +180,10 @@ export class RentBikeComponent implements OnInit {
 
       this.userLat = +sessionStorage.getItem('userLat');
       this.userLong = +sessionStorage.getItem('userLong');
+
+      if (this.userLat < 0 && this.userLong < 0) {
+        this.latLong = false;
+      }
 
       this.route.params.subscribe((params) => {
         var idRack :number = params.idRack;
@@ -278,14 +282,13 @@ export class RentBikeComponent implements OnInit {
         if (mode == 0) { // selezione bici libera
             this.editBike(bike);
           } else { // selezione bici in uso utente
-              this.nameUser = bike.stato;
-              this.releaseDialog(bike);  // Rilascio da admin
+            this.nameUser = bike.stato;
+            this.releaseDialog(bike);  // Rilascio da admin
          }
       } else {
         if (mode == 0) { // selezione bici libera
           if (this.userLat > 0 && this.userLong > 0) {
             var metri: number = this.distanza(this.userLat, this.userLong,
-                                              //bike.latitudine, bike.longitudine);
                                               this.curBike.latitudine, this.curBike.longitudine);
             if (metri > 50) {
               this.alertDialog(this.translate.instant("RACK_TOO_FAR"));
@@ -470,7 +473,9 @@ export class RentBikeComponent implements OnInit {
       .subscribe(data => { /*this.ngOnInit();*/ this.reloadBike(); }, error => this.errorMessage = error);
         if (this.curRack.numBike > 0) {
           this.curRack.numBike--;
-          this.showUser(true);
+          if (this.latLong) {
+            this.showUser(true);
+          }
         }
         this.rackService.updateRack(this.curRack)
         .subscribe(data => {}, error => this.errorMessage = error);
@@ -501,7 +506,9 @@ export class RentBikeComponent implements OnInit {
       } else {
       this.release = true;
 
-      this.showUser(false);
+      if (this.latLong) {
+        this.showUser(false);
+      }
 
       this.curBike.latitudine = this.curRack.latitudine;
       this.curBike.longitudine = this.curRack.longitudine + this.deltaX;
@@ -532,7 +539,8 @@ export class RentBikeComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(DialogRentBike, {
-      /*width: wD,*/
+      width: wD,
+
       height: hD,
       panelClass: 'rentDialog',
       data: {
@@ -565,8 +573,9 @@ export class RentBikeComponent implements OnInit {
 
   openDialogBike(bike : Bike, racks: Rack[]): void {
     const dialogRef = this.dialog.open(BikeDialog, {
-      /*width: '40%',
-      height: '95%',*/
+      width: '40%',
+      height: '95%',
+
       panelClass: 'bikeDialog',
       data: {
         bike: bike,
@@ -584,8 +593,9 @@ export class RentBikeComponent implements OnInit {
   /*---- dialog commento  ----*/
   openDialogComment(commentContent : CommentContent): void {
     const dialogRef = this.dialog.open(DialogComment, {
-      /*width: '30%',
-      height: '50%',*/
+      width: '30%',
+      height: '50%',
+
       panelClass: 'commentDialog',
       data: {
         mode: commentContent.mode,
@@ -708,6 +718,8 @@ onEdit(command : string): void {
     this.dialogRef.close(this.data);
   } else {
     alert(this.translate.instant("NO_RACK_FOUND") + bike.rack);
+
+    //alert(this.translate.instant("NO_RACK_FOUND") + bike.rack);
   }
 }
 
