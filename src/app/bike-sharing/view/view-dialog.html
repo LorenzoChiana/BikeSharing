@@ -10,12 +10,15 @@
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.codice">
       </mat-form-field>
 
+      <!--
       <div *ngIf="!data.edit">
         <p>{{ 'ADDRESS' | translate }}: {{data.rack.indirizzo}}</p>
         <p>{{ 'N_BIKE' | translate }}: {{data.rack.numBike}}</p>
         <p>{{ 'N_SPOT' | translate }}: {{data.rack.numPlace}}</p>
       </div>
-      <!--<mat-form-field>
+    -->
+
+      <mat-form-field>
         <label>{{ 'ADDRESS' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.indirizzo">
       </mat-form-field>
@@ -26,7 +29,7 @@
       <mat-form-field>
         <label>{{ 'N_SPOT' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numPlace">
-      </mat-form-field>-->
+      </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions>
