@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { IImage } from '../modules/slideshow/IImage';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
 	lazyLoad: boolean = false;
 	width: string = '100%';
 	
-  	constructor(){}
+  	constructor(private router: Router){}
  
   	ngOnInit() {
   		setTimeout(() => {
@@ -44,4 +45,23 @@ export class HomeComponent implements OnInit {
     	}, 2000);
   	}
     
+    toAbout(): void {
+    	this.router.navigate(['about']);
+  	}
+
+  	toService(): void {
+    	this.router.navigate(['view']);
+  	}
+
+  	toContact(): void {
+    	this.router.navigate(['contact']);
+  	}
+
+  	toLogin() : void {
+    	this.router.navigate(['login']);
+ 	}
+
+  	loggedIn() {
+    	return sessionStorage.getItem("login") != null;
+  	}
 }

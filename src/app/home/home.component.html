@@ -15,12 +15,13 @@
             <div class="banner-content col-lg-6 col-md-6 ">
               <h6 class="text-white ">{{ 'BANNER_TITLE' | translate }}</h6>
               <h1 class="text-uppercase">
-                0547 12345
+                {{ 'CONTACT_PHONE_NUM' | translate }}
               </h1>
               <p class="pt-10 pb-10 text-white">
                 {{ 'BANNER_SUBTITLE' | translate }}
               </p>
-              <a href="#" class="primary-btn text-uppercase">{{ 'BANNER_BUTTON' | translate }}</a>
+              <a *ngIf="loggedIn()" (click)="toService()" class="primary-btn text-uppercase">{{ 'BANNER_BUTTON' | translate }}</a>
+              <a *ngIf="!loggedIn()" (click)="toLogin()" class="primary-btn text-uppercase">{{ 'BANNER_BUTTON' | translate }}</a>
             </div>
           </div>
         </div>
@@ -38,7 +39,7 @@
               <h1>{{ 'HOME_ABOUT_TITLE' | translate }}</h1>
               <h4>{{ 'HOME_ABOUT_SUBTITLE' | translate }}</h4>
               <p>{{ 'HOME_ABOUT_TEXT' | translate }}</p>
-              <a class="text-uppercase primary-btn" href="#">{{ 'HOME_ABOUT_BUTTON' | translate }}</a>
+              <a class="text-uppercase primary-btn" (click)="toAbout()">{{ 'HOME_ABOUT_BUTTON' | translate }}</a>
             </div>
           </div>
         </div>
@@ -54,22 +55,24 @@
           </div>
           <div class="row">
             <div class="col-lg-4 single-service">
-              <span class="lnr lnr-car"></span>
-              <a href="#"><h4>{{ 'SERVICES1_TITLE' | translate }}</h4></a>
+              <!--<span class="lnr lnr-car"></span>-->
+              <mat-icon>directions_bike</mat-icon>
+              <h4>{{ 'SERVICES1_TITLE' | translate }}</h4>
               <p>
                 {{ 'SERVICES1_SUBTITLE' | translate }}
               </p>
             </div>
             <div class="col-lg-4 single-service">
-              <span class="lnr lnr-briefcase"></span>
-              <a href="#"><h4>{{ 'SERVICES2_TITLE' | translate }}</h4></a>
+              <mat-icon>traffic</mat-icon>
+              <h4>{{ 'SERVICES2_TITLE' | translate }}</h4>
               <p>
                 {{ 'SERVICES2_SUBTITLE' | translate }}
               </p>
             </div>
             <div class="col-lg-4 single-service">
-              <span class="lnr lnr-bus"></span>
-              <a href="#"><h4>{{ 'SERVICES3_TITLE' | translate }}</h4></a>
+              <!--<span class="lnr lnr-bus"></span>-->
+              <mat-icon>local_florist</mat-icon>
+              <h4>{{ 'SERVICES3_TITLE' | translate }}</h4>
               <p>
                 {{ 'SERVICES3_SUBTITLE' | translate }}
               </p>
@@ -139,7 +142,7 @@
               </p>
             </div>
             <div class="col-lg-4 btn-left">
-              <a href="#" class="primary-btn">{{ 'REACH_OUR_SUP' | translate }}</a>
+              <a (click)="toContact()" class="primary-btn">{{ 'REACH_OUR_SUP' | translate }}</a>
             </div>
           </div>
         </div>
@@ -147,7 +150,7 @@
       <!-- End home-calltoaction Area -->
 
       <!-- Start reviews Area -->
-      <section class="reviews-area section-gap">
+      <!--<section class="reviews-area section-gap">
         <div class="container">
           <div class="row section-title">
             <h1>{{ 'CLI_REVIEWS_TITLE' | translate }}</h1>
@@ -246,7 +249,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section>-->
       <!-- End reviews Area -->
 
       <!-- Start latest-blog Area -->
