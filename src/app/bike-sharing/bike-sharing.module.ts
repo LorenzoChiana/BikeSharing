@@ -52,7 +52,7 @@ const routes: Routes = [
   { path: 'view/:admin', component: ViewComponent },
   { path: 'edit-rack/:idRack', component: EditRackComponent },
 //  { path: 'rent-bike/:idRack', component: RentBikeComponent },
-  { path: 'rent-bike/:idRack/:userLat/:userLong', component: RentBikeComponent },
+  { path: 'rent-bike/:idRack', component: RentBikeComponent },
   { path: 'view-comment/:codeBike', component: ViewCommentComponent },
 ];
 

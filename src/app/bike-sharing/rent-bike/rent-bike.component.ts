@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject, Injectable, Input } from '@angular/core';
+import { Component, OnInit, Inject, Injectable, Input,
+         Directive, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MouseEvent } from '@agm/core';
+import { MouseEvent, GoogleMapsAPIWrapper } from '@agm/core';
 
 import { RackService } from '../services/rack.service';
 import { BikeService } from '../services/bike.service';
@@ -139,11 +140,11 @@ export class RentBikeComponent implements OnInit {
   }
 
   labelUserOptions = {
-    color: '#FFFFFF',
+    color: 'black',
     fontFamily: '',
     fontSize: '14px',
     fontWeight: 'bold',
-    text: 'Sei qui',
+    text: 'User',
   }
 
   options = {
@@ -152,6 +153,7 @@ export class RentBikeComponent implements OnInit {
     maximumAge: 0
   }
 
+  private userLocation: boolean;
   private userLat: number;
   private userLong: number;
 
@@ -176,12 +178,11 @@ export class RentBikeComponent implements OnInit {
 
       this.curRack = new Rack(0, '', 0, 0, '', 0, 0); // rack nullo
 
+      this.userLat = +sessionStorage.getItem('userLat');
+      this.userLong = +sessionStorage.getItem('userLong');
+
       this.route.params.subscribe((params) => {
-
         var idRack :number = params.idRack;
-
-        this.userLat = params.userLat;
-        this.userLong = params.userLong;
 
         this.rackService.getRack(idRack).subscribe(data => {
           this.curRack = data;
@@ -195,6 +196,10 @@ export class RentBikeComponent implements OnInit {
           this.racks = data;
         });
       });
+
+    //this.labelUserOptions.text = this.translate.instant("USER_POSITION");
+
+      this.userLocation = (sessionStorage.getItem('userLocation') == 'true');
     }
 
     // -------- Funzioni tool bar
@@ -281,19 +286,29 @@ export class RentBikeComponent implements OnInit {
       } else {
         if (mode == 0) { // selezione bici libera
           if (this.userLat > 0 && this.userLong > 0) {
-            var metri : number = this.distanza(this.userLat, this.userLong,
-              bike.latitudine, bike.longitudine);
-
-            if (metri > 100) {
-              alert("Bici non prenotabile!");
+            var metri: number = this.distanza(this.userLat, this.userLong,
+                                              //bike.latitudine, bike.longitudine);
+                                              this.curBike.latitudine, this.curBike.longitudine);
+            if (metri > 50) {
+              this.alertDialog(this.translate.instant("RACK_TOO_FAR"));
             } else {
-              this.rentDialog(bike);
+              this.curBike.latitudine = this.userLat;
+              this.curBike.longitudine = this.userLong;
+
+              // this.rentDialog(bike);
+              //this.rentDialog(this.curBike);
+
+              this.rentDialog();
             }
           } else {
-            this.rentDialog(bike);
+            //this.rentDialog(bike);
+            //this.rentDialog(this.curBike);
+
+            this.rentDialog();
           }
         } else { // selezione bici in uso utente
-          this.releaseDialog(bike);
+          //this.releaseDialog(bike);
+          this.releaseDialog(this.curBike);
         }
       }
     }
@@ -315,6 +330,11 @@ export class RentBikeComponent implements OnInit {
         this.bikeService.updateBike(bike).subscribe(data => {}, error => this.errorMessage = error)
     }
 
+    dragUser(event): void {
+      this.userLat = event.coords.lat;
+      this.userLong = event.coords.lng;
+    }
+
     round(numero : number, precision : number): number {
     	var factor = this.Math.pow(10, precision);
     	var temp = numero * factor;
@@ -322,8 +342,10 @@ export class RentBikeComponent implements OnInit {
     	return roundedTemp / factor;
     }
 
-    rentDialog(bike : Bike) : void {
-      this.curBike = bike;
+    //rentDialog(bike : Bike) : void {
+      rentDialog() : void {
+      //this.curBike = bike;
+
       var now: Date = new Date();
       var todayString: string = now.toDateString();
 
@@ -353,9 +375,9 @@ export class RentBikeComponent implements OnInit {
 
         this.rentService.getBikeRent(this.nameUser, this.curBike.codice, "").subscribe((data) => {
           this.rents = data;
-          if (data.length <= 0 ){
+          if (data.length <= 0) {
             this.alertDialog(this.translate.instant("NO_BOOKING_FOUND"));
-        } else {
+          } else {
             this.curRent = this.rents[0];
             var now: Date = new Date();
             this.curRent.timeEnd = now.getHours() + ":" + now.getMinutes();
@@ -431,7 +453,7 @@ export class RentBikeComponent implements OnInit {
     }
 
     /*
-    Calcolo distaanza fra due coordinate Lat, Long
+    Calcolo distanza fra due coordinate Lat, Long
     */
     distanza(lat1:number, long1:number, lat2: number, long2: number) : number {
       var raggioTerra : number = 6372.795477598; // raggio terrestre medio
@@ -457,7 +479,7 @@ export class RentBikeComponent implements OnInit {
     rentBike(rentContent : RentContent, result : DialogData) : void {
       this.curBike.stato = this.nameUser;
       this.bikeService.modifyStateBike(this.curBike._id, this.curBike.stato, this.curBike.rack)
-      .subscribe(data => { this.ngOnInit(); }, error => this.errorMessage = error);
+      .subscribe(data => { /*this.ngOnInit();*/ this.reloadBike(); }, error => this.errorMessage = error);
         if (this.curRack.numBike > 0) {
           this.curRack.numBike--;
         }
@@ -466,8 +488,7 @@ export class RentBikeComponent implements OnInit {
 
         this.rentService.saveRent(this.curRent)
           .subscribe(data => {}, error => this.errorMessage = error);
-
-        this.reloadBike();
+        //this.reloadBike();
     }
 
     releaseBike(rentContent : RentContent, result : DialogData): void {
@@ -476,7 +497,7 @@ export class RentBikeComponent implements OnInit {
         var msg : string = this.translate.instant("BIKE_TOO_FAR") + " " + this.curRack.codice;
         msg = msg +  " - " + this.curRack.indirizzo;
         this.openDialogAlert(msg);
-      } else if (this.curRack.numPlace - this.curRack.numBike <= 0) { // distanza minima per riposizionamento
+      } else if (this.curRack.numPlace - this.curRack.numBike <= 0) { // parcheggio pieno
           this.openDialogAlert(this.translate.instant("FULL_BIKE_PARKING") + " " + this.curRack.codice);
       } else {
       this.release = true;
@@ -634,6 +655,7 @@ export class BikeDialog {
 constructor(
   public dialogRef: MatDialogRef<BikeDialog>,
   @Inject(MAT_DIALOG_DATA) public data: DialogDataBike,
+  private translate: TranslateService,
   private bikeService :BikeService,
   ) {}
 
@@ -684,7 +706,7 @@ onEdit(command : string): void {
     }
     this.dialogRef.close(this.data);
   } else {
-    alert("Rastrelliera non trovata: " + bike.rack);
+    alert(this.translate.instant("NO_RACK_FOUND") + bike.rack);
   }
 }
 

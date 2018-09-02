@@ -49,10 +49,16 @@
           </agm-info-window>
         </agm-marker>
 
+        <!-- Marcatore  user-->
         <agm-marker
         *ngIf="userLat > 0 && userLong > 0"
-        [latitude]="userLat" [longitude]="userLong" color="white" [label]="labelUserOptions"
-        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+        [latitude]="userLat"
+        [longitude]="userLong"
+        [markerDraggable]="!userLocation"
+        (dragEnd)="dragUser($event)"
+        color="white"
+        [label]="labelUserOptions"
+        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'"></agm-marker>
 
       </agm-map>
     </div>

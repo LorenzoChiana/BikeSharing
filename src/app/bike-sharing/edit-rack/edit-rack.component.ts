@@ -75,8 +75,6 @@ export class EditRackComponent implements OnInit {
     this.curRack.codice = this.codice;
     this.curRack.indirizzo = this.indirizzo;
 
-    //this.curRack.latitudine = this.latitudine;
-    //this.curRack.longitudine = this.longitudine;
     this.curRack.numBike = this.numBike;
     this.curRack.numPlace = this.numPlace;
 
@@ -107,16 +105,13 @@ export class EditRackComponent implements OnInit {
   toggleMap() : void {
     this.showMap = !this.showMap;
   }
-  
+
   infoRack(rack : Rack) {
     this.router.navigate(['rent-bike', rack._id]);
   }
 
   dragRack(event, rack): void {
   // Posizionamento mappa
-  //  this.latitudine = event.coords.lat;
-  //  this.longitudine = event.coords.lng;
-
     rack.latitudine = event.coords.lat;
     rack.longitudine = event.coords.lng;
   }

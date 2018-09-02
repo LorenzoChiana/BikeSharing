@@ -52,15 +52,18 @@ export class ViewComponent implements OnInit {
   private step: number = 0;
 
   labelUserOptions = {
-    color: '#FFFFFF',
+    //color: '#FFFFFF',
+    color: 'black',
     fontFamily: '',
     fontSize: '14px',
     fontWeight: 'bold',
-    text: 'Sei qui',
+    //text: this.translate.instant("USER_POSITION"),
+    text: 'User'
   }
 
   private userLat: number;
   private userLong: number;
+  private userLocation: boolean; // attivazione e disattivaz. geolocalizzazione dell'utente
 
   setStep(index: number) {
     this.step = index;
@@ -84,7 +87,12 @@ export class ViewComponent implements OnInit {
     this.userLat = -1;
     this.userLong = -1;
 
+    //this.labelUserOptions.text = this.translate.instant("USER_POSITION");
+
     this.viewRack();
+
+    sessionStorage.setItem('userLocation', 'false'); // versione con drag and drop
+    this.userLocation = false;
   }
 
   private output(log) {
@@ -102,12 +110,14 @@ export class ViewComponent implements OnInit {
   }
 
   showPosition(position) : void {
-    this.userLat = position.coords.latitude;
-    this.userLong = position.coords.longitude;
-
-    // impostazioni fisse
-    this.userLat = 44.147536;
-    this.userLong = 12.235908;
+    if (this.userLocation) {
+      this.userLat = position.coords.latitude;
+      this.userLong = position.coords.longitude;
+    } else {
+      // impostazioni fisse
+      this.userLat = 44.1443272;
+      this.userLong = 12.2270023;
+    }
   }
 
   showError(error) : void {
@@ -166,7 +176,9 @@ export class ViewComponent implements OnInit {
   }
 
   bikeList(): void {
-    this.router.navigate(['rent-bike', this.curRack._id]);
+    sessionStorage.setItem('userLat', ""+this.userLat);
+    sessionStorage.setItem('userLong', ""+this.userLong);
+    this.router.navigate(['rent-bike', ""+this.curRack._id]);
   }
 
   rentList() : void {
@@ -179,7 +191,6 @@ export class ViewComponent implements OnInit {
 
   preleva() : void {
       alert(this.translate.instant("SELECT_A_RACK"));
-      this.translate.instant("SELECT_A_RACK");
       //this.bikeList();
   }
 
@@ -196,7 +207,9 @@ export class ViewComponent implements OnInit {
     //  this.dialogRack(rack);
     //  this.router.navigate(['rent-bike', rack._id]);
 
-    this.router.navigate(['rent-bike', rack._id, this.userLat, this.userLong]);
+    sessionStorage.setItem('userLat', ""+this.userLat);
+    sessionStorage.setItem('userLong', ""+this.userLong);
+    this.router.navigate(['rent-bike', rack._id]);
   }
 
   editRack(rack: Rack): void {
@@ -206,6 +219,11 @@ export class ViewComponent implements OnInit {
   dragRack(event, rack): void {
     rack.latitudine = event.coords.lat;
     rack.longitudine = event.coords.lng;
+  }
+
+  dragUser(event): void {
+    this.userLat = event.coords.lat;
+    this.userLong = event.coords.lng;
   }
 
   dialogRack(rack: Rack, edit: boolean) : void {
