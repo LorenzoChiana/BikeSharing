@@ -44,27 +44,38 @@
       [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
 
       <!-- Marcatori  bici user -->
-      <agm-marker *ngFor="let kk of bikeUser; let ind = index"
-      [latitude]="kk.latitudine" [longitude]="kk.longitudine"
-      [label]="kk.codice"
-      [markerDraggable]="true"
-      (dragEnd)="dragBike($event, kk)"
-      (markerClick)="selectBike(kk, 1)"
-      color="black"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+      <ng-container *ngIf="latLong == false">
+        <agm-marker *ngFor="let kk of bikeUser; let ind = index"
+        [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+        [label]="kk.codice"
+        [markerDraggable]="true"
+        (dragEnd)="dragBike($event, kk)"
+        (markerClick)="selectBike(kk, 1)"
+        color="black"
+        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+      </ng-container>
+      <ng-container *ngIf="latLong == true">
+        <agm-marker *ngFor="let kk of bikeUser; let ind = index"
+        [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+        [label]="kk.codice"
+        (markerClick)="selectBike(kk, 1)"
+        color="black"
+        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+      </ng-container>
 
       <!-- Marcatori  rack-->
       <agm-marker *ngFor="let kk of racks; let ind = index"
-      [latitude]="kk.latitudine" [longitude]="kk.longitudine"
-      [label]="kk.codice"
-      [markerDraggable]="false"
-      (markerClick)="selectRack(kk)"
-      color="black"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'"></agm-marker>
+        [latitude]="kk.latitudine" [longitude]="kk.longitudine"
+        [label]="kk.codice"
+        [markerDraggable]="false"
+        (markerClick)="selectRack(kk)"
+        color="black"
+        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+      </agm-marker>
 
       <!-- Marcatore  user-->
       <agm-marker
-      *ngIf="userLat > 0 && userLong > 0"
+      *ngIf="latLong"
       [latitude]="userLat"
       [longitude]="userLong"
       [markerDraggable]="!userLocation"

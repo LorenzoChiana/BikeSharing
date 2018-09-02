@@ -155,7 +155,7 @@ export class RentBikeComponent implements OnInit {
   private userLocation: boolean;
   private userLat: number;
   private userLong: number;
-  private latLong: boolean;
+  private latLong: boolean = true;
 
     constructor(
       private translate: TranslateService,
@@ -180,6 +180,7 @@ export class RentBikeComponent implements OnInit {
 
       this.userLat = +sessionStorage.getItem('userLat');
       this.userLong = +sessionStorage.getItem('userLong');
+      console.log(this.userLat + " " + this.userLong);
 
       if (this.userLat < 0 && this.userLong < 0) {
         this.latLong = false;

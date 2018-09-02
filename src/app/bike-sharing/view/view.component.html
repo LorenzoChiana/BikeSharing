@@ -54,8 +54,7 @@
         *ngIf="userLat > 0 && userLong > 0"
         [latitude]="userLat"
         [longitude]="userLong"
-        [markerDraggable]="!userLocation"
-        (dragEnd)="dragUser($event)"
+        [markerDraggable]="false"
         color="white"
         [label]="labelUserOptions"
         [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'"></agm-marker>
