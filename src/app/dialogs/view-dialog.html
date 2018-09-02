@@ -1,0 +1,45 @@
+<link rel="stylesheet" type="text/css" href="../../../assets/css/dialog.css">
+<div class="container">
+  <h1 *ngIf="!data.edit" mat-dialog-title>{{ 'PARKING' | translate }}: {{data.rack.codice}}</h1>
+  <h1 *ngIf="data.edit" mat-dialog-title>{{ 'EDIT' | translate }} {{ 'PARKING' | translate }}</h1>
+  <div mat-dialog-content>
+    <div class="formInput">
+
+      <mat-form-field *ngIf="data.edit">
+        <label>{{ 'CODE' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.codice">
+      </mat-form-field>
+
+      <div *ngIf="!data.edit">
+        <p>{{ 'ADDRESS' | translate }}: {{data.rack.indirizzo}}</p>
+        <p>{{ 'N_BIKE' | translate }}: {{data.rack.numBike}}</p>
+        <p>{{ 'N_SPOT' | translate }}: {{data.rack.numPlace}}</p>
+      </div>
+      <!--<mat-form-field>
+        <label>{{ 'ADDRESS' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.indirizzo">
+      </mat-form-field>
+      <mat-form-field>
+        <label>{{ 'N_BIKE' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numBike">
+      </mat-form-field>
+      <mat-form-field>
+        <label>{{ 'N_SPOT' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numPlace">
+      </mat-form-field>-->
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <div *ngIf="!data.edit">
+      <button mat-button (click)="onClose()">{{ 'CLOSE' | translate }}</button>
+      <button mat-button (click)="onSelect()">{{ 'SELECT' | translate }}</button>
+    </div>
+    <div *ngIf="data.edit">
+      <button mat-flat-button (click)="onSelect()">{{ 'SELECT' | translate }}</button>
+      <button mat-flat-button (click)="onUpdate()">{{ 'UPDATE' | translate }}</button>
+      <button mat-flat-button (click)="onInsert()">{{ 'INSERT' | translate }}</button>
+      <button mat-flat-button (click)="onDelete()">{{ 'DELETE' | translate }}</button>
+      <button mat-flat-button (click)="onClose()">{{ 'CLOSE' | translate }}</button>
+    </div>
+  </div>
+</div>

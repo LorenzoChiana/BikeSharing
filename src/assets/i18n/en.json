@@ -139,5 +139,11 @@
   "CONFIRM_PW": "Confirm Password",
   "CONFIRM_PW_REQUIRED": "Confirm Password is required!",
   "DIFFERENT_PW": "The passwords are different!",
-  "JUST_REGISTERED": "Registration complete! Now you can Login."
+  "JUST_REGISTERED": "Registration complete! Now you can Login.",
+  "GEOLOCATION_NOT_SUPPORTED": "Geolocation is not supported by this browser.",
+  "GEO_PERMISSION_DANIED": "Location permit denied. Now the map works with drag & drop.",
+  "GEO_INFO_NOT_AVAILABLE": "Location error: information not available.",
+  "GEO_TIMEOUT": "Lacation error: time out error.",
+  "GEO_UNKNOW_ERR": "Location error: unknow error."
+
 }

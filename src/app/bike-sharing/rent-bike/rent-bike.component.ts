@@ -532,11 +532,14 @@ export class RentBikeComponent implements OnInit {
   openDialog(rentContent : RentContent, bikeService: BikeService,
             rentService: RentService, rackService: RackService): void {
 
-    var wD: string = '30%';
-    var hD: string = '57%';
+    /*var wD: string = '30%';
+    var hD: string = '57%';*/
+    var wD: string = '100vw';
+    var hD: string = '60vh';
 
     if (rentContent.mode == 'rent') {
-      hD = '38%';
+      //hD = '38%';
+      hD = '40vh';
     }
 
     const dialogRef = this.dialog.open(DialogRentBike, {
@@ -574,8 +577,10 @@ export class RentBikeComponent implements OnInit {
 
   openDialogBike(bike : Bike, racks: Rack[]): void {
     const dialogRef = this.dialog.open(BikeDialog, {
-      width: '40%',
-      height: '95%',
+      /*width: '40%',
+      height: '95%',*/
+      width: '100vw',
+      height: '95vh',
 
       panelClass: 'bikeDialog',
       data: {
@@ -594,8 +599,10 @@ export class RentBikeComponent implements OnInit {
   /*---- dialog commento  ----*/
   openDialogComment(commentContent : CommentContent): void {
     const dialogRef = this.dialog.open(DialogComment, {
-      width: '30%',
-      height: '50%',
+      /*width: '30%',
+      height: '50%',*/
+      width: '100vw',
+      height: '55vh',
 
       panelClass: 'commentDialog',
       data: {
@@ -639,7 +646,7 @@ export class RentBikeComponent implements OnInit {
 /*---- dialog RENT ----*/
 @Component({
   selector: 'dialog-rent',
-  templateUrl: 'dialog-rent.html',
+  templateUrl: '../../dialogs/dialog-rent.html',
 })
 export class DialogRentBike {
   constructor(
@@ -658,7 +665,7 @@ export class DialogRentBike {
 /*---- dialog BIKE ----*/
 @Component({
 selector: 'dialog-bike',
-templateUrl: 'dialog-bike.html',
+templateUrl: '../../dialogs/dialog-bike.html',
 })
 export class BikeDialog {
 
@@ -719,6 +726,7 @@ onEdit(command : string): void {
     this.dialogRef.close(this.data);
   } else {
     alert(this.translate.instant("NO_RACK_FOUND") + bike.rack);
+    //this.openDialogAlert(this.translate.instant("NO_RACK_FOUND") + bike.rack);
 
     //alert(this.translate.instant("NO_RACK_FOUND") + bike.rack);
   }
@@ -732,7 +740,7 @@ onClose(): void {
 /*---- dialog COMMENTI ----*/
 @Component({
   selector: 'dialog-comment',
-  templateUrl: 'dialog-comment.html'
+  templateUrl: '../../dialogs/dialog-comment.html'
 })
 export class DialogComment {
   constructor(
@@ -751,7 +759,7 @@ export class DialogComment {
 /*---- dialog ALERT ----*/
 @Component({
   selector: 'dialog-alert',
-  templateUrl: 'dialog-alert.html',
+  templateUrl: '../../dialogs/dialog-alert.html',
 })
 export class DialogAlert {
   constructor(

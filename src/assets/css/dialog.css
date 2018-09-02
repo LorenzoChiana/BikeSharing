@@ -1,7 +1,7 @@
 @media (max-width: 991px) {
   .alertDialog {
     width: 100vw;
-    height: 30%; } }
+    height: 40vh; } }
 .formInput {
   display: flex;
   flex-direction: column; }

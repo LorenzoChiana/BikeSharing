@@ -22,6 +22,10 @@ export interface DialogData {
   rack: Rack;
 }
 
+export interface DialogDataAlert {
+  testo: string;
+}
+
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
@@ -92,7 +96,8 @@ export class ViewComponent implements OnInit {
     this.viewRack();
 
     sessionStorage.setItem('userLocation', 'false'); // versione con drag and drop
-    this.userLocation = false;
+    this.userLocation = true;
+    this.getUserLocation();
   }
 
   private output(log) {
@@ -106,6 +111,7 @@ export class ViewComponent implements OnInit {
         }, this.showError);
     } else {
         alert("Geolocation is not supported by this browser.");
+        //this.alertDialog(this.translate.instant("GEOLOCATION_NOT_SUPPORTED"));
     }
   }
 
@@ -123,16 +129,20 @@ export class ViewComponent implements OnInit {
   showError(error) : void {
     switch(error.code) {
       case error.PERMISSION_DENIED:
-        alert("Autorizzazione negata dall’utente.");
+        alert("Location permit denied. Now the map works with drag & drop.");
+       // this.alertDialog(this.translate.instant("GEO_PERMISSION_DANIED"));
         break;
       case error.POSITION_UNAVAILABLE:
-        alert("Informazione non disponibile.");
+        alert("Location error: information not available.");
+        //this.alertDialog(this.translate.instant("GEO_INFO_NOT_AVAILABLE"));
         break;
       case error.TIMEOUT:
-        alert("Errore di timeout.");
+        alert("Lacation error: time out error.");
+        //this.alertDialog(this.translate.instant("GEO_TIMEOUT"));
         break;
       case error.UNKNOWN_ERROR:
-        alert("Errore sconosciuto.");
+        alert("Location error: unknow error.");
+        //this.alertDialog(this.translate.instant("GEO_UNKNOW_ERR"));
         break;
       }
     }
@@ -235,15 +245,37 @@ export class ViewComponent implements OnInit {
     infoWindow.open();
   }
 
+  alertDialog(msg: string) : void {
+    this.openDialogAlert(msg);
+  }
+
+  openDialogAlert(msg: string): void {
+    const dialogRef = this.dialog.open(DialogAlert, {
+      /*width: '30%',
+      height: '30%',*/
+      panelClass: 'alertDialog',
+      data: {
+        msg: msg,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
   openDialog(rack : Rack, edit: boolean, rackService: RackService): void {
-    var wD: string = '25%';
-    var hD: string = '65%';
+    /*var wD: string = '25%';
+    var hD: string = '65%';*/
+    var wD: string = '100vw';
+    var hD: string = '45vh';
 
     var dialogClass: string = 'viewDialog';
 
     if (edit) {
-      wD = '30%';
-      hD = '90%';
+      /*wD = '30%';
+      hD = '90%';*/
+      wD = '100vw';
+      hD = '50vh';
 
       dialogClass = 'editDialog';
     }
@@ -274,7 +306,7 @@ export class ViewComponent implements OnInit {
 
 @Component({
   selector: 'view-dialog',
-  templateUrl: 'view-dialog.html',
+  templateUrl: '../../dialogs/view-dialog.html',
 })
 export class ViewRackDialog {
 
@@ -283,6 +315,7 @@ export class ViewRackDialog {
   constructor(
     public dialogRef: MatDialogRef<ViewRackDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private translate: TranslateService,
     private rackService :RackService) {}
 
   onSelect(): void {
@@ -323,5 +356,20 @@ export class ViewRackDialog {
       }
       this.data.edit = false;
       this.dialogRef.close(this.data);
+  }
+}
+
+/*---- dialog ALERT ----*/
+@Component({
+  selector: 'dialog-alert',
+  templateUrl: '../../dialogs/dialog-alert.html',
+})
+export class DialogAlert {
+  constructor(
+    public dialogRef: MatDialogRef<DialogAlert>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogDataAlert) {}
+
+  onCloseAlert(): void {
+    this.dialogRef.close();
   }
 }
