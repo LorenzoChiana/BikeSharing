@@ -144,5 +144,6 @@
   "GEO_PERMISSION_DANIED": "Autorizzazione di geolocalizzazione negata. Ora la mappa funziona con il drag & drop.",
   "GEO_INFO_NOT_AVAILABLE": "Errore di geolocalizzazione: informazione non disponibile.",
   "GEO_TIMEOUT": "Errore di geolocalizzazione: errore di time out.",
-  "GEO_UNKNOW_ERR": "Errore di geolocalizzazione: errore sconosciuto."
+  "GEO_UNKNOW_ERR": "Errore di geolocalizzazione: errore sconosciuto.",
+  "USER_POSITION": "Tu sei qui"
 }

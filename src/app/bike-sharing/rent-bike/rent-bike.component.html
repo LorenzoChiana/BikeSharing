@@ -27,9 +27,11 @@
     </mat-expansion-panel-header>
 
     <div *ngIf="showMap" class="map-responsive" id="mapView">
-      <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png">  {{ 'BIKE_PARKING' | translate }}
-      <img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png">  {{ 'BIKE_AVAILABLE' | translate }}
-      <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png">  {{ 'BIKE_IN_USE' | translate }}
+      <img src="../../../assets/images/icons/baseline-local_parking-black-36/1x/baseline_local_parking_black_36dp.png">  {{ 'BIKE_PARKING' | translate }}
+      <img src="../../../assets/images/icons/bike_icon_green.png">  {{ 'BIKE_AVAILABLE' | translate }}
+      <img src="../../../assets/images/icons/baseline-directions_bike-black-36/1x/baseline_directions_bike_black_36dp.png">  {{ 'BIKE_IN_USE' | translate }}
+      <img src="../../../assets/images/icons/baseline-person_pin_circle-black-36/1x/baseline_person_pin_circle_black_36dp.png">
+      {{ 'USER_POSITION' | translate }}
     <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom"
              [fullscreenControl]='true' [mapTypeControl]='true'>
 
@@ -41,7 +43,7 @@
       (dragEnd)="dragBike($event, kk)"
       (markerClick)="selectBike(kk, 0)"
       color="black"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/green-dot.png'"></agm-marker>
+      [iconUrl]="'../../../assets/images/icons/bike_icon_green.png'"></agm-marker>
 
       <!-- Marcatori  bici user -->
       <ng-container *ngIf="latLong == false">
@@ -52,7 +54,7 @@
         (dragEnd)="dragBike($event, kk)"
         (markerClick)="selectBike(kk, 1)"
         color="black"
-        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+        [iconUrl]="'../../../assets/images/icons/baseline-directions_bike-black-36/1x/baseline_directions_bike_black_36dp.png'"></agm-marker>
       </ng-container>
       <ng-container *ngIf="latLong == true">
         <agm-marker *ngFor="let kk of bikeUser; let ind = index"
@@ -60,7 +62,7 @@
         [label]="kk.codice"
         (markerClick)="selectBike(kk, 1)"
         color="black"
-        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/red-dot.png'"></agm-marker>
+        [iconUrl]="'../../../assets/images/icons/baseline-directions_bike-black-36/1x/baseline_directions_bike_black_36dp.png'"></agm-marker>
       </ng-container>
 
       <!-- Marcatori  rack-->
@@ -70,7 +72,7 @@
         [markerDraggable]="false"
         (markerClick)="selectRack(kk)"
         color="black"
-        [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'">
+        [iconUrl]="'../../../assets/images/icons/baseline-local_parking-black-36/1x/baseline_local_parking_black_36dp.png'">
       </agm-marker>
 
       <!-- Marcatore  user-->
@@ -80,9 +82,7 @@
       [longitude]="userLong"
       [markerDraggable]="!userLocation"
       (dragEnd)="dragUser($event)"
-      color="white"
-      [label]="labelUserOptions"
-      [iconUrl]="'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'"></agm-marker>
+      [iconUrl]="'../../../assets/images/icons/baseline-person_pin_circle-black-36/1x/baseline_person_pin_circle_black_36dp.png'"></agm-marker>
 
       </agm-map>
     </div>

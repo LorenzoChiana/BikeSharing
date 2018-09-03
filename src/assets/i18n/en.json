@@ -144,6 +144,6 @@
   "GEO_PERMISSION_DANIED": "Location permit denied. Now the map works with drag & drop.",
   "GEO_INFO_NOT_AVAILABLE": "Location error: information not available.",
   "GEO_TIMEOUT": "Lacation error: time out error.",
-  "GEO_UNKNOW_ERR": "Location error: unknow error."
-
+  "GEO_UNKNOW_ERR": "Location error: unknow error.",
+  "USER_POSITION": "You are here"
 }
