@@ -97,7 +97,10 @@ export class ViewComponent implements OnInit {
 
     sessionStorage.setItem('userLocation', 'false'); // versione con drag and drop
     this.userLocation = true;
-    this.getUserLocation();
+
+    if (sessionStorage.getItem('permissionDenied') == null) {
+        this.getUserLocation();
+    }
   }
 
   private output(log) {
@@ -130,6 +133,9 @@ export class ViewComponent implements OnInit {
     switch(error.code) {
       case error.PERMISSION_DENIED:
         alert("Location permit denied. Now the map works with drag & drop.");
+
+        sessionStorage.setItem('permissionDenied', 'notPermit');
+
        // this.alertDialog(this.translate.instant("GEO_PERMISSION_DANIED"));
         break;
       case error.POSITION_UNAVAILABLE:
@@ -283,7 +289,7 @@ export class ViewComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewRackDialog, {
       width: wD,
       height: hD,
-      
+
       panelClass: dialogClass,
       data: {
         edit: edit,
