@@ -180,7 +180,6 @@ export class RentBikeComponent implements OnInit {
 
       this.userLat = +sessionStorage.getItem('userLat');
       this.userLong = +sessionStorage.getItem('userLong');
-      console.log(this.userLat + " " + this.userLong);
 
       if (this.userLat < 0 && this.userLong < 0) {
         this.latLong = false;
@@ -337,7 +336,7 @@ export class RentBikeComponent implements OnInit {
     	return roundedTemp / factor;
     }
 
-      rentDialog() : void {
+    rentDialog() : void {
       var now: Date = new Date();
       var todayString: string = now.toDateString();
 
@@ -474,6 +473,7 @@ export class RentBikeComponent implements OnInit {
       .subscribe(data => { /*this.ngOnInit();*/ this.reloadBike(); }, error => this.errorMessage = error);
         if (this.curRack.numBike > 0) {
           this.curRack.numBike--;
+
           if (this.latLong) {
             this.showUser(true);
           }
@@ -520,6 +520,7 @@ export class RentBikeComponent implements OnInit {
       .subscribe(data => { }, error => this.errorMessage = error);
 
       this.curRack.numBike++;
+
       this.rackService.updateRack(this.curRack)
       .subscribe(data => { }, error => this.errorMessage = error);
 
@@ -532,13 +533,10 @@ export class RentBikeComponent implements OnInit {
   openDialog(rentContent : RentContent, bikeService: BikeService,
             rentService: RentService, rackService: RackService): void {
 
-    /*var wD: string = '30%';
-    var hD: string = '57%';*/
     var wD: string = '100vw';
     var hD: string = '60vh';
 
     if (rentContent.mode == 'rent') {
-      //hD = '38%';
       hD = '40vh';
     }
 
@@ -577,8 +575,6 @@ export class RentBikeComponent implements OnInit {
 
   openDialogBike(bike : Bike, racks: Rack[]): void {
     const dialogRef = this.dialog.open(BikeDialog, {
-      /*width: '40%',
-      height: '95%',*/
       width: '100vw',
       height: '95vh',
 
@@ -599,8 +595,6 @@ export class RentBikeComponent implements OnInit {
   /*---- dialog commento  ----*/
   openDialogComment(commentContent : CommentContent): void {
     const dialogRef = this.dialog.open(DialogComment, {
-      /*width: '30%',
-      height: '50%',*/
       width: '100vw',
       height: '55vh',
 
@@ -630,8 +624,6 @@ export class RentBikeComponent implements OnInit {
 
   openDialogAlert(msg: string): void {
     const dialogRef = this.dialog.open(DialogAlert, {
-      /*width: '30%',
-      height: '30%',*/
       panelClass: 'alertDialog',
       data: {
         msg: msg,
