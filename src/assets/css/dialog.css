@@ -17,6 +17,9 @@
 .mat-dialog-actions {
   float: right; }
 
+.div-table {
+  overflow-x: auto; }
+
 /*.modal {
     display: block;
 }*/

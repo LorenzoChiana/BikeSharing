@@ -15,7 +15,7 @@ import { BikeService } from './services/bike.service';
 import { RentService } from './services/rent.service';
 import { CommentService } from './services/comment.service';
 
-import { RentBikeComponent, BikeDialog, DialogRentBike, DialogComment, DialogAlert } from './rent-bike/rent-bike.component';
+import { RentBikeComponent, BikeDialog, DialogRentBike, DialogComment, DialogAlert, DialogInfo } from './rent-bike/rent-bike.component';
 import { ViewComponent, ViewRackDialog } from './view/view.component';
 
 import 'hammerjs';
@@ -66,6 +66,7 @@ const routes: Routes = [
     DialogRentBike,
     DialogComment,
     DialogAlert,
+    DialogInfo,
     BikeDialog,
 
     EditRackComponent,
@@ -97,7 +98,7 @@ const routes: Routes = [
       }
     })
   ],
-  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, DialogComment, DialogAlert],
+  entryComponents: [ ViewComponent, ViewRackDialog, DialogRentBike, BikeDialog, DialogComment, DialogAlert, DialogInfo],
   exports: [ RouterModule, MaterialModule],
   providers: [
     RackService,

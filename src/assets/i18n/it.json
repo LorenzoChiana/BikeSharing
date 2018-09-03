@@ -145,5 +145,6 @@
   "GEO_INFO_NOT_AVAILABLE": "Errore di geolocalizzazione: informazione non disponibile.",
   "GEO_TIMEOUT": "Errore di geolocalizzazione: errore di time out.",
   "GEO_UNKNOW_ERR": "Errore di geolocalizzazione: errore sconosciuto.",
-  "USER_POSITION": "Tu sei qui"
+  "USER_POSITION": "Tu sei qui",
+  "INFO": "Informazioni"
 }

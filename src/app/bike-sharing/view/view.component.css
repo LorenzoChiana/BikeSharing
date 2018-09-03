@@ -1081,6 +1081,8 @@ mat-toolbar, mat-toolbar-row, mat-sidenav {
 @media (min-width: 991px) {
   .btn-mobile-container {
     display: none; } }
+.btn-mobile-container.info-container {
+  float: right; }
 
 /* =================================== */
 /*  Footer Styles
@@ -1211,7 +1213,7 @@ mat-toolbar, mat-toolbar-row, mat-sidenav {
 @media (max-width: 991px) {
   .alertDialog {
     width: 100vw;
-    height: 30%; } }
+    height: 40vh; } }
 .formInput {
   display: flex;
   flex-direction: column; }
@@ -1226,6 +1228,9 @@ mat-toolbar, mat-toolbar-row, mat-sidenav {
      }*/
 .mat-dialog-actions {
   float: right; }
+
+.div-table {
+  overflow-x: auto; }
 
 /*.modal {
     display: block;

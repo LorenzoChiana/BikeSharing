@@ -46,7 +46,10 @@ agm-map {
 }
 
 .btn-mobile-container {
-    @media(min-width:991px){
-        display:none;
-    } 
+  @media(min-width:991px){
+    display:none;
+  }
+  &.info-container {
+    float: right;
+  }
 }

@@ -1,0 +1,46 @@
+<link rel="stylesheet" type="text/css" href="../../../assets/css/dialog.css">
+
+<div class="container">
+  <h1 mat-dialog-title>{{ 'INFO' | translate }}</h1>
+  <div mat-dialog-content>
+    <div class="div-table">
+      <table>
+        <tr>
+          <td>
+            <img src="../../../assets/images/icons/baseline-local_parking-black-36/1x/baseline_local_parking_black_36dp.png">
+          </td>
+          <td>
+            {{ 'BIKE_PARKING' | translate }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="../../../assets/images/icons/bike_icon_green.png">
+          </td>
+          <td>
+            {{ 'BIKE_AVAILABLE' | translate }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="../../../assets/images/icons/baseline-directions_bike-black-36/1x/baseline_directions_bike_black_36dp.png">
+          </td>
+          <td>
+            {{ 'BIKE_IN_USE' | translate }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="../../../assets/images/icons/baseline-person_pin_circle-black-36/1x/baseline_person_pin_circle_black_36dp.png">
+          </td>
+          <td>
+            {{ 'USER_POSITION' | translate }}
+          </td>
+        </tr>
+    </table>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCloseAlert()">{{ 'CLOSE' | translate }}</button>
+  </div>
+</div>

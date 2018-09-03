@@ -231,6 +231,10 @@ export class RentBikeComponent implements OnInit {
       this.router.navigate(['view-comment', '']);
     }
 
+    showInfo() : void {
+      this.openDialogInfo();
+    }
+
     rilascia() : void {
       if (this.bikeUser.length > 0) {
         this.curBike = this.bikeUser[0];
@@ -617,6 +621,18 @@ export class RentBikeComponent implements OnInit {
     });
   }
 
+  /*---- dialog info ----*/
+  openDialogInfo(): void {
+    const dialogRef = this.dialog.open(DialogInfo, {
+      width: '100vw',
+      height: '50vh',
+      panelClass: 'infoDialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
   /*---- dialog alert ----*/
   alertDialog(msg: string) : void {
     this.openDialogAlert(msg);
@@ -757,6 +773,19 @@ export class DialogAlert {
   constructor(
     public dialogRef: MatDialogRef<DialogAlert>,
     @Inject(MAT_DIALOG_DATA) public data: DialogDataAlert) {}
+
+  onCloseAlert(): void {
+    this.dialogRef.close();
+  }
+}
+
+/*---- dialog INFO ----*/
+@Component({
+  selector: 'dialog-info',
+  templateUrl: '../../dialogs/dialog-info.html',
+})
+export class DialogInfo {
+  constructor(public dialogRef: MatDialogRef<DialogInfo>) {}
 
   onCloseAlert(): void {
     this.dialogRef.close();
