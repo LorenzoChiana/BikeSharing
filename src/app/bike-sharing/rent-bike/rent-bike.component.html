@@ -151,7 +151,8 @@
         <td *ngIf="isAdmin">{{kk.rack}}</td>
         <!-- commenti -->
         <td><a [routerLink]="['/view-comment', kk.codice]" routerLinkActive="active">{{ 'COMMENTS' | translate }}</a></td>
-        <td><button type="button" class="btn btn-danger" (click)="selectBike(kk,1)">{{ 'RELEASE' | translate }}</button></td>
+        <td><a role="button" tabindex="0" data-toggle="modal" (click)="selectBike(kk,1)" routerLinkActive="active" data-target="#myModal">{{ 'RELEASE' | translate }}</a></td>
+        <!--<td><button type="button" class="btn btn-danger" (click)="selectBike(kk,1)">{{ 'RELEASE' | translate }}</button></td>-->
       </tr>
 
       <!-- bici del rack -->
