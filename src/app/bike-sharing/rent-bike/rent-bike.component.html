@@ -27,11 +27,13 @@
     </mat-expansion-panel-header>
 
     <div *ngIf="showMap" class="map-responsive" id="mapView">
-      <img src="../../../assets/images/icons/baseline-local_parking-black-36/1x/baseline_local_parking_black_36dp.png">  {{ 'BIKE_PARKING' | translate }}
-      <img src="../../../assets/images/icons/bike_icon_green.png">  {{ 'BIKE_AVAILABLE' | translate }}
-      <img src="../../../assets/images/icons/baseline-directions_bike-black-36/1x/baseline_directions_bike_black_36dp.png">  {{ 'BIKE_IN_USE' | translate }}
-      <img src="../../../assets/images/icons/baseline-person_pin_circle-black-36/1x/baseline_person_pin_circle_black_36dp.png">
-      {{ 'USER_POSITION' | translate }}
+      <div>
+        <img src="../../../assets/images/icons/baseline-local_parking-black-36/1x/baseline_local_parking_black_36dp.png">  {{ 'BIKE_PARKING' | translate }}
+        <img src="../../../assets/images/icons/bike_icon_green.png">  {{ 'BIKE_AVAILABLE' | translate }}
+        <img src="../../../assets/images/icons/baseline-directions_bike-black-36/1x/baseline_directions_bike_black_36dp.png">  {{ 'BIKE_IN_USE' | translate }}
+        <img src="../../../assets/images/icons/baseline-person_pin_circle-black-36/1x/baseline_person_pin_circle_black_36dp.png">
+        {{ 'USER_POSITION' | translate }}
+      </div>
     <agm-map [latitude]="latitudine" [longitude]="longitudine" [zoom]="zoom"
              [fullscreenControl]='true' [mapTypeControl]='true'>
 
