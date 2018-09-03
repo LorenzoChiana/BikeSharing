@@ -275,7 +275,7 @@ export class ViewComponent implements OnInit {
       /*wD = '30%';
       hD = '90%';*/
       wD = '100vw';
-      hD = '50vh';
+      hD = '90vh';
 
       dialogClass = 'editDialog';
     }

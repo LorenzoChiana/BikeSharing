@@ -9,6 +9,18 @@
         <label>{{ 'CODE' | translate }}:</label>
         <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.codice">
       </mat-form-field>
+      <mat-form-field *ngIf="data.edit">
+        <label>{{ 'ADDRESS' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.indirizzo">
+      </mat-form-field>
+      <mat-form-field *ngIf="data.edit">
+        <label>{{ 'N_BIKE' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numBike">
+      </mat-form-field>
+      <mat-form-field *ngIf="data.edit">
+        <label>{{ 'N_SPOT' | translate }}:</label>
+        <input [readonly]="!data.edit" matInput [(ngModel)]="data.rack.numPlace">
+      </mat-form-field>
 
       <div *ngIf="!data.edit">
         <p>{{ 'ADDRESS' | translate }}: {{data.rack.indirizzo}}</p>
