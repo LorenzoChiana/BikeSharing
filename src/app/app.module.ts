@@ -35,6 +35,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
 
 /*export function setupTranslateFactory(
   service: TranslateService): Function {
@@ -86,7 +87,8 @@ const appRoutesMain: Routes = [
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    HeaderComponent/*,
+    HeaderComponent,
+    FooterComponent/*,
     TranslatePipe*/
   ],
   imports: [
