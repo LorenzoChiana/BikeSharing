@@ -190,8 +190,13 @@ export class RentBikeComponent implements OnInit {
 
         this.rackService.getRack(idRack).subscribe(data => {
           this.curRack = data;
-          this.latitudine = this.curRack.latitudine;
-          this.longitudine = this.curRack.longitudine;
+          if (!this.latLong) {
+            this.latitudine = this.curRack.latitudine;
+            this.longitudine = this.curRack.longitudine;
+          } else {
+            this.latitudine = this.userLat;
+            this.longitudine =  this.userLong;
+          }
 
           this.reloadBike();
         });

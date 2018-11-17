@@ -122,6 +122,8 @@ export class ViewComponent implements OnInit {
     if (this.userLocation) {
       this.userLat = position.coords.latitude;
       this.userLong = position.coords.longitude;
+      this.latitudine = this.userLat;
+      this.longitudine =  this.userLong;
     } else {
       // impostazioni fisse
       this.userLat = 44.139904;
