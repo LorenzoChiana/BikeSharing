@@ -52,7 +52,7 @@
     "igniteui-angular2": "^5.0.3",
     "jquery": "^1.12.4",
     "maths.ts": "0.0.8",
-    "mongoose": "^5.1.6",
+    "mongoose": "^5.7.5",
     "ng-simple-slideshow": "^1.2.4",
     "ng2-opd-popup": "^1.1.21",
     "ngc-float-button": "^1.2.1",
